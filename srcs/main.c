@@ -5,14 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 03:43:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/04/27 03:44:33 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/02 04:07:46 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/02 04:56:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int argc, char *argv[])
+#include "minirt.h"
+
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
+	t_minirt	rt;
+
+	load_rt(&rt, "test.rt");
+
 	return (0);
 }

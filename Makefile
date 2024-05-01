@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/04/27 03:45:44 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/02 06:02:46 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,12 @@ OUT_DIR		:= $(DIR)/out
 
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
-		main.c \
+		objects.c \
+		minirt.c \
+		parse.c \
+		parse_entry1.c \
+		parse_entry2.c 	\
+		vec3d.c \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
@@ -55,7 +60,7 @@ fclean: clean
 re: fclean all
 
 .PHONY: test
-test: $(OBJS)
+test: test.c $(OBJS)
 	$(CC) -g -fsanitize=address $(LDFLAGS) $(IDFLAGS) $^ -o $@ $(LIBS)
 
 .PHONY: norm
