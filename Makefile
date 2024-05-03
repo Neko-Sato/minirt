@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/03 10:00:20 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/03 12:26:49 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OUT_DIR		:= $(DIR)/out
 
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
+		main.c \
 		objects.c \
 		minirt.c \
 		rt_error.c \

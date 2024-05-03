@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:42:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 12:58:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:01:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 	int			ret;
 	t_minirt	rt;
 
-	if (argc < 1)
+	if (argc < 2)
 	{
 		put_using();
 		return (EXIT_FAILURE);
