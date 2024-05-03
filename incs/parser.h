@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:30:25 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 04:22:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:42:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_parse
 	const char			*identifier;
 	const t_parse_entry	*entry;
 	size_t				size;
-	size_t				required;
 }						t_parse;
 
 typedef struct s_object	t_object;

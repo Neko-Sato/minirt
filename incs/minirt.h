@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:38:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 04:22:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:44:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct s_minirt
 
 int				load_rt(t_minirt *rt, char *filename);
 void			del_rt(t_minirt *rt);
+
+int				rt2img(t_minirt *rt, size_t width, size_t height, int **img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:27:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 09:54:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:43:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,5 @@ static int	parse_internal(char *str, t_objstype type, t_object *object)
 			return (ret);
 		i++;
 	}
-	if (i < parse->required)
-		return (INCORRECT_FORMAT);
 	return (NO_ERROR);
 }

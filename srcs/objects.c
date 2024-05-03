@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 04:16:35 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 07:05:33 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:46:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ const t_parse		g_parse_ambient = {
 	.identifier = "A",
 	.entry = g_parse_entry_ambient,
 	.size = 2,
-	.required = 2,
 };
 
 const t_parse_entry	g_parse_entry_camera[] = {
@@ -40,7 +39,6 @@ const t_parse		g_parse_camera = {
 	.identifier = "C",
 	.entry = g_parse_entry_camera,
 	.size = 3,
-	.required = 3,
 };
 
 const t_parse_entry	g_parse_entry_light[] = {
@@ -56,7 +54,6 @@ const t_parse		g_parse_light = {
 	.identifier = "L",
 	.entry = g_parse_entry_light,
 	.size = 3,
-	.required = 2,
 };
 
 const t_parse_entry	g_parse_entry_sphere[] = {
@@ -72,7 +69,6 @@ const t_parse		g_parse_sphere = {
 	.identifier = "sp",
 	.entry = g_parse_entry_sphere,
 	.size = 3,
-	.required = 3,
 };
 
 const t_parse_entry	g_parse_entry_plane[] = {
@@ -88,7 +84,6 @@ const t_parse		g_parse_plane = {
 	.identifier = "pl",
 	.entry = g_parse_entry_plane,
 	.size = 3,
-	.required = 3,
 };
 
 const t_parse_entry	g_parse_entry_cylinder[] = {
@@ -108,7 +103,6 @@ const t_parse		g_parse_cylinder = {
 	.identifier = "cy",
 	.entry = g_parse_entry_cylinder,
 	.size = 5,
-	.required = 5,
 };
 
 const size_t		g_object_num = 6;
