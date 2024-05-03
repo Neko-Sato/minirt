@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/03 12:26:49 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/03 13:10:21 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,10 +65,13 @@ re: fclean all
 test: test.c $(OBJS)
 	$(CC) -g -fsanitize=address $(LDFLAGS) $(IDFLAGS) $^ -o $@ $(LIBS)
 
-.PHONY: norm
+.PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
 	@make -C $(FT) norm
 	@norminette $^
+
+norm-upgrade:
+	@python3 -m pip install --upgrade norminette
 
 .PHONY: $(FT)
 $(FT):
