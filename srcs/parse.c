@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:27:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 12:43:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:39:56 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse(char *str, t_object *object)
 	size_t	i;
 
 	token = ft_strsep(&str, " \n");
-	if (!token)
+	if (!token || ft_strcmp(token, "#"))
 	{
 		object->type = o_none;
 		return (NO_ERROR);
