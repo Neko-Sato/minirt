@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_error.h                                         :+:      :+:    :+:   */
+/*   rt2img.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 12:59:45 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/03 12:12:31 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/03 12:13:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_ERROR_H
-# define RT_ERROR_H
+#include "minirt.h"
+#include <stddef.h>
 
-typedef enum e_rt_errno
+int	rt2img(t_minirt *rt, size_t width, size_t height, int img[][])
 {
-	NO_ERROR,
-	TOO_MANY_ARGUMENTS,
-	FAILED_ALLOCATE,
-	FAILED_INITIALIZE_MLX,
-	NOT_RT_FILE,
-	FAILED_OPEN,
-	UNKNOW_IDENTIFIER,
-	MULTIPLE_DEFINED_AMBIENT,
-	UNDEFINED_AMBIENT,
-	MULTIPLE_DEFINED_CAMERA,
-	UNDEFINED_CAMERA,
-	INCORRECT_FORMAT,
-}					t_rt_errno;
-
-extern const char	*g_rt_errmsg[];
-
-void				put_rt_err(int rt_errno);
-
-#endif
+	return (0);
+}

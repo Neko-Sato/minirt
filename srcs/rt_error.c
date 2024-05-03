@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:49:19 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 10:15:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:59:56 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 
 const char	*g_rt_errmsg[] = {
 	"No error.",
+	"Too many arguments.",
 	"Failed allocate.",
+	"Failed initialize mlx.",
 	"Not rt-file.",
 	"Failed open.",
 	"Unknown identifier.",

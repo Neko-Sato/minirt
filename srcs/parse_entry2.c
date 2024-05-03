@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:27:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 09:58:21 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 12:50:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	parse_ratio(char *str, double *ratio)
 
 int	parse_fov(char *str, int *fov)
 {
-	int		fov_tmp;
+	long	fov_tmp;
 	char	*endptr;
 
 	fov_tmp = ft_strtol(str, &endptr, 10);
 	if (*endptr || fov_tmp < 0 || 180 < fov_tmp)
 		return (INCORRECT_FORMAT);
-	*fov = fov_tmp;
+	*fov = (int)fov_tmp;
 	return (NO_ERROR);
 }
 
