@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:12:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 18:14:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:16:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,5 @@ static int	keyevent(int keycode, void *mlx)
 {
 	if (keycode == XK_Escape)
 		mlx_loop_end(mlx);
-	return (0);
-}
-
-int	rt2img(t_minirt *rt, int size[2], unsigned int *img)
-{
-	(void)rt;
-	(void)size;
-	(void)img;
 	return (0);
 }
