@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:42:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 13:01:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:05:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,22 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	put_using(void);
+#define USING "\
+Usage: ./miniRT <rt-file>\n\
+\n\
+rt-file format:\n\
+\tAmbient\t\tA <ratio> <color>\n\
+\tCamera\t\tC <coordinates> <orientation> <fov>\n\
+\tLight\t\tL <coordinates> <brightness> <color>\n\
+\n\
+\tSphere\t\tsp <coordinates> <diameter> <color>\n\
+\tPlane\t\tpl <coordinates> <normal> <color>\n\
+\tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
+\n\
+Made by hshimizu.\n\
+github\t: https://github.com/Neko-Sato\n\
+profile\t: https://profile.intra.42.fr/users/hshimizu\n\
+"
 
 int	main(int argc, char *argv[])
 {
@@ -24,7 +39,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 	{
-		put_using();
+		ft_putstr_fd(USING, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	else if (2 < argc)
@@ -40,28 +55,4 @@ int	main(int argc, char *argv[])
 	}
 	del_rt(&rt);
 	return (EXIT_SUCCESS);
-}
-
-void	put_using(void)
-{
-	ft_putstr_fd("Usage: ./miniRT <rt-file>\n", STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	ft_putstr_fd("rt-file format:\n", STDERR_FILENO);
-	ft_putstr_fd("\tAmbient\t\tA <ratio> <color>\n", STDERR_FILENO);
-	ft_putstr_fd("\tCamera\t\tC <coordinates> <orientation> <fov>\n",
-		STDERR_FILENO);
-	ft_putstr_fd("\tLight\t\tL <coordinates> <brightness> <color>\n",
-		STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	ft_putstr_fd("\tSphere\t\tsp <coordinates> <diameter> <color>\n",
-		STDERR_FILENO);
-	ft_putstr_fd("\tPlane\t\tpl <coordinates> <normal> <color>\n",
-		STDERR_FILENO);
-	ft_putstr_fd("\tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n",
-		STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	ft_putstr_fd("Made by hshimizu.\n", STDERR_FILENO);
-	ft_putstr_fd("github\t: https://github.com/Neko-Sato\n", STDERR_FILENO);
-	ft_putstr_fd("profile\t: https://profile.intra.42.fr/users/hshimizu\n",
-		STDERR_FILENO);
 }
