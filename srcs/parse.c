@@ -6,11 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:27:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 06:12:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 09:54:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
+#include "rt_error.h"
 #include <libft.h>
 
 static int	parse_internal(char *str, t_objstype type, t_object *object);
@@ -24,7 +25,7 @@ int	parse(char *str, t_object *object)
 	if (!token)
 	{
 		object->type = o_none;
-		return (0);
+		return (NO_ERROR);
 	}
 	i = 0;
 	while (i < g_object_num)
@@ -34,12 +35,13 @@ int	parse(char *str, t_object *object)
 		i++;
 	}
 	if (g_object_num <= i)
-		return (-1);
+		return (UNKNOW_IDENTIFIER);
 	return (parse_internal(str, i, object));
 }
 
 static int	parse_internal(char *str, t_objstype type, t_object *object)
 {
+	int				ret;
 	const t_parse	*parse;
 	char			*token;
 	size_t			i;
@@ -51,15 +53,14 @@ static int	parse_internal(char *str, t_objstype type, t_object *object)
 	{
 		token = ft_strsep(&str, " \n");
 		if (!token)
-		{
-			if (i < parse->required)
-				return (-1);
 			break ;
-		}
-		if (parse->entry[i].parse_fun(token, (unsigned char *)&object->value
-				+ parse->entry[i].dst_offset))
-			return (-1);
+		ret = parse->entry[i].parse_fun(token, (unsigned char *)&object->value
+				+ parse->entry[i].dst_offset);
+		if (ret)
+			return (ret);
 		i++;
 	}
-	return (0);
+	if (i < parse->required)
+		return (INCORRECT_FORMAT);
+	return (NO_ERROR);
 }

@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/02 06:02:46 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/03 10:00:20 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
 		objects.c \
 		minirt.c \
+		rt_error.c \
 		parse.c \
 		parse_entry1.c \
 		parse_entry2.c 	\

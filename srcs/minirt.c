@@ -6,18 +6,20 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 11:45:16 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 05:21:41 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:09:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "objects.h"
+#include "rt_error.h"
 #include <fcntl.h>
 #include <libft.h>
 #include <stdlib.h>
 
-static int	load_rt_internal(t_minirt *rt, t_bufferio *f);
-static int	set_rt(t_minirt *rt, t_object *object);
+static int			load_rt_internal(t_minirt *rt, t_bufferio *f);
+static int			set_rt(t_minirt *rt, t_object *object);
+static inline int			set_rt2(t_minirt *rt, t_object *object);
 
 int	load_rt(t_minirt *rt, char *filename)
 {
@@ -25,10 +27,10 @@ int	load_rt(t_minirt *rt, char *filename)
 	t_bufferio	*f;
 
 	if (!ft_endwith(filename, ".rt"))
-		return (-1);
+		return (NOT_RT_FILE);
 	f = ft_open(open(filename, O_RDONLY), 1);
 	if (!f)
-		return (-1);
+		return (FAILED_OPEN);
 	*rt = (t_minirt){};
 	ret = load_rt_internal(rt, f);
 	if (ret)
@@ -46,45 +48,56 @@ static int	load_rt_internal(t_minirt *rt, t_bufferio *f)
 	while (1)
 	{
 		if (ft_readline(&line, f))
-			return (-1);
+			return (FAILED_ALLOCATE);
 		if (!line)
 			break ;
 		ret = parse(line, &tmp);
 		free(line);
 		if (ret)
-			return (-1);
-		if (set_rt(rt, &tmp))
-			return (-1);
+			return (ret);
+		ret = set_rt(rt, &tmp);
+		if (ret)
+			return (ret);
 	}
-	return (0);
+	return (NO_ERROR);
 }
 
 static int	set_rt(t_minirt *rt, t_object *object)
 {
 	if (object->type == o_none)
-		return (0);
-	else if (object->type == o_ambient)
+		return (NO_ERROR);
+	if (object->type == o_ambient)
 	{
 		if (rt->ambient)
-			return (-1);
+			return (MULTIPLE_DEFINED_AMBIENT);
 		rt->ambient = ft_memdup(&object->value.ambient, sizeof(t_ambient));
 		if (!rt->ambient)
-			return (-1);
-		return (0);
+			return (FAILED_ALLOCATE);
+		return (NO_ERROR);
 	}
-	else if (object->type == o_camera)
+	if (object->type == o_camera)
 	{
 		if (rt->camera)
-			return (-1);
+			return (MULTIPLE_DEFINED_CAMERA);
 		rt->camera = ft_memdup(&object->value.camera, sizeof(t_camera));
 		if (!rt->camera)
-			return (-1);
-		return (0);
+			return (FAILED_ALLOCATE);
+		return (NO_ERROR);
 	}
-	else if (object->type == o_light)
-		return (ft_xlstappend(&rt->rights, &object->value.light,
-				sizeof(t_light)));
-	return (ft_xlstappend(&rt->figures, &object, sizeof(t_object)));
+	return (set_rt2(rt, object));
+}
+
+static inline int	set_rt2(t_minirt *rt, t_object *object)
+{
+	if (object->type == o_light)
+	{
+		if (ft_xlstappend(&rt->rights, &object->value.light, sizeof(t_light)))
+			return (FAILED_ALLOCATE);
+		return (NO_ERROR);
+	}
+	if (ft_xlstappend(&rt->figures, &object, sizeof(t_object)))
+		return (FAILED_ALLOCATE);
+	return (NO_ERROR);
 }
 
 void	del_rt(t_minirt *rt)

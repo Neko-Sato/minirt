@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 04:07:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 04:56:24 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/03 10:05:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef RT_ERROR_H
+# define RT_ERROR_H
 
-int	main(void)
+typedef enum e_rt_errno
 {
-	t_minirt	rt;
+	NO_ERROR,
+	FAILED_ALLOCATE,
+	NOT_RT_FILE,
+	FAILED_OPEN,
+	UNKNOW_IDENTIFIER,
+	MULTIPLE_DEFINED_AMBIENT,
+	UNDEFINED_AMBIENT,
+	MULTIPLE_DEFINED_CAMERA,
+	UNDEFINED_CAMERA,
+	INCORRECT_FORMAT,
+}					t_rt_errno;
 
-	load_rt(&rt, "test.rt");
+extern const char	*g_rt_errmsg[];
 
-	return (0);
-}
+void				put_rt_err(int rt_errno);
+
+#endif

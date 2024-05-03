@@ -6,11 +6,11 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 07:27:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/02 04:45:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 09:58:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
+#include "rt_error.h"
 #include <libft.h>
 
 int	parse_ratio(char *str, double *ratio)
@@ -20,9 +20,9 @@ int	parse_ratio(char *str, double *ratio)
 
 	ratio_tmp = ft_strtod(str, &endptr);
 	if (*endptr || ratio_tmp < 0. || 1. < ratio_tmp)
-		return (-1);
+		return (INCORRECT_FORMAT);
 	*ratio = ratio_tmp;
-	return (0);
+	return (NO_ERROR);
 }
 
 int	parse_fov(char *str, int *fov)
@@ -30,11 +30,11 @@ int	parse_fov(char *str, int *fov)
 	int		fov_tmp;
 	char	*endptr;
 
-	fov_tmp = ft_strtol(str, &endptr, 0);
-	if (*endptr || errno || fov_tmp < 0 || 180 < fov_tmp)
-		return (-1);
+	fov_tmp = ft_strtol(str, &endptr, 10);
+	if (*endptr || fov_tmp < 0 || 180 < fov_tmp)
+		return (INCORRECT_FORMAT);
 	*fov = fov_tmp;
-	return (0);
+	return (NO_ERROR);
 }
 
 int	parse_double(char *str, double *value)
@@ -44,7 +44,7 @@ int	parse_double(char *str, double *value)
 
 	tmp = ft_strtod(str, &endptr);
 	if (*endptr)
-		return (-1);
+		return (INCORRECT_FORMAT);
 	*value = tmp;
-	return (0);
+	return (NO_ERROR);
 }
