@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3d.h                                            :+:      :+:    :+:   */
+/*   vec3d2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 03:58:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 21:54:23 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/01 06:05:30 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/10 21:54:12 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC3D_H
-# define VEC3D_H
+#include "vec3d.h"
+#include <math.h>
 
-typedef struct s_vec3d
+long double	vec3d_abs(t_vec3d vec)
 {
-	long double	_[3];
-}				t_vec3d;
+	return (sqrtl(powl(vec._[0], 2) + powl(vec._[1], 2) + powl(vec._[2], 2)));
+}
 
-t_vec3d			vec3d_add(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_sub(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_mul(long double n, t_vec3d a);
-long double		vec3d_dot(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_cross(t_vec3d a, t_vec3d b);
-
-long double		vec3d_abs(t_vec3d vec);
-t_vec3d			vec3d_norm(t_vec3d vec);
-
-#endif
+t_vec3d	vec3d_norm(t_vec3d vec)
+{
+	return (vec3d_mul(1 / vec3d_abs(vec), vec));
+}

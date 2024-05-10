@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:12:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 18:16:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:59:16 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,18 @@ void	*show_rt(t_minirt *rt, void *mlx, char *title, int size[2])
 	void	*win;
 	void	*img;
 
-	win = mlx_new_window(mlx, size[0], size[1], title);
-	if (!win)
-		return (NULL);
 	img = mlx_new_image(mlx, size[0], size[1]);
 	if (!img)
-	{
-		mlx_destroy_window(mlx, win);
 		return (NULL);
-	}
 	rt2img(rt, size, get_img_data_addr(img));
-	mlx_put_image_to_window(mlx, win, img, 0, 0);
+	win = mlx_new_window(mlx, size[0], size[1], title);
+	if (win)
+	{
+		mlx_put_image_to_window(mlx, win, img, 0, 0);
+		mlx_key_hook(win, keyevent, mlx);
+		mlx_hook(win, DestroyNotify, NoEventMask, mlx_loop_end, mlx);
+	}
 	mlx_destroy_image(mlx, img);
-	mlx_key_hook(win, keyevent, mlx);
-	mlx_hook(win, DestroyNotify, NoEventMask, mlx_loop_end, mlx);
 	return (win);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:42:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 18:07:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:44:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define WIDTH_SIZE 800
-#define HEIGHT_SIZE 600
+#define WIDTH_SIZE 1000
+#define HEIGHT_SIZE 800
 
-static int	internal(char *filename);
+static inline int	internal(char *filename);
 
 int	main(int argc, char *argv[])
-{
-	int	ret;
+{	int	ret;
 
+	return (internal("test.rt"));
 	if (argc < 2)
 	{
 		ft_putstr_fd(USING, STDERR_FILENO);
@@ -43,7 +43,7 @@ int	main(int argc, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
-static int	internal(char *filename)
+static inline int	internal(char *filename)
 {
 	int			ret;
 	void		*mlx;
@@ -56,7 +56,7 @@ static int	internal(char *filename)
 	ret = load_rt(&rt, filename);
 	if (ret == NO_ERROR)
 	{
-		win = show_rt(&rt, mlx, filename, (int []){WIDTH_SIZE, HEIGHT_SIZE});
+		win = show_rt(&rt, mlx, filename, (int[]){WIDTH_SIZE, HEIGHT_SIZE});
 		if (!win)
 			ret = FAILED_ALLOCATE;
 		else

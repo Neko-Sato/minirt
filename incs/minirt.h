@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:38:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 18:01:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:43:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <libft.h>
 # include <mlx.h>
 
-#define USING "\
+# define USING "\
 Usage: ./miniRT <rt-file>\n\
 \n\
 rt-file format:\n\

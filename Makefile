@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/03 18:17:19 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/10 15:30:45 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		:= \
 		show.c \
 		rt2img.c \
 		vec3d.c \
+		vec3d2.c \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
@@ -77,7 +78,7 @@ norm-upgrade:
 
 .PHONY: $(FT)
 $(FT):
-	@git submodule update --init $@
+	#@git submodule update --init $@
 	@$(MAKE) -C $@
 
 .PHONY: $(MLX)
