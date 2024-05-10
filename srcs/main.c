@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:42:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 21:44:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/10 22:15:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 static inline int	internal(char *filename);
 
 int	main(int argc, char *argv[])
-{	int	ret;
+{
+	int	ret;
 
 	return (internal("test.rt"));
 	if (argc < 2)
