@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_error.h                                         :+:      :+:    :+:   */
+/*   t_simple.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 12:59:45 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/15 22:51:20 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/16 08:44:30 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_ERROR_H
-# define RT_ERROR_H
+#include "minirt.h"
 
-typedef enum e_rt_errno
+int	t_simple_parser(char *str, t_texture *texture)
 {
-	NO_ERROR,
-	TOO_MANY_ARGUMENTS,
-	FAILED_ALLOCATE,
-	FAILED_INITIALIZE_MLX,
-	NOT_RT_FILE,
-	FAILED_OPEN,
-	UNKNOW_IDENTIFIER,
-	MULTIPLE_DEFINED_AMBIENT,
-	UNDEFINED_AMBIENT,
-	MULTIPLE_DEFINED_CAMERA,
-	UNDEFINED_CAMERA,
-	INCORRECT_FORMAT,
-}					t_rt_errno;
+	static const size_t			size = 1;
+	static const t_parser_entry	entries[] = {
+	{offsetof(t_t_simple, color), (t_parser_fun)parse_color},
+	};
+	t_t_simple *const			simple = &texture->value.simple;
 
-extern const char	*g_rt_errmsg[];
-
-void				put_rt_err(int rt_errno);
-
-#endif
+	texture->type = t_simple;
+	return (parser(str, entries, size, simple));
+}

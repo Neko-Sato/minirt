@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3d.h                                            :+:      :+:    :+:   */
+/*   o_ambient.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 03:58:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 21:54:23 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/15 22:02:57 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/16 08:34:09 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC3D_H
-# define VEC3D_H
+#include "minirt.h"
 
-typedef struct s_vec3d
+int	o_ambient_parser(char *str, t_object *object)
 {
-	long double	_[3];
-}				t_vec3d;
+	static const size_t			size = 2;
+	static const t_parser_entry	entries[] = {
+	{offsetof(t_o_ambient, ratio), (t_parser_fun)parse_rate},
+	{offsetof(t_o_ambient, color), (t_parser_fun)parse_color},
+	};
+	t_o_ambient *const			ambient = &object->value.ambient;
 
-t_vec3d			vec3d_add(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_sub(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_mul(long double n, t_vec3d a);
-long double		vec3d_dot(t_vec3d a, t_vec3d b);
-t_vec3d			vec3d_cross(t_vec3d a, t_vec3d b);
-
-long double		vec3d_abs(t_vec3d vec);
-t_vec3d			vec3d_norm(t_vec3d vec);
-
-#endif
+	object->type = o_ambient;
+	return (parser(str, entries, size, ambient));
+}

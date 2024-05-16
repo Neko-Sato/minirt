@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3d2.c                                           :+:      :+:    :+:   */
+/*   f_plane.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 06:05:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 21:54:12 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/13 02:26:08 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/16 08:48:39 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3d.h"
-#include <math.h>
+#ifndef F_PLANE_H
+# define F_PLANE_H
 
-long double	vec3d_abs(t_vec3d vec)
-{
-	return (sqrtl(powl(vec._[0], 2) + powl(vec._[1], 2) + powl(vec._[2], 2)));
-}
+# include "texture.h"
+# include "utils/vec3d.h"
+# include <libft.h>
 
-t_vec3d	vec3d_norm(t_vec3d vec)
+# define IDENTIFIER_F_PLANE "pl"
+
+typedef struct s_f_plane
 {
-	return (vec3d_mul(1 / vec3d_abs(vec), vec));
-}
+	t_vec3d				coordinates;
+	t_vec3d				normal;
+	t_texture			texture;
+}						t_f_plane;
+
+typedef struct s_figure	t_figure;
+
+int						f_plane_parser(char *str, t_figure *figure);
+
+#endif

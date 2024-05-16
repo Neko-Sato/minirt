@@ -5,105 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 11:45:16 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 16:16:35 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/05/14 02:45:29 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/05/16 17:06:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "objects.h"
-#include "rt_error.h"
-#include <fcntl.h>
+#include <X11/X.h>
+#include <X11/keysym.h>
 #include <libft.h>
+#include <mlx.h>
 #include <stdlib.h>
 
-static int			load_rt_internal(t_minirt *rt, t_bufferio *f);
-static int			set_rt(t_minirt *rt, t_object *object);
-static inline int			set_rt2(t_minirt *rt, t_object *object);
+static int	rt_loop(t_minirt *rt);
+static int	rt_key_hook(int keycode, t_minirt *rt);
 
-int	load_rt(t_minirt *rt, char *filename)
+int	new_rt(t_minirt *rt, int size[2], char *filename)
 {
-	int			ret;
-	t_bufferio	*f;
+	int	ret;
 
-	if (!ft_endwith(filename, ".rt"))
-		return (NOT_RT_FILE);
-	f = ft_open(open(filename, O_RDONLY), 1);
-	if (!f)
-		return (FAILED_OPEN);
 	*rt = (t_minirt){};
-	ret = load_rt_internal(rt, f);
+	rt->mlx = mlx_init();
+	if (!rt->mlx)
+		return (FAILED_INITIALIZE_MLX);
+	ret = load_rt(&rt->scene, filename);
 	if (ret)
-		del_rt(rt);
-	ft_close(f, 1);
-	return (ret);
-}
-
-static int	load_rt_internal(t_minirt *rt, t_bufferio *f)
-{
-	int			ret;
-	char		*line;
-	t_object	tmp;
-
-	while (1)
-	{
-		if (ft_readline(&line, f))
-			return (FAILED_ALLOCATE);
-		if (!line)
-			break ;
-		ret = parse(line, &tmp);
-		free(line);
-		if (ret)
-			return (ret);
-		ret = set_rt(rt, &tmp);
-		if (ret)
-			return (ret);
-	}
-	return (NO_ERROR);
-}
-
-static int	set_rt(t_minirt *rt, t_object *object)
-{
-	if (object->type == o_none)
-		return (NO_ERROR);
-	if (object->type == o_ambient)
-	{
-		if (rt->ambient)
-			return (MULTIPLE_DEFINED_AMBIENT);
-		rt->ambient = ft_memdup(&object->value.ambient, sizeof(t_ambient));
-		if (!rt->ambient)
-			return (FAILED_ALLOCATE);
-		return (NO_ERROR);
-	}
-	if (object->type == o_camera)
-	{
-		if (rt->camera)
-			return (MULTIPLE_DEFINED_CAMERA);
-		rt->camera = ft_memdup(&object->value.camera, sizeof(t_camera));
-		if (!rt->camera)
-			return (FAILED_ALLOCATE);
-		return (NO_ERROR);
-	}
-	return (set_rt2(rt, object));
-}
-
-static inline int	set_rt2(t_minirt *rt, t_object *object)
-{
-	if (object->type == o_light)
-	{
-		if (ft_xlstappend(&rt->rights, &object->value.light, sizeof(t_light)))
-			return (FAILED_ALLOCATE);
-		return (NO_ERROR);
-	}
-	if (ft_xlstappend(&rt->figures, &object, sizeof(t_object)))
-		return (FAILED_ALLOCATE);
+		return (del_rt(rt), ret);
+	rt->win = mlx_new_window(rt->mlx, size[0], size[1], rt->scene.title);
+	if (!rt->win)
+		return (del_rt(rt), FAILED_ALLOCATE);
+	rt->img = mlx_new_image(rt->mlx, size[0], size[1]);
+	if (!rt->img)
+		return (del_rt(rt), FAILED_ALLOCATE);
+	mlx_hook(rt->win, DestroyNotify, NoEventMask, mlx_loop_end, rt->mlx);
+	mlx_key_hook(rt->win, rt_key_hook, rt);
+	mlx_loop_hook(rt->mlx, rt_loop, (void *)rt);
+	ft_memcpy(rt->size, size, sizeof(rt->size));
+	rt->needs_rendering = 1;
 	return (NO_ERROR);
 }
 
 void	del_rt(t_minirt *rt)
 {
-	free(rt->ambient);
-	free(rt->camera);
-	ft_xlstclear(&rt->rights);
-	ft_xlstclear(&rt->figures);
+	if (rt->img)
+		mlx_destroy_image(rt->mlx, rt->img);
+	if (rt->win)
+		mlx_destroy_window(rt->mlx, rt->win);
+	if (rt->mlx)
+		mlx_destroy_display(rt->mlx);
+	free(rt->mlx);
+	scene_del(&rt->scene);
+	*rt = (t_minirt){};
+}
+
+static int	rt_loop(t_minirt *rt)
+{
+	if (rt->needs_rendering)
+	{
+		rt->needs_rendering = 0;
+		rt2img(&rt->scene, (void *)mlx_get_data_addr(rt->img, &(int){0},
+				&(int){0}, &(int){0}), rt->size);
+		mlx_clear_window(rt->mlx, rt->win);
+		mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
+	}
+	return (0);
+}
+
+static int	rt_key_hook(int keycode, t_minirt *rt)
+{
+	if (keycode == XK_Escape)
+		mlx_loop_end(rt->mlx);
+	return (0);
+}
+
+int	show_rt(t_minirt *rt)
+{
+	mlx_string_put(rt->mlx, rt->win, rt->size[0] / 2, rt->size[1] / 2,
+		COLOR_RAW_WHITE, "now rendering....");
+	mlx_loop(rt->mlx);
+	return (0);
 }

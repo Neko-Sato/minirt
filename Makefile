@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/10 15:30:45 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/05/16 09:45:37 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,16 +22,33 @@ OUT_DIR		:= $(DIR)/out
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
 		main.c \
-		objects.c \
 		minirt.c \
-		rt_error.c \
-		parse.c \
-		parse_entry1.c \
-		parse_entry2.c 	\
-		show.c \
+		rt_errno.c \
+		scene.c \
+		object.c \
+		$(addprefix objects/, \
+			o_ambient.c \
+			o_camera.c \
+			o_light.c \
+			o_figure.c \
+		) \
+		figure.c \
+		$(addprefix figures/, \
+			f_spere.c \
+			f_plane.c \
+			f_cylinder.c \
+		) \
+	texture.c \
+		$(addprefix textures/, \
+			t_simple.c \
+		) \
+		parser.c \
+		parser2.c \
 		rt2img.c \
-		vec3d.c \
-		vec3d2.c \
+		$(addprefix utils/, \
+			vec3d.c \
+			vec3d2.c \
+		) \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
@@ -70,7 +87,7 @@ test: test.c $(OBJS)
 
 .PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
-	@make -C $(FT) norm
+	# @make -C $(FT) norm
 	@norminette $^
 
 norm-upgrade:

@@ -6,11 +6,11 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 07:05:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 12:20:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/16 09:44:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3d.h"
+#include "utils/vec3d.h"
 #include <math.h>
 
 t_vec3d	vec3d_add(t_vec3d a, t_vec3d b)
@@ -20,6 +20,7 @@ t_vec3d	vec3d_add(t_vec3d a, t_vec3d b)
 	a._[2] += b._[2];
 	return (a);
 }
+
 t_vec3d	vec3d_sub(t_vec3d a, t_vec3d b)
 {
 	a._[0] -= b._[0];

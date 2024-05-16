@@ -6,15 +6,18 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 04:38:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/03 18:43:29 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/16 08:51:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "objects.h"
-# include <libft.h>
+# include "object.h"
+# include "parser.h"
+# include "texture.h"
+# include "rt_errno.h"
+# include "scene.h"
 # include <mlx.h>
 
 # define USING "\
@@ -34,18 +37,28 @@ github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 "
 
+# define RT_DELIMIITER " \t\n"
+
+# ifndef WIDTH_SIZE
+#  define WIDTH_SIZE 1000
+# endif
+# ifndef HEIGHT_SIZE
+#  define HEIGHT_SIZE 800
+# endif
+
 typedef struct s_minirt
 {
-	t_camera	*camera;
-	t_ambient	*ambient;
-	t_xlst		*rights;
-	t_xlst		*figures;
-}				t_minirt;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		size[2];
+	int		needs_rendering;
+	t_scene	scene;
+}			t_minirt;
 
-int				load_rt(t_minirt *rt, char *filename);
-void			del_rt(t_minirt *rt);
-void			*show_rt(t_minirt *rt, void *mlx, char *title, int size[2]);
+int			new_rt(t_minirt *rt, int size[2], char *filename);
+void		del_rt(t_minirt *rt);
 
-int				rt2img(t_minirt *rt, int size[2], unsigned int *img);
+int			show_rt(t_minirt *rt);
 
 #endif

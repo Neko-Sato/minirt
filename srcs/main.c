@@ -6,18 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 10:42:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 22:15:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/16 08:50:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "rt_error.h"
-#include <mlx.h>
 #include <stdlib.h>
-#include <unistd.h>
-
-#define WIDTH_SIZE 1000
-#define HEIGHT_SIZE 800
 
 static inline int	internal(char *filename);
 
@@ -25,7 +19,6 @@ int	main(int argc, char *argv[])
 {
 	int	ret;
 
-	return (internal("test.rt"));
 	if (argc < 2)
 	{
 		ft_putstr_fd(USING, STDERR_FILENO);
@@ -38,7 +31,7 @@ int	main(int argc, char *argv[])
 	if (ret)
 	{
 		ft_putstr_fd("Error\n", STDERR_FILENO);
-		put_rt_err(ret);
+		rt_perror(ret);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -46,24 +39,13 @@ int	main(int argc, char *argv[])
 
 static inline int	internal(char *filename)
 {
-	int			ret;
-	void		*mlx;
-	void		*win;
-	t_minirt	rt;
+	int					ret;
+	t_minirt			rt;
 
-	mlx = mlx_init();
-	if (!mlx)
-		return (FAILED_INITIALIZE_MLX);
-	ret = load_rt(&rt, filename);
-	if (ret == NO_ERROR)
-	{
-		win = show_rt(&rt, mlx, filename, (int[]){WIDTH_SIZE, HEIGHT_SIZE});
-		if (!win)
-			ret = FAILED_ALLOCATE;
-		else
-			mlx_loop(mlx);
-	}
-	mlx_destroy_display(mlx);
-	free(mlx);
+	ret = new_rt(&rt, (int []){WIDTH_SIZE, HEIGHT_SIZE}, filename);
+	if (ret)
+		return (ret);
+	ret = show_rt(&rt);
+	del_rt(&rt);
 	return (ret);
 }

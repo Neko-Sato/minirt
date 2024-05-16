@@ -6,17 +6,18 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:16:54 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/10 22:14:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/16 09:44:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "utils/vec3d.h"
 #include <libft.h>
 #include <math.h>
 
-t_color	rt2img_internal(t_minirt *rt, t_vec3d o, t_vec3d c);
+t_color	rt2img_internal(t_scene *scene, t_vec3d o, t_vec3d c);
 
-int	rt2img(t_minirt *rt, int size[2], unsigned int *img)
+int	rt2img(t_scene *scene, unsigned int *img, int size[2])
 {
 	int			i;
 	t_vec3d		r;
@@ -24,30 +25,35 @@ int	rt2img(t_minirt *rt, int size[2], unsigned int *img)
 	long double	x;
 	long double	y;
 
-	r = vec3d_norm(vec3d_cross(rt->camera->orientation, (t_vec3d){{0, 1, 0}}));
-	u = vec3d_norm(vec3d_cross(rt->camera->orientation, r));
+	r = vec3d_norm(vec3d_cross(scene->camera->orientation, (t_vec3d){{0, 1,
+				0}}));
+	u = vec3d_norm(vec3d_cross(scene->camera->orientation, r));
 	i = 0;
 	while (i < size[0] * size[1])
 	{
-		x = (rt->camera->fov * M_PI / 180.l) * ((i % size[0]) - size[0] / 2.l)
-			/ (double)size[0];
-		y = (rt->camera->fov * M_PI / 180.l) * ((i / size[0]) - size[1] / 2.l)
-			/ (double)size[0];
-		img[i++] = rt2img_internal(rt,
+		x = (scene->camera->fov * M_PI / 180.l) * ((i % size[0]) - size[0]
+				/ 2.l) / (double)size[0];
+		y = (scene->camera->fov * M_PI / 180.l) * ((i / size[0]) - size[1]
+				/ 2.l) / (double)size[0];
+		img[i++] = rt2img_internal(scene,
 				vec3d_norm(vec3d_add(vec3d_add(vec3d_mul(-tanl(x), r),
-							vec3d_mul(tanl(y), u)), rt->camera->orientation)),
-				rt->camera->coordinates).raw;
+							vec3d_mul(tanl(y), u)),
+						scene->camera->orientation)),
+				scene->camera->coordinates).raw;
 	}
 	return (0);
 }
 
-t_color	rt2img_internal(t_minirt *rt, t_vec3d o, t_vec3d c)
+t_color	rt2img_internal(t_scene *scene, t_vec3d o, t_vec3d c)
 {
 	long double	k;
 	long double	a;
 	long double	b;
 
-	(void)rt;
+	(void)scene;
+	k = (10 - c._[2]) / o._[2];
+	if (fabsl(k * o._[0] + c._[0]) < 5 && fabsl(k * o._[1] + c._[1]) < 5)
+		return ((t_color){.raw = COLOR_RAW_BLACK});
 	//前後
 	{
 		k = (50 - c._[2]) / o._[2];
@@ -92,7 +98,7 @@ t_color	rt2img_internal(t_minirt *rt, t_vec3d o, t_vec3d c)
 							5) <= 0.5l))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
-					return ((t_color){.raw = COLOR_RAW_BLUE});
+					return ((t_color){.raw = COLOR_RAW_GREEN});
 			}
 		}
 		k = (-50 - c._[1]) / o._[1];
@@ -144,22 +150,22 @@ t_color	rt2img_internal(t_minirt *rt, t_vec3d o, t_vec3d c)
 	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
 	// k = -c._[1] / o._[1];
 	// if (k < 0)
-	// 	return (0);
+	// 	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
 	// a = k * o._[0] + c._[0];
 	// b = k * o._[2] + c._[2];
 	// if (-0.5l <= a && a < 0.5l)
 	// {
 	// 	if (0 <= b)
-	// 		return (0xff0000);
-	// 	return (0x0000ff);
+	// 		return ((t_color){.raw = COLOR_RAW_RED});
+	// 	return ((t_color){.raw = COLOR_RAW_BLUE});
 	// }
 	// if (-0.5l <= b && b < 0.5l)
 	// {
 	// 	if (0 <= a)
-	// 		return (0x00ff00);
-	// 	return (0xff00ff);
+	// 		return ((t_color){.raw = COLOR_RAW_GREEN});
+	// 	return ((t_color){.raw = COLOR_RAW_MAGENTA});
 	// }
 	// if (fmodl(fmodl(a, 5) + 5, 5) < 1 || fmodl(fmodl(b, 5) + 5, 5) < 1)
-	// 	return (0xffffff);
-	// return (0);
+	// 	return ((t_color){.raw = COLOR_RAW_WHITE});
+	// return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
 }
