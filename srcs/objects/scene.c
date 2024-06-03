@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:14:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/04 05:18:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ void	__scene_del(t_scene *self)
 	if (self->camera)
 		self->camera->__class->del(self->camera);
 	free(self->camera);
-	while (ft_xlstappend(&self->lights, &light, sizeof(light)))
+	while (ft_xlstpop(&self->lights, 0, &light, sizeof(light)) != -1)
 	{
 		light->__class->del(light);
 		free(light);
 	}
-	while (ft_xlstappend(&self->figures, &figure, sizeof(figure)))
+	while (ft_xlstpop(&self->figures, 0, &figure, sizeof(figure)) != -1)
 	{
 		figure->__class->del(figure);
 		free(figure);
@@ -92,6 +92,7 @@ int	__scene_load(t_scene *self, char *filename)
 		if (ret)
 			break ;
 	}
+	free(line);
 	if (ret)
 		return (ft_fclose(f), ret);
 	if (ft_ferror(f))
