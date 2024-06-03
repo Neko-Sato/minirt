@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 03:03:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/04 03:07:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ int	take_line(char **str, t_scene *scene)
 
 int	take_object(char **str, t_scene *scene)
 {
-	int				ret;
-	char			*s;
-	t_identifier	identifier;
+	static int (*const	parsers[])(char **, t_scene *) = {
+		take_ambient, take_camera, take_light,
+		take_sphere, take_plane, take_cylinder};
+	int					ret;
+	char				*s;
+	t_identifier		identifier;
 
-	static int (*const parsers[])(char **, t_scene *) = {take_ambient,
-		take_camera, take_light, take_sphere, take_plane, take_cylinder};
 	s = *str;
 	ret = take_identifier(&s, &identifier);
 	if (ret)
