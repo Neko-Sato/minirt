@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/14 04:21:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:30:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	rt_perror(int rt_errno)
 		"Too many arguments.",
 		"Failed allocate.",
 		"Failed initialize mlx.",
+		"Failed read.",
 		"Not rt-file.",
 		"Failed open.",
 		"Unknown identifier.",

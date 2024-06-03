@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:24:09 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/04 02:40:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/minirt.h"
+#include "objects/plane.h"
 #include "rt_errno.h"
 #include <stdlib.h>
 
-int	main(int argc, char *argv[])
-{
-	int			ret;
-	t_minirt	minirt;
+const t_class_plane	g_class_plane = {
+	.init = __plane_init,
+	.del = __plane_del,
+};
 
-	if (argc == 1)
-	{
-		g_class_minirt.put_using();
-		return (EXIT_SUCCESS);
-	}
-	else if (2 < argc)
-		ret = TOO_MANY_ARGUMENTS;
-	else
-	{
-		ret = g_class_minirt.load(argv[1], WIDTH_SIZE, HEIGHT_SIZE, &minirt);
-		if (!ret)
-		{
-			minirt.__class->show(&minirt);
-			minirt.__class->del(&minirt);
-		}
-	}
+int	__plane_init(t_plane *self)
+{
+	int	ret;
+
+	*self = (t_plane){};
+	self->__class = &g_class_plane;
+	ret = __figure_init(&self->__parent);
 	if (ret)
-	{
-		rt_perror(ret);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+		return (-1);
+	self->normal = (t_vec3d){{0, 1, 1}};
+	return (NO_ERROR);
+}
+
+void	__plane_del(t_plane *self)
+{
+	self->__parent.__class->del(&self->__parent);
 }

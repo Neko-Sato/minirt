@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:24:09 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/04 02:40:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/minirt.h"
+#include "objects/sphere.h"
 #include "rt_errno.h"
 #include <stdlib.h>
 
-int	main(int argc, char *argv[])
-{
-	int			ret;
-	t_minirt	minirt;
+const t_class_sphere	g_class_sphere = {
+	.init = __sphere_init,
+	.del = __sphere_del,
+};
 
-	if (argc == 1)
-	{
-		g_class_minirt.put_using();
-		return (EXIT_SUCCESS);
-	}
-	else if (2 < argc)
-		ret = TOO_MANY_ARGUMENTS;
-	else
-	{
-		ret = g_class_minirt.load(argv[1], WIDTH_SIZE, HEIGHT_SIZE, &minirt);
-		if (!ret)
-		{
-			minirt.__class->show(&minirt);
-			minirt.__class->del(&minirt);
-		}
-	}
+int	__sphere_init(t_sphere *self)
+{
+	int	ret;
+
+	*self = (t_sphere){};
+	self->__class = &g_class_sphere;
+	ret = __figure_init(&self->__parent);
 	if (ret)
-	{
-		rt_perror(ret);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+		return (ret);
+	self->diameter = 1.;
+	return (NO_ERROR);
+}
+
+void	__sphere_del(t_sphere *self)
+{
+	self->__parent.__class->del(&self->__parent);
 }

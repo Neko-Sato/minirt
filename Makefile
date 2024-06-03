@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/05/16 09:45:37 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/04 03:05:03 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,34 +21,37 @@ OUT_DIR		:= $(DIR)/out
 
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
-		main.c \
-		minirt.c \
-		rt_errno.c \
-		scene.c \
-		object.c \
 		$(addprefix objects/, \
-			o_ambient.c \
-			o_camera.c \
-			o_light.c \
-			o_figure.c \
+			minirt.c \
+			minirt2.c \
+			scene.c \
+			scene2.c \
+			ambient.c \
+			camera.c \
+			light.c \
+			figure.c \
+			sphere.c \
+			plane.c \
+			cylinder.c \
 		) \
-		figure.c \
-		$(addprefix figures/, \
-			f_spere.c \
-			f_plane.c \
-			f_cylinder.c \
+		$(addprefix parsers/, \
+			token_basic_0.c \
+			token_basic_1.c \
+			token_basic_2.c \
+			token.c \
+			token_ambient.c \
+			token_camera.c \
+			token_light.c \
+			token_sphere.c \
+			token_plane.c \
+			token_cylinder.c \
 		) \
-	texture.c \
-		$(addprefix textures/, \
-			t_simple.c \
-		) \
-		parser.c \
-		parser2.c \
-		rt2img.c \
 		$(addprefix utils/, \
 			vec3d.c \
 			vec3d2.c \
 		) \
+		main.c \
+		rt_errno.c \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
@@ -87,7 +90,7 @@ test: test.c $(OBJS)
 
 .PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
-	# @make -C $(FT) norm
+	@make -C $(FT) norm
 	@norminette $^
 
 norm-upgrade:
@@ -96,7 +99,7 @@ norm-upgrade:
 .PHONY: $(FT)
 $(FT):
 	#@git submodule update --init $@
-	@$(MAKE) -C $@
+	@$(MAKE) -C $@ libft.a
 
 .PHONY: $(MLX)
 $(MLX):

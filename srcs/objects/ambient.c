@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_errno.h                                         :+:      :+:    :+:   */
+/*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/31 20:21:52 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/04 02:38:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_ERRNO_H
-# define RT_ERRNO_H
+#include "objects/ambient.h"
+#include "rt_errno.h"
+#include <stdlib.h>
 
-typedef enum e_rt_errno
+const t_class_ambient	g_class_ambient = {
+	.init = __ambient_init,
+	.del = __ambient_del,
+};
+
+int	__ambient_init(t_ambient *self)
 {
-	NO_ERROR,
-	UNLIKELY_ERROR,
-	TOO_MANY_ARGUMENTS,
-	FAILED_ALLOCATE,
-	FAILED_INITIALIZE_MLX,
-	FAILED_READ,
-	NOT_RT_FILE,
-	FAILED_OPEN,
-	UNKNOW_IDENTIFIER,
-	MULTIPLE_DEFINED_AMBIENT,
-	UNDEFINED_AMBIENT,
-	MULTIPLE_DEFINED_CAMERA,
-	UNDEFINED_CAMERA,
-	INCORRECT_FORMAT,
-}		t_rt_errno;
+	*self = (t_ambient){};
+	self->__class = &g_class_ambient;
+	self->ratio = 0.5;
+	self->color = (t_color){.raw = COLOR_RAW_WHITE};
+	return (NO_ERROR);
+}
 
-void	rt_perror(int rt_errno);
-
-#endif
+void	__ambient_del(t_ambient *self)
+{
+	(void)self;
+}
