@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:44:39 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:06:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	take_sphere(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates);
+	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates, 0);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	ret = take_decimal(&s, &tmp->diameter);
+	ret = take_decimal(&s, &tmp->diameter, 0);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);

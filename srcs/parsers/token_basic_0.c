@@ -6,12 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 03:27:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:13:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "rt_errno.h"
+#include <float.h>
 #include <libft.h>
 #include <stddef.h>
 
@@ -62,10 +63,19 @@ int	take_integer(char **str, long *value)
 	return (NO_ERROR);
 }
 
-int	take_decimal(char **str, double *value)
+int	take_decimal(char **str, double *value, int delta)
 {
 	char	*endptr;
 
+	if (delta && ft_strchr("+-", (*str)[0]) && (*str)[1] == 'd')
+	{
+		if ((*str)[0] == '-')
+			*value = -DBL_MIN;
+		else 
+			*value = DBL_MIN;
+		*str += 2;
+		return (NO_ERROR);
+	}
 	*value = ft_strtod(*str, &endptr);
 	if (endptr == *str)
 		return (INCORRECT_FORMAT);

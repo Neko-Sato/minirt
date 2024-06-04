@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/05 04:42:04 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/05 07:25:47 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -g -fsanitize=address
+CFLAGS		+= -g #-fsanitize=address
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
 LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lXext -lX11

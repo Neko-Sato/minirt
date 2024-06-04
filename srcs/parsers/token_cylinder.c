@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:44:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:05:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	take_cylinder(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates);
+	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates, 0);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
@@ -51,13 +51,13 @@ static inline int	take_cylinder2(char **str, t_scene *scene, char *s,
 {
 	int	ret;
 
-	ret = take_decimal(&s, &tmp->diameter);
+	ret = take_decimal(&s, &tmp->diameter, 0);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_decimal(&s, &tmp->height);
+	ret = take_decimal(&s, &tmp->height, 0);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = take_optional(&s, (t_take_optional_fn)take_figure_optional, tmp);

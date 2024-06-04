@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:44:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:15:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,7 @@ int	take_camera(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &tmp->coordinates);
-	if (ret)
-		return (camera_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
-	if (ret)
-		return (camera_del(tmp), free(tmp), ret);
-	ret = take_norm_vec3d(&s, &tmp->orientation);
+	ret = take_vec3d(&s, &tmp->coordinates, 0);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
@@ -53,6 +47,14 @@ static inline int	take_camera2(char **str, t_scene *scene, char *s,
 	int		ret;
 	long	fov;
 
+	ret = take_vec3d(&s, &tmp->orientation, 1);
+	if (ret)
+		return (camera_del(tmp), free(tmp), ret);
+	if (!tmp->orientation._[0] && !tmp->orientation._[2])
+		return (camera_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
+	ret = take_blank(&s);
+	if (ret)
+		return (camera_del(tmp), free(tmp), ret);
 	ret = take_integer(&s, &fov);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);

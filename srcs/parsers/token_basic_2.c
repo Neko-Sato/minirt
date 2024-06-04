@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 03:32:59 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:05:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/vec3d.h"
 #include <libft.h>
 
-int	take_vec3d(char **str, t_vec3d *value)
+int	take_vec3d(char **str, t_vec3d *value, int delta)
 {
 	int		ret;
 	char	*s;
@@ -26,7 +26,7 @@ int	take_vec3d(char **str, t_vec3d *value)
 	i = 0;
 	while (1)
 	{
-		ret = take_decimal(&s, &tmp);
+		ret = take_decimal(&s, &tmp, delta);
 		if (ret)
 			return (ret);
 		value->_[i++] = tmp;
@@ -72,7 +72,7 @@ int	take_rate(char **str, double *value)
 	char	*s;
 
 	s = *str;
-	ret = take_decimal(&s, value);
+	ret = take_decimal(&s, value, 0);
 	if (ret)
 		return (ret);
 	if (*value < 0. || 1. < *value)
@@ -87,7 +87,7 @@ int	take_norm_vec3d(char **str, t_vec3d *value)
 	char	*s;
 
 	s = *str;
-	ret = take_vec3d(&s, value);
+	ret = take_vec3d(&s, value, 0);
 	if (ret)
 		return (ret);
 	if (value->_[0] < -1.f || 1.f < value->_[0] || value->_[1] < -1.f
