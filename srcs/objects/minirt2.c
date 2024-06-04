@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 04:30:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:17:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:23:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,9 @@ int	minirt_load(char *filename, int width, int height, t_minirt *minirt)
 
 void	minirt_render(t_minirt *self)
 {
-	(void)self;
+	void *data;
+
+	data = mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
+	scene_drawing(self->scene, data, self->width, self->height);
+	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
 }

@@ -6,13 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:21:45 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:18:03 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
 #include "parser.h"
 #include "rt_errno.h"
+#include "rt2img.h"
 #include <fcntl.h>
 #include <stdlib.h>
 
@@ -92,8 +93,5 @@ int	scene_load(t_scene *self, char *filename)
 
 void	scene_drawing(t_scene *scene, unsigned int *data, int width, int height)
 {
-	(void)scene;
-	(void)data;
-	(void)width;
-	(void)height;
+	rt2img(scene, data, width, height);
 }
