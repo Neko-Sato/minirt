@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:24:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:08:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ int	main(int argc, char *argv[])
 
 	if (argc == 1)
 	{
-		g_class_minirt.put_using();
+		minirt_put_using();
 		return (EXIT_SUCCESS);
 	}
 	else if (2 < argc)
 		ret = TOO_MANY_ARGUMENTS;
 	else
 	{
-		ret = g_class_minirt.load(argv[1], WIDTH_SIZE, HEIGHT_SIZE, &minirt);
+		ret = minirt_load(argv[1], WIDTH_SIZE, HEIGHT_SIZE, &minirt);
 		if (!ret)
 		{
-			minirt.__class->show(&minirt);
-			minirt.__class->del(&minirt);
+			minirt_show(&minirt);
+			minirt_del(&minirt);
 		}
 	}
 	if (ret)

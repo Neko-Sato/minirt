@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:37:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:04:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,22 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-const t_class_minirt	g_class_minirt = {
-	.init = __minirt_init,
-	.del = __minirt_del,
-	.put_using = __minirt_put_using,
-	.show = __minirt_show,
-	.load = __minirt_load,
-	.render = __minirt_render,
-};
+static int	loop_hook(t_minirt *self);
+static int	key_hook(int keycode, t_minirt *self);
+static int	destroy_window(t_minirt *self);
 
-static int				loop_hook(t_minirt *self);
-static int				key_hook(int keycode, t_minirt *self);
-static int				destroy_window(t_minirt *self);
-
-int	__minirt_init(t_minirt *self, t_scene *scene, int width, int height)
+int	minirt_init(t_minirt *self, t_scene *scene, int width, int height)
 {
 	*self = (t_minirt){};
-	self->__class = &g_class_minirt;
 	self->mlx = mlx_init();
 	if (!self->mlx)
-		return (self->__class->del(self), FAILED_INITIALIZE_MLX);
+		return (minirt_del(self), FAILED_INITIALIZE_MLX);
 	self->win = mlx_new_window(self->mlx, width, height, scene->title);
 	if (!self->win)
-		return (self->__class->del(self), FAILED_ALLOCATE);
+		return (minirt_del(self), FAILED_ALLOCATE);
 	self->img = mlx_new_image(self->mlx, width, height);
 	if (!self->img)
-		return (self->__class->del(self), FAILED_ALLOCATE);
+		return (minirt_del(self), FAILED_ALLOCATE);
 	self->width = width;
 	self->height = height;
 	self->needs_rendering = 1;
@@ -55,7 +45,7 @@ int	__minirt_init(t_minirt *self, t_scene *scene, int width, int height)
 	return (NO_ERROR);
 }
 
-void	__minirt_del(t_minirt *self)
+void	minirt_del(t_minirt *self)
 {
 	if (self->img)
 		mlx_destroy_image(self->mlx, self->img);
@@ -65,7 +55,7 @@ void	__minirt_del(t_minirt *self)
 		mlx_destroy_display(self->mlx);
 	free(self->mlx);
 	if (self->scene)
-		self->scene->__class->del(self->scene);
+		scene_del(self->scene);
 	free(self->scene);
 }
 
@@ -73,7 +63,7 @@ static int	loop_hook(t_minirt *self)
 {
 	if (self->needs_rendering)
 	{
-		self->__class->render(self);
+		minirt_render(self);
 		self->needs_rendering = 0;
 	}
 	return (0);

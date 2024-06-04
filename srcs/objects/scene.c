@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 05:18:35 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/04 23:21:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,12 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-const t_class_scene	g_class_scene = {
-	.init = __scene_init,
-	.del = __scene_del,
-	.load = __scene_load,
-	.drawing = __scene_drawing,
-	.set_ambient = __scene_set_ambient,
-	.set_camera = __scene_set_camera,
-	.add_light = __scene_add_light,
-	.add_figure = __scene_add_figure,
-};
-
-int	__scene_init(t_scene *self, char *filename)
+int	scene_init(t_scene *self, char *filename)
 {
 	int		ret;
 	char	*title;
 
 	*self = (t_scene){};
-	self->__class = &g_class_scene;
 	title = ft_strrchr(filename, '/');
 	if (!title)
 		title = filename;
@@ -44,36 +32,36 @@ int	__scene_init(t_scene *self, char *filename)
 	self->camera = NULL;
 	self->lights = NULL;
 	self->figures = NULL;
-	ret = __scene_load(self, filename);
+	ret = scene_load(self, filename);
 	if (ret)
-		return (self->__class->del(self), ret);
+		return (scene_del(self), ret);
 	return (NO_ERROR);
 }
 
-void	__scene_del(t_scene *self)
+void	scene_del(t_scene *self)
 {
 	t_light		*light;
 	t_figure	*figure;
 
 	if (self->ambient)
-		self->ambient->__class->del(self->ambient);
+		ambient_del(self->ambient);
 	free(self->ambient);
 	if (self->camera)
-		self->camera->__class->del(self->camera);
+		camera_del(self->camera);
 	free(self->camera);
 	while (ft_xlstpop(&self->lights, 0, &light, sizeof(light)) != -1)
 	{
-		light->__class->del(light);
+		light_del(light);
 		free(light);
 	}
 	while (ft_xlstpop(&self->figures, 0, &figure, sizeof(figure)) != -1)
 	{
-		figure->__class->del(figure);
+		figure_del(figure);
 		free(figure);
 	}
 }
 
-int	__scene_load(t_scene *self, char *filename)
+int	scene_load(t_scene *self, char *filename)
 {
 	int		ret;
 	t_file	*f;
@@ -102,8 +90,7 @@ int	__scene_load(t_scene *self, char *filename)
 	return (ft_fclose(f), FAILED_ALLOCATE);
 }
 
-void	__scene_drawing(t_scene *scene, unsigned int *data, int width,
-		int height)
+void	scene_drawing(t_scene *scene, unsigned int *data, int width, int height)
 {
 	(void)scene;
 	(void)data;

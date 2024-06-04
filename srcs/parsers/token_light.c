@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:19:40 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 00:47:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 00:03:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ int	take_light(char **str, t_scene *scene)
 	tmp = malloc(sizeof(*tmp));
 	if (!tmp)
 		return (FAILED_ALLOCATE);
-	ret = g_class_light.init(tmp);
+	ret = light_init(tmp);
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
 	ret = take_vec3d(&s, &tmp->coordinates);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), ret);
+		return (light_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), ret);
+		return (light_del(tmp), free(tmp), ret);
 	ret = take_rate(&s, &tmp->brightness);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), ret);
+		return (light_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), ret);
+		return (light_del(tmp), free(tmp), ret);
 	return (take_light2(str, scene, s, tmp));
 }
 
@@ -53,10 +53,10 @@ static inline int	take_light2(char **str, t_scene *scene, char *s,
 
 	ret = take_color(&s, &tmp->color);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), ret);
-	ret = scene->__class->add_light(scene, tmp);
+		return (light_del(tmp), free(tmp), ret);
+	ret = scene_add_light(scene, tmp);
 	if (ret)
-		return (tmp->__class->del(tmp), free(tmp), FAILED_ALLOCATE);
+		return (light_del(tmp), free(tmp), FAILED_ALLOCATE);
 	*str = s;
 	return (NO_ERROR);
 }
