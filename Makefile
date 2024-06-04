@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/05 02:48:08 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/05 02:58:05 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ MLX			:= $(DIR)/libmlx
 INCS_DIR	:= $(DIR)/incs
 SRCS_DIR	:= $(DIR)/srcs
 OUT_DIR		:= $(DIR)/out
+TEST_RT		:= $(DIR)/scene/test.rt
 
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
@@ -86,8 +87,8 @@ fclean: clean
 re: fclean all
 
 .PHONY: test
-test: test.c $(OBJS)
-	$(CC) -g -fsanitize=address $(LDFLAGS) $(IDFLAGS) $^ -o $@ $(LIBS)
+test: $(NAME) $(TEST_RT)
+	@./$< $(TEST_RT)
 
 .PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
