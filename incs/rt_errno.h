@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/31 20:21:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:32:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_rt_errno
 	MULTIPLE_DEFINED_CAMERA,
 	UNDEFINED_CAMERA,
 	INCORRECT_FORMAT,
+	OUT_OF_RANGE,
 }		t_rt_errno;
 
 void	rt_perror(int rt_errno);

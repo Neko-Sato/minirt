@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/31 19:30:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:34:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	rt_perror(int rt_errno)
 		"Multiple defined of camera.",
 		"Undefined of camera.",
 		"Incorrect format.",
+		"Value is out of range."
 	};
 
 	ft_putendl_fd((char *)rt_errmsg[rt_errno], STDERR_FILENO);

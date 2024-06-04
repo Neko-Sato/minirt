@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 02:56:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:23:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	take_text(char **str, char *buf, size_t buf_size)
 		s++;
 	len = s - *str;
 	if (len >= buf_size)
-		return (UNLIKELY_ERROR);
+		return (INCORRECT_FORMAT);
 	ft_strncpy(buf, *str, len);
 	buf[len] = '\0';
 	*str = s;

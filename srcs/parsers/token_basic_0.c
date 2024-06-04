@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 00:53:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:27:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,22 @@ int	take_identifier(char **str, t_identifier *value)
 {
 	static const char *const	identifiers[] = {
 		"A", "C", "L", "sp", "pl", "cy"};
+	int							ret;
+	char						*s;
+	char						buf[5];
 	int							i;
-	size_t						len;
 
+	s = *str;
+	ret = take_text(&s, buf, 5);
+	if (ret)
+		return (ret);
 	i = 0;
-	while (i < IDENTIFIER_NUM)
-	{
-		len = ft_strlen(identifiers[i]);
-		if (!ft_strncmp(*str, identifiers[i], len))
-			break ;
+	while (i < IDENTIFIER_NUM && ft_strcmp(buf, identifiers[i]))
 		i++;
-	}
 	if (i >= IDENTIFIER_NUM)
 		return (UNKNOW_IDENTIFIER);
-	*str += len;
 	*value = i;
+	*str = s;
 	return (NO_ERROR);
 }
 

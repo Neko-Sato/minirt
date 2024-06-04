@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 03:07:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:22:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	take_line(char **str, t_scene *scene)
 	if (ret == INCORRECT_FORMAT)
 	{
 		ret = take_object(&s, scene);
-		if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
+		if (ret)
 			return (ret);
 		ret = take_blank(&s);
 		if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
