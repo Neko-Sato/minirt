@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 00:08:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:09:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char *argv[])
 		ret = minirt_load(argv[1], WIDTH_SIZE, HEIGHT_SIZE, &minirt);
 		if (!ret)
 		{
-			minirt_show(&minirt);
+			ret = minirt_show(&minirt);
 			minirt_del(&minirt);
 		}
 	}

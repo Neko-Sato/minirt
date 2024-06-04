@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 00:04:04 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:07:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	minirt_init(t_minirt *self, t_scene *scene, int width, int height)
 	self->height = height;
 	self->needs_rendering = 1;
 	self->scene = scene;
+	self->errno = NO_ERROR;
 	mlx_string_put(self->mlx, self->win, width / 2, height / 2, 0xFFFFFF,
 		"now rendering...");
 	mlx_hook(self->win, DestroyNotify, NoEventMask, destroy_window, self);
@@ -63,7 +64,9 @@ static int	loop_hook(t_minirt *self)
 {
 	if (self->needs_rendering)
 	{
-		minirt_render(self);
+		self->errno = minirt_render(self);
+		if (self->errno)
+			return (mlx_loop_end(self->mlx), -1);
 		self->needs_rendering = 0;
 	}
 	return (0);

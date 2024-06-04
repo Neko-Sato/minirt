@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:17:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:09:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ typedef struct s_minirt
 	int		width;
 	int		height;
 	int		needs_rendering;
+	int		errno;
 	t_scene	*scene;
 }			t_minirt;
 
 int			minirt_init(t_minirt *self, t_scene *scene, int width, int height);
 void		minirt_del(t_minirt *self);
 void		minirt_put_using(void);
-void		minirt_show(t_minirt *self);
+int			minirt_show(t_minirt *self);
 int			minirt_load(char *filename, int width, int height,
 				t_minirt *minirt);
-void		minirt_render(t_minirt *self);
+int			minirt_render(t_minirt *self);
 
 #endif

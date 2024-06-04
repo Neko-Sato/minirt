@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:16:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 00:21:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 03:08:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 #include "objects/scene.h"
 
-void	rt2img(t_scene *scene, unsigned int *img, int width, int height);
+int	rt2img(t_scene *scene, unsigned int *img, int width, int height);
 
 #endif
