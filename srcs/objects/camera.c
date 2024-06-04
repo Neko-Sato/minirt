@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:07:30 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 04:54:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	camera_init(t_camera *self)
 	self->coordinates = (t_vec3d){{0, 0, 0}};
 	self->orientation = (t_vec3d){{0, 0, 1}};
 	self->fov = 60;
+	self->width = DEFAULT_WIDTH;
+	self->height = DEFAULT_HEIGHT;
 	return (NO_ERROR);
 }
 

@@ -6,36 +6,24 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 03:11:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 06:57:34 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
 #include "parser.h"
-#include "rt2img.h"
 #include "rt_errno.h"
 #include <fcntl.h>
 #include <stdlib.h>
 
-int	scene_init(t_scene *self, char *filename)
+int	scene_init(t_scene *self, char *title)
 {
-	int		ret;
-	char	*title;
-
 	*self = (t_scene){};
-	title = ft_strrchr(filename, '/');
-	if (!title)
-		title = filename;
-	else
-		title++;
 	ft_strlcpy(self->title, title, sizeof(self->title));
 	self->ambient = NULL;
 	self->camera = NULL;
 	self->lights = NULL;
 	self->figures = NULL;
-	ret = scene_load(self, filename);
-	if (ret)
-		return (scene_del(self), ret);
 	return (NO_ERROR);
 }
 
@@ -89,9 +77,4 @@ int	scene_load(t_scene *self, char *filename)
 	if (ft_feof(f))
 		return (ft_fclose(f), NO_ERROR);
 	return (ft_fclose(f), FAILED_ALLOCATE);
-}
-
-int	scene_drawing(t_scene *scene, unsigned int *data, int width, int height)
-{
-	return (rt2img(scene, data, width, height));
 }

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 03:07:33 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 07:03:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,26 @@ static int	loop_hook(t_minirt *self);
 static int	key_hook(int keycode, t_minirt *self);
 static int	destroy_window(t_minirt *self);
 
-int	minirt_init(t_minirt *self, t_scene *scene, int width, int height)
+int	minirt_init(t_minirt *self, t_scene *scene)
 {
 	*self = (t_minirt){};
+	if (!scene->ambient)
+		return (minirt_del(self), UNDEFINED_AMBIENT);
+	if (!scene->camera)
+		return (minirt_del(self), UNDEFINED_CAMERA);
 	self->mlx = mlx_init();
 	if (!self->mlx)
 		return (minirt_del(self), FAILED_INITIALIZE_MLX);
-	self->win = mlx_new_window(self->mlx, width, height, scene->title);
+	self->win = mlx_new_window(self->mlx, scene->camera->width,
+			scene->camera->height, scene->title);
 	if (!self->win)
 		return (minirt_del(self), FAILED_ALLOCATE);
-	self->img = mlx_new_image(self->mlx, width, height);
+	self->img = mlx_new_image(self->mlx, scene->camera->width,
+			scene->camera->height);
 	if (!self->img)
 		return (minirt_del(self), FAILED_ALLOCATE);
-	self->width = width;
-	self->height = height;
-	self->needs_rendering = 1;
 	self->scene = scene;
-	self->errno = NO_ERROR;
-	mlx_string_put(self->mlx, self->win, width / 2, height / 2, 0xFFFFFF,
-		"now rendering...");
+	self->needs_rendering = 1;
 	mlx_hook(self->win, DestroyNotify, NoEventMask, destroy_window, self);
 	mlx_key_hook(self->win, key_hook, self);
 	mlx_loop_hook(self->mlx, loop_hook, self);
@@ -64,6 +65,7 @@ static int	loop_hook(t_minirt *self)
 {
 	if (self->needs_rendering)
 	{
+		mlx_clear_window(self->mlx, self->win);
 		self->errno = minirt_render(self);
 		if (self->errno)
 			return (mlx_loop_end(self->mlx), -1);

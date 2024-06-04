@@ -54,7 +54,7 @@ static inline int	take_plane2(char **str, t_scene *scene, char *s,
 	ret = take_color(&s, &((t_figure *)tmp)->color);
 	if (ret)
 		return (plane_del(tmp), free(tmp), ret);
-	ret = take_figure_optional(&s, (t_figure *)tmp);
+	ret = take_optional(&s, (t_take_optional_fn)take_figure_optional, tmp);
 	if (ret)
 		return (plane_del(tmp), free(tmp), ret);
 	ret = scene_add_figure(scene, (t_figure *)tmp);

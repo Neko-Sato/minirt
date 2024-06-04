@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:14:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:07:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 04:54:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,20 @@
 
 # include "utils/vec3d.h"
 
+# ifndef DEFAULT_WIDTH
+#  define DEFAULT_WIDTH 1000
+# endif
+# ifndef DEFAULT_HEIGHT
+#  define DEFAULT_HEIGHT 800
+# endif
+
 typedef struct s_camera
 {
 	t_vec3d	coordinates;
 	t_vec3d	orientation;
 	int		fov;
+	int		width;
+	int		height;
 }			t_camera;
 
 int			camera_init(t_camera *self);

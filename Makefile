@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/05 03:36:48 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/05 04:42:04 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS		:= \
 			token_basic_1.c \
 			token_basic_2.c \
 			token.c \
+			token_optional.c \
 			token_ambient.c \
 			token_camera.c \
 			token_light.c \

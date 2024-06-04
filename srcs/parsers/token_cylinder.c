@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 00:01:21 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/05 04:44:25 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static inline int	take_cylinder2(char **str, t_scene *scene, char *s,
 	ret = take_decimal(&s, &tmp->height);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_figure_optional(&s, (t_figure *)tmp);
+	ret = take_optional(&s, (t_take_optional_fn)take_figure_optional, tmp);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = scene_add_figure(scene, (t_figure *)tmp);
