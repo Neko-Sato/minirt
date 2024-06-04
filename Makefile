@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/05 00:20:10 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/05 02:48:08 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ CFLAGS		:= -Wall -Wextra -Werror
 CFLAGS		+= -g -fsanitize=address
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
-LIBS		:= -lft -lmlx -lm -lXext -lX11
+LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lXext -lX11
 
 .PHONY: all clean fclean re bonus
 
@@ -99,8 +99,8 @@ norm-upgrade:
 
 .PHONY: $(FT)
 $(FT):
-	#@git submodule update --init $@
-	@$(MAKE) -C $@ libft.a
+	@git submodule update --init $@
+	@$(MAKE) -C $@
 
 .PHONY: $(MLX)
 $(MLX):
