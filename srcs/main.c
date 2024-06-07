@@ -6,13 +6,17 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 05:25:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:26:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/minirt.h"
 #include "rt_errno.h"
 #include <stdlib.h>
+
+/*
+	Welcome to my wonderful code!
+*/
 
 static int	load(t_scene **scene, char *filename);
 static int	internal(char *filename);
