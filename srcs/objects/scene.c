@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 15:30:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:23:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	scene_del(t_scene *self)
 	}
 	while (ft_xlstpop(&self->figures, 0, &figure, sizeof(figure)) != -1)
 	{
-		figure_del(figure);
+		figure->__vtable->del(figure);
 		free(figure);
 	}
 }

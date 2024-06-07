@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:48:53 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:24:23 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,21 @@
 
 int	sphere_init(t_sphere *self)
 {
-	int	ret;
+	static const t_figure_vtable	vtable = {
+		.del = (void *)sphere_del,
+	};
+	int								ret;
 
 	*self = (t_sphere){};
 	ret = figure_init((t_figure *)self);
 	if (ret)
 		return (ret);
-	self->__parent.__type = f_sphere;
+	((t_figure *)self)->__vtable = &vtable;
 	self->diameter = 1.;
 	return (NO_ERROR);
 }
 
 void	sphere_del(t_sphere *self)
 {
-	__figure_del((t_figure *)self);
+	figure_del((t_figure *)self);
 }

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 06:54:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:11:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ Made by hshimizu.\n\
 github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 "
+
+# define MOVE_UNIT 1
+# define ROTATE_UNIT 0.08726646259971647l
 
 typedef struct s_minirt
 {

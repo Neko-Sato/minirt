@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 15:23:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:43:25 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,29 @@ static int	destroy_window(t_minirt *self)
 	return (0);
 }
 
-#include <math.h>
-
 static int	key_hook(int keycode, t_minirt *self)
 {
 	if (keycode == XK_Escape)
 		destroy_window(self);
 	else if (keycode == XK_a)
-		self->needs_rendering = !scene_move(self->scene, -1, 0, 0);
+		self->needs_rendering = !scene_move(self->scene, -MOVE_UNIT, 0, 0);
 	else if (keycode == XK_d)
-		self->needs_rendering = !scene_move(self->scene, 1, 0, 0);
+		self->needs_rendering = !scene_move(self->scene, MOVE_UNIT, 0, 0);
 	else if (keycode == XK_w)
-		self->needs_rendering = !scene_move(self->scene, 0, 0, 1);
+		self->needs_rendering = !scene_move(self->scene, 0, 0, MOVE_UNIT);
 	else if (keycode == XK_x)
-		self->needs_rendering = !scene_move(self->scene, 0, 0, -1);
+		self->needs_rendering = !scene_move(self->scene, 0, 0, -MOVE_UNIT);
 	else if (keycode == XK_q)
-		self->needs_rendering = !scene_move(self->scene, 0, 1, 0);
+		self->needs_rendering = !scene_move(self->scene, 0, MOVE_UNIT, 0);
 	else if (keycode == XK_e)
-		self->needs_rendering = !scene_move(self->scene, 0, -1, 0);
+		self->needs_rendering = !scene_move(self->scene, 0, -MOVE_UNIT, 0);
 	else if (keycode == XK_Left)
-		self->needs_rendering = !scene_rotate(self->scene, 0, ft_deg2rad(-10));
+		self->needs_rendering = !scene_rotate(self->scene, 0, -ROTATE_UNIT);
 	else if (keycode == XK_Right)
-		self->needs_rendering = !scene_rotate(self->scene, 0, ft_deg2rad(10));
+		self->needs_rendering = !scene_rotate(self->scene, 0, ROTATE_UNIT);
 	else if (keycode == XK_Up)
-		self->needs_rendering = !scene_rotate(self->scene, ft_deg2rad(-10), 0);
+		self->needs_rendering = !scene_rotate(self->scene, -ROTATE_UNIT, 0);
 	else if (keycode == XK_Down)
-		self->needs_rendering = !scene_rotate(self->scene, ft_deg2rad(10), 0);
+		self->needs_rendering = !scene_rotate(self->scene, ROTATE_UNIT, 0);
 	return (0);
 }
