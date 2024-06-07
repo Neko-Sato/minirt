@@ -6,12 +6,18 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:49:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:21:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+/*
+	I glanced at bison and flex,
+	but I couldn't figure it out at all! I could have just used ft_strtok_r,
+	but the string made it this way!
+*/
 
 # include "objects/scene.h"
 # include <stddef.h>

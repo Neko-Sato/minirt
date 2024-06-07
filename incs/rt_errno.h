@@ -6,12 +6,18 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 07:42:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:24:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_ERRNO_H
 # define RT_ERRNO_H
+
+/*
+	Errors?
+	I don't want any of that to happen...
+	In other words, they don't go! Segfault or...
+*/
 
 typedef enum e_rt_errno
 {

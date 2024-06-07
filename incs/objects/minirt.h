@@ -6,12 +6,18 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:18:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:21:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+/*
+	My minirt is moving, asshole!
+	That's why a few are all floats!
+	You got a problem with that?
+*/
 
 # include "./scene.h"
 # include <libft.h>
@@ -32,12 +38,6 @@ Made by hshimizu.\n\
 github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 "
-
-/*
-	My minirt is moving, asshole!
-	That's why a few are all floats!
-	You got a problem with that?
-*/
 
 # define ITER_MAX 5
 # define MOVE_UNIT 1

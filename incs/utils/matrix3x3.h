@@ -6,12 +6,16 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:32:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:22:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRIX3X3_H
 # define MATRIX3X3_H
+
+/*
+	I've introduced a matrix to move it....
+*/
 
 # include "utils/vec3d.h"
 

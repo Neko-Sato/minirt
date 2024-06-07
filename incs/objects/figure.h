@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:16:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:21:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_figure		t_figure;
 	create and replace a virtual table that is compatible
 	with the parent virtual table.
 */
+
 typedef struct s_figure_vtable
 {
 	void					(*del)(t_figure *self);
