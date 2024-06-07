@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 07:03:55 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:23:03 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 
+static int	expose_hook(t_minirt *self);
 static int	loop_hook(t_minirt *self);
 static int	key_hook(int keycode, t_minirt *self);
 static int	destroy_window(t_minirt *self);
@@ -42,23 +43,10 @@ int	minirt_init(t_minirt *self, t_scene *scene)
 	self->scene = scene;
 	self->needs_rendering = 1;
 	mlx_hook(self->win, DestroyNotify, NoEventMask, destroy_window, self);
+	mlx_expose_hook(self->win, expose_hook, self);
 	mlx_key_hook(self->win, key_hook, self);
 	mlx_loop_hook(self->mlx, loop_hook, self);
 	return (NO_ERROR);
-}
-
-void	minirt_del(t_minirt *self)
-{
-	if (self->img)
-		mlx_destroy_image(self->mlx, self->img);
-	if (self->win)
-		mlx_destroy_window(self->mlx, self->win);
-	if (self->mlx)
-		mlx_destroy_display(self->mlx);
-	free(self->mlx);
-	if (self->scene)
-		scene_del(self->scene);
-	free(self->scene);
 }
 
 static int	loop_hook(t_minirt *self)
@@ -74,6 +62,12 @@ static int	loop_hook(t_minirt *self)
 	return (0);
 }
 
+static int	expose_hook(t_minirt *self)
+{
+	self->needs_rendering = 1;
+	return (0);
+}
+
 static int	destroy_window(t_minirt *self)
 {
 	mlx_destroy_window(self->mlx, self->win);
@@ -81,11 +75,31 @@ static int	destroy_window(t_minirt *self)
 	return (0);
 }
 
+#include <math.h>
+
 static int	key_hook(int keycode, t_minirt *self)
 {
 	if (keycode == XK_Escape)
 		destroy_window(self);
-	else if (keycode == XK_F5)
-		self->needs_rendering = 1;
+	else if (keycode == XK_a)
+		self->needs_rendering = !scene_move(self->scene, -1, 0, 0);
+	else if (keycode == XK_d)
+		self->needs_rendering = !scene_move(self->scene, 1, 0, 0);
+	else if (keycode == XK_w)
+		self->needs_rendering = !scene_move(self->scene, 0, 0, 1);
+	else if (keycode == XK_x)
+		self->needs_rendering = !scene_move(self->scene, 0, 0, -1);
+	else if (keycode == XK_q)
+		self->needs_rendering = !scene_move(self->scene, 0, 1, 0);
+	else if (keycode == XK_e)
+		self->needs_rendering = !scene_move(self->scene, 0, -1, 0);
+	else if (keycode == XK_Left)
+		self->needs_rendering = !scene_rotate(self->scene, 0, ft_deg2rad(-10));
+	else if (keycode == XK_Right)
+		self->needs_rendering = !scene_rotate(self->scene, 0, ft_deg2rad(10));
+	else if (keycode == XK_Up)
+		self->needs_rendering = !scene_rotate(self->scene, ft_deg2rad(-10), 0);
+	else if (keycode == XK_Down)
+		self->needs_rendering = !scene_rotate(self->scene, ft_deg2rad(10), 0);
 	return (0);
 }

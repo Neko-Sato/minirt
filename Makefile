@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/05 07:25:47 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/06 05:02:46 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SRCS		:= \
 		$(addprefix utils/, \
 			vec3d.c \
 			vec3d2.c \
+			matrix3x3.c \
+			matrix3x3_rotation.c \
 		) \
 		main.c \
 		rt_errno.c \

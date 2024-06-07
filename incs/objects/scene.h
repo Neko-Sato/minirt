@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:30:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 06:57:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/06 06:52:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct s_scene
 int				scene_init(t_scene *self, char *title);
 void			scene_del(t_scene *self);
 int				scene_load(t_scene *self, char *filename);
+int				scene_move(t_scene *self, long double leftright,
+					long double updown, long double frontback);
+int				scene_rotate(t_scene *self, long double x, long double y);
 int				scene_set_ambient(t_scene *self, t_ambient *ambient);
 int				scene_set_camera(t_scene *self, t_camera *camera);
 int				scene_add_light(t_scene *self, t_light *light);

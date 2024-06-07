@@ -6,13 +6,15 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 06:57:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:30:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
 #include "parser.h"
 #include "rt_errno.h"
+#include "utils/matrix3x3.h"
+#include "utils/vec3d.h"
 #include <fcntl.h>
 #include <stdlib.h>
 
@@ -77,4 +79,46 @@ int	scene_load(t_scene *self, char *filename)
 	if (ft_feof(f))
 		return (ft_fclose(f), NO_ERROR);
 	return (ft_fclose(f), FAILED_ALLOCATE);
+}
+
+int	scene_move(t_scene *self, long double leftright, long double updown,
+		long double frontback)
+{
+	const t_vec3d		f = vec3d_norm(self->camera->orientation);
+	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
+	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
+	t_vec3d				tmp;
+
+	tmp = vec3d_add(vec3d_add(
+				vec3d_mul(leftright, r),
+				vec3d_mul(updown, u)),
+			vec3d_mul(frontback, f));
+	self->camera->coordinates = vec3d_add(self->camera->coordinates, tmp);
+	return (0);
+}
+
+int	scene_rotate(t_scene *self, long double updown, long double leftright)
+{
+	const t_vec3d		f = vec3d_norm(self->camera->orientation);
+	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
+	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
+	const t_matrix3x3	rotation = matrix3x3_mul(
+			matrix3x3_rotation_axis(leftright, u),
+			matrix3x3_rotation_axis(updown, r));
+	t_vec3d				tmp;
+
+	tmp = matrix3x3_mul_vec3d(rotation, f);
+	if (updown)
+	{
+		if (self->camera->orientation._[0] < 0 && 0 < tmp._[0])
+			tmp._[0] = -__DBL_MIN__;
+		else if (self->camera->orientation._[0] > 0 && 0 > tmp._[0])
+			tmp._[0] = __DBL_MIN__;
+		if (self->camera->orientation._[2] < 0 && 0 < tmp._[2])
+			tmp._[2] = -__DBL_MIN__;
+		else if (self->camera->orientation._[2] > 0 && 0 > tmp._[2])
+			tmp._[2] = __DBL_MIN__;
+	}
+	self->camera->orientation = tmp;
+	return (0);
 }

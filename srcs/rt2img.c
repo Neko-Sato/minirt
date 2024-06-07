@@ -6,54 +6,54 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:17:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 03:08:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:52:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
+#include "utils/ray.h"
 #include "utils/vec3d.h"
 #include <libft.h>
 #include <math.h>
 
-t_color	rt2img_internal(t_scene *scene, t_vec3d o, t_vec3d c);
+t_color	rt2img_internal(t_scene *scene, t_ray r);
 
-int	rt2img(t_scene *scene, unsigned int *img, int width, int height)
+int	rt2img(t_scene *scene, unsigned int *img)
 {
-	int			i;
-	t_vec3d		r;
-	t_vec3d		u;
-	long double	x;
-	long double	y;
+	const t_vec3d		f = vec3d_norm(scene->camera->orientation);
+	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
+	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
+	const long double	d = ft_deg2rad(scene->camera->fov
+			/ (long double)scene->camera->width);
+	int					i[2];
 
-	r = vec3d_norm(vec3d_cross(scene->camera->orientation, (t_vec3d){{0, 1,
-				0}}));
-	u = vec3d_norm(vec3d_cross(scene->camera->orientation, r));
-	i = 0;
-	while (i < width * height)
+	(void)r, (void)u, (void)d;
+	i[1] = -scene->camera->height / 2;
+	while (i[1] < scene->camera->height / 2)
 	{
-		x = (scene->camera->fov * M_PI / 180.l) * ((i % width) - width
-				/ 2.l) / (double)width;
-		y = (scene->camera->fov * M_PI / 180.l) * ((i / width) - height
-				/ 2.l) / (double)width;
-		img[i++] = rt2img_internal(scene,
-				vec3d_norm(vec3d_add(vec3d_add(vec3d_mul(-tanl(x), r),
-							vec3d_mul(tanl(y), u)),
-						scene->camera->orientation)),
-				scene->camera->coordinates).raw;
+		i[0] = -scene->camera->width / 2;
+		while (i[0] < scene->camera->width / 2)
+		{
+			*img++ = rt2img_internal(scene, (t_ray){.o = vec3d_add(vec3d_add(
+							vec3d_mul(tanl(d * i[0]), r),
+							vec3d_mul(-tanl(d * i[1]), u)),
+						f),
+					.c = scene->camera->coordinates}).raw;
+			i[0]++;
+		}
+		i[1]++;
 	}
 	return (0);
 }
 
-t_color	rt2img_internal(t_scene *scene, t_vec3d o, t_vec3d c)
+t_color	rt2img_internal(t_scene *scene, t_ray r)
 {
+	t_vec3d o = r.o, c = r.c;
 	long double	k;
 	long double	a;
 	long double	b;
 
 	(void)scene;
-	k = (10 - c._[2]) / o._[2];
-	if (fabsl(k * o._[0] + c._[0]) < 5 && fabsl(k * o._[1] + c._[1]) < 5)
-		return ((t_color){.raw = COLOR_RAW_BLACK});
 	//前後
 	{
 		k = (50 - c._[2]) / o._[2];
@@ -148,24 +148,25 @@ t_color	rt2img_internal(t_scene *scene, t_vec3d o, t_vec3d c)
 		}
 	}
 	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
-	// k = -c._[1] / o._[1];
-	// if (k < 0)
-	// 	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
-	// a = k * o._[0] + c._[0];
-	// b = k * o._[2] + c._[2];
-	// if (-0.5l <= a && a < 0.5l)
-	// {
-	// 	if (0 <= b)
-	// 		return ((t_color){.raw = COLOR_RAW_RED});
-	// 	return ((t_color){.raw = COLOR_RAW_BLUE});
-	// }
-	// if (-0.5l <= b && b < 0.5l)
-	// {
-	// 	if (0 <= a)
-	// 		return ((t_color){.raw = COLOR_RAW_GREEN});
-	// 	return ((t_color){.raw = COLOR_RAW_MAGENTA});
-	// }
-	// if (fmodl(fmodl(a, 5) + 5, 5) < 1 || fmodl(fmodl(b, 5) + 5, 5) < 1)
-	// 	return ((t_color){.raw = COLOR_RAW_WHITE});
-	// return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
+
+	k = -c._[1] / o._[1];
+	if (k < 0)
+		return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
+	a = k * o._[0] + c._[0];
+	b = k * o._[2] + c._[2];
+	if (-0.5l <= a && a < 0.5l)
+	{
+		if (0 <= b)
+			return ((t_color){.raw = COLOR_RAW_RED});
+		return ((t_color){.raw = COLOR_RAW_BLUE});
+	}
+	if (-0.5l <= b && b < 0.5l)
+	{
+		if (0 <= a)
+			return ((t_color){.raw = COLOR_RAW_GREEN});
+		return ((t_color){.raw = COLOR_RAW_MAGENTA});
+	}
+	if (fmodl(fmodl(a, 5) + 5, 5) < 1 || fmodl(fmodl(b, 5) + 5, 5) < 1)
+		return ((t_color){.raw = COLOR_RAW_WHITE});
+	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
 }
