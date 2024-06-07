@@ -6,11 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:17:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 14:52:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 00:36:12 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
+#include "rt_errno.h"
 #include "utils/ray.h"
 #include "utils/vec3d.h"
 #include <libft.h>
@@ -25,29 +26,30 @@ int	rt2img(t_scene *scene, unsigned int *img)
 	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
 	const long double	d = ft_deg2rad(scene->camera->fov
 			/ (long double)scene->camera->width);
-	int					i[2];
+	int					i;
+	int					j;
 
-	(void)r, (void)u, (void)d;
-	i[1] = -scene->camera->height / 2;
-	while (i[1] < scene->camera->height / 2)
+	i = -scene->camera->height / 2;
+	while (i < scene->camera->height / 2)
 	{
-		i[0] = -scene->camera->width / 2;
-		while (i[0] < scene->camera->width / 2)
+		j = -scene->camera->width / 2;
+		while (j < scene->camera->width / 2)
 		{
-			*img++ = rt2img_internal(scene, (t_ray){.o = vec3d_add(vec3d_add(
-							vec3d_mul(tanl(d * i[0]), r),
-							vec3d_mul(-tanl(d * i[1]), u)),
+			*img++ = rt2img_internal(scene, (t_ray){
+					.o = vec3d_add(vec3d_add(
+							vec3d_mul(tanl(d * j), r),
+							vec3d_mul(-tanl(d * i), u)),
 						f),
 					.c = scene->camera->coordinates}).raw;
-			i[0]++;
+			j++;
 		}
-		i[1]++;
+		i++;
 	}
-	return (0);
+	return (NO_ERROR);
 }
 
 t_color	rt2img_internal(t_scene *scene, t_ray r)
-{
+{	
 	t_vec3d o = r.o, c = r.c;
 	long double	k;
 	long double	a;
@@ -147,7 +149,7 @@ t_color	rt2img_internal(t_scene *scene, t_ray r)
 			}
 		}
 	}
-	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
+	return ((t_color){.raw = COLOR_RAW_BLACK});
 
 	k = -c._[1] / o._[1];
 	if (k < 0)
