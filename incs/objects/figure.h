@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 00:33:29 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:16:23 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_figure_vtable
 {
 	void					(*del)(t_figure *self);
 	int						(*intersect)(t_figure *self, t_ray *ray,
-								t_vec3d *result);
+			t_vec3d *result);
 	int						(*normal_vector)(t_figure *self,
-								t_vec3d *coordinates, t_vec3d *result);
+			t_vec3d *coordinates, t_vec3d *result);
 }							t_figure_vtable;
 
 typedef struct s_figure
@@ -41,7 +41,7 @@ typedef struct s_figure
 	const t_figure_vtable	*_;
 	t_vec3d					coordinates;
 	t_color					color;
-	double					reflectivity;
+	float					reflectivity;
 	t_color					checker;
 	void					*bump;
 }							t_figure;

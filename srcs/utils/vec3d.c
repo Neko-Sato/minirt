@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 07:05:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/05/16 09:44:05 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec3d	vec3d_sub(t_vec3d a, t_vec3d b)
 	return (a);
 }
 
-t_vec3d	vec3d_mul(long double n, t_vec3d a)
+t_vec3d	vec3d_mul(float n, t_vec3d a)
 {
 	a._[0] *= n;
 	a._[1] *= n;
@@ -37,7 +37,7 @@ t_vec3d	vec3d_mul(long double n, t_vec3d a)
 	return (a);
 }
 
-long double	vec3d_dot(t_vec3d a, t_vec3d b)
+float	vec3d_dot(t_vec3d a, t_vec3d b)
 {
 	return (a._[0] * b._[0] + a._[1] * b._[1] + a._[2] * b._[2]);
 }

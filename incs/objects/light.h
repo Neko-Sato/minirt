@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:15:56 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:08:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:30:00 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 typedef struct s_light
 {
 	t_vec3d	coordinates;
-	double	brightness;
+	float	brightness;
 	t_color	color;
 }			t_light;
 

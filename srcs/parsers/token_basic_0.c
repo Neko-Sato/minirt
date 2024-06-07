@@ -6,13 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 08:33:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:40:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "rt_errno.h"
 #include <libft.h>
+#include <limits.h>
 #include <stddef.h>
 
 int	take_blank(char **str)
@@ -51,33 +52,41 @@ int	take_identifier(char **str, t_identifier *value)
 	return (NO_ERROR);
 }
 
-int	take_integer(char **str, long *value)
+int	take_integer(char **str, int *value)
 {
+	long	tmp;
 	char	*endptr;
 
-	*value = ft_strtol(*str, &endptr, 10);
+	tmp = ft_strtol(*str, &endptr, 10);
 	if (endptr == *str)
 		return (INCORRECT_FORMAT);
+	if (tmp < INT_MIN || tmp > INT_MAX)
+		return (OUT_OF_RANGE);
+	*value = tmp;
 	*str = endptr;
 	return (NO_ERROR);
 }
 
-int	take_decimal(char **str, double *value, int delta)
+int	take_decimal(char **str, float *value, int delta)
 {
+	double	tmp;
 	char	*endptr;
 
 	if (delta && ft_strchr("+-", (*str)[0]) && (*str)[1] == 'd')
 	{
 		if ((*str)[0] == '-')
-			*value = -__DBL_MIN__;
+			*value = -__FLT_MIN__;
 		else
-			*value = __DBL_MIN__;
+			*value = __FLT_MIN__;
 		*str += 2;
 		return (NO_ERROR);
 	}
-	*value = ft_strtod(*str, &endptr);
+	tmp = (float)ft_strtod(*str, &endptr);
 	if (endptr == *str)
 		return (INCORRECT_FORMAT);
+	if (tmp < -__FLT_MAX__ || __FLT_MAX__ < tmp)
+		return (OUT_OF_RANGE);
+	*value = tmp;
 	*str = endptr;
 	return (NO_ERROR);
 }

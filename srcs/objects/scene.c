@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 16:53:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	scene_del(t_scene *self)
 	}
 	while (ft_xlstpop(&self->figures, 0, &figure, sizeof(figure)) != -1)
 	{
-		figure->__vtable->del(figure);
+		figure->_->del(figure);
 		free(figure);
 	}
 }
@@ -81,8 +81,8 @@ int	scene_load(t_scene *self, char *filename)
 	return (ft_fclose(f), FAILED_ALLOCATE);
 }
 
-int	scene_move(t_scene *self, long double leftright, long double updown,
-		long double frontback)
+int	scene_move(t_scene *self, float leftright, float updown,
+		float frontback)
 {
 	const t_vec3d		f = vec3d_norm(self->camera->orientation);
 	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
@@ -97,7 +97,7 @@ int	scene_move(t_scene *self, long double leftright, long double updown,
 	return (0);
 }
 
-int	scene_rotate(t_scene *self, long double updown, long double leftright)
+int	scene_rotate(t_scene *self, float updown, float leftright)
 {
 	const t_vec3d		f = vec3d_norm(self->camera->orientation);
 	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));

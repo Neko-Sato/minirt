@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:43:45 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/06 05:36:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_matrix3x3	matrix3x3_mul(t_matrix3x3 a, t_matrix3x3 b)
 	return (c);
 }
 
-t_matrix3x3	matrix3x3_mul_scalar(long double n, t_matrix3x3 a)
+t_matrix3x3	matrix3x3_mul_scalar(float n, t_matrix3x3 a)
 {
 	int	i;
 	int	j;

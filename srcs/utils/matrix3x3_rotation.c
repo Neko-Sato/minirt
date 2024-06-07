@@ -6,39 +6,39 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:58:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/06 08:00:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 05:15:09 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/matrix3x3.h"
 #include <math.h>
 
-t_matrix3x3	matrix3x3_rotation(long double x, long double y, long double z)
+t_matrix3x3	matrix3x3_rotation(float x, float y, float z)
 {
 	const t_matrix3x3	a = {{
 	{1, 0, 0},
-	{0, cosl(x), -sinl(x)},
-	{0, sinl(x), cosl(x)}
+	{0, cosf(x), -sinf(x)},
+	{0, sinf(x), cosf(x)}
 	}};
 	const t_matrix3x3	b = {{
-	{cosl(y), 0, sinl(y)},
+	{cosf(y), 0, sinf(y)},
 	{0, 1, 0},
-	{-sinl(y), 0, cosl(y)}
+	{-sinf(y), 0, cosf(y)}
 	}};
 	const t_matrix3x3	c = {{
-	{cosl(z), -sinl(z), 0},
-	{sinl(z), cosl(z), 0},
+	{cosf(z), -sinf(z), 0},
+	{sinf(z), cosf(z), 0},
 	{0, 0, 1}
 	}};
 
 	return (matrix3x3_mul(matrix3x3_mul(a, b), c));
 }
 
-t_matrix3x3	matrix3x3_rotation_axis(long double n, t_vec3d axis)
+t_matrix3x3	matrix3x3_rotation_axis(float n, t_vec3d axis)
 {
-	const long double	cos_n = cosl(n);
-	const long double	_cos_n = 1 - cos_n;
-	const long double	sin_n = sinl(n);
+	const float			cos_n = cosf(n);
+	const float			_cos_n = 1 - cos_n;
+	const float			sin_n = sinf(n);
 	const t_matrix3x3	tmp = {{
 	{
 		cos_n + axis._[0] * axis._[0] * _cos_n,

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 04:19:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:51:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 04:45:03 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,13 @@ static int	take_size(char **str, int *value)
 {
 	int		ret;
 	char	*s;
-	long	tmp;
 
 	s = *str;
-	ret = take_integer(&s, &tmp);
+	ret = take_integer(&s, value);
 	if (ret)
 		return (ret);
-	if (tmp <= 0 || INT_MAX < tmp)
+	if (*value <= 0)
 		return (INCORRECT_FORMAT);
-	*value = tmp;
 	*str = s;
 	return (NO_ERROR);
 }
