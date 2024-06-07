@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 15:43:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:03:39 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	minirt_init(t_minirt *self, t_scene *scene)
 
 static int	loop_hook(t_minirt *self)
 {
-	if (self->needs_rendering)
+	if (self->win && self->needs_rendering)
 	{
 		mlx_clear_window(self->mlx, self->win);
 		self->errno = minirt_render(self);

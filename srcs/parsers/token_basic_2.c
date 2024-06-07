@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 08:05:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:46:46 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	take_color(char **str, t_color *value)
 			return (OUT_OF_RANGE);
 		if (ret)
 			return (ret);
-		value->raw |= (tmp & 0xff) << ((3 - i++) * 8);
+		value->raw |= (tmp & 0xff) << ((3 - ++i) * 8);
 		if (i >= 3)
 			break ;
 		if (*s++ != ',')

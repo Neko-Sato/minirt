@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 16:17:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 00:32:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	figure_init(t_figure *self)
 	};
 
 	*self = (t_figure){};
-	self->__vtable = &vtable;
+	self->_ = &vtable;
 	self->coordinates = (t_vec3d){{0, 0, 10}};
 	self->color = (t_color){.raw = COLOR_RAW_RED};
 	self->reflectivity = 0.;

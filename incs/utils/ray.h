@@ -6,17 +6,19 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:36:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 15:36:59 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 00:34:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
 
+#include "utils/vec3d.h"
+
 typedef struct s_ray
 {
 	t_vec3d	o;
 	t_vec3d	c;
-}	t_ray;
+}			t_ray;
 
 #endif

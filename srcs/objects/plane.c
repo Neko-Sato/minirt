@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 16:24:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/08 00:35:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	plane_init(t_plane *self)
 	ret = figure_init((t_figure *)self);
 	if (ret)
 		return (-1);
-	((t_figure *)self)->__vtable = &vtable;
+	((t_figure *)self)->_ = &vtable;
 	self->normal = (t_vec3d){{0, 1, 1}};
 	return (NO_ERROR);
 }
