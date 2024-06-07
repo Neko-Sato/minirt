@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 16:23:47 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:53:18 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,14 @@ int	scene_rotate(t_scene *self, long double updown, long double leftright)
 	tmp = matrix3x3_mul_vec3d(rotation, f);
 	if (updown)
 	{
-		if (self->camera->orientation._[0] < 0 && 0 < tmp._[0])
-			tmp._[0] = -__DBL_MIN__;
-		else if (self->camera->orientation._[0] > 0 && 0 > tmp._[0])
-			tmp._[0] = __DBL_MIN__;
-		if (self->camera->orientation._[2] < 0 && 0 < tmp._[2])
-			tmp._[2] = -__DBL_MIN__;
-		else if (self->camera->orientation._[2] > 0 && 0 > tmp._[2])
-			tmp._[2] = __DBL_MIN__;
+		if (self->camera->orientation._[0] < 0 && 0 <= tmp._[0])
+			return (1);
+		else if (self->camera->orientation._[0] > 0 && 0 >= tmp._[0])
+			return (1);
+		if (self->camera->orientation._[2] < 0 && 0 <= tmp._[2])
+			return (1);
+		else if (self->camera->orientation._[2] > 0 && 0 >= tmp._[2])
+			return (1);
 	}
 	self->camera->orientation = tmp;
 	return (0);
