@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:16:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 18:09:12 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:39:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RT2IMG_H
 
 # include "objects/scene.h"
+# include "utils/ray.h"
 
 /*
 どういうアプローチをするか、
@@ -33,6 +34,6 @@
 	結果を返す。
 */
 
-int	rt2img(t_camera *camera, t_rtobjs *objs, unsigned int *img);
+t_color	rt2img(t_rtobjs *objs, t_ray r);
 
 #endif
