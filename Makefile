@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/11 20:36:58 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/11 23:47:25 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRCS		:= \
 			renderer2.c \
 			renderer3.c \
 			renderer4.c \
-			renderer5.c \
 			ambient.c \
 			camera.c \
 			light.c \

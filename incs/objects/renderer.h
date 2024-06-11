@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 20:34:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:47:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void			renderer_del(t_renderer *self);
 void			renderer_set_hook(t_renderer *self);
 void			renderer_set_hook2(t_renderer *self);
 
+int				renderer_render(t_renderer *self);
 void			renderer_update_transform(t_renderer *self);
 int				renderer_loop_hook(t_renderer *self);
-int				renderer_render(t_renderer *self);
 
 #endif
