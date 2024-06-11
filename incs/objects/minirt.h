@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 20:43:19 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:38:57 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 "
 
-# ifndef  ALLOW_MULTIPLE_CAMERAS
+# ifndef ALLOW_MULTIPLE_CAMERAS
 #  define ALLOW_MULTIPLE_CAMERAS 0
 # endif
 
