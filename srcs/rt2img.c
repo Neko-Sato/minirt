@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:17:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 23:36:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:43:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 #include <libft.h>
 #include <math.h>
 
-t_color	rt2img(t_rtobjs *objs, t_ray r)
+t_color	rt2img(t_rtobjs *objs, t_ray *r)
 {
 	float	k;
 	float	a;
 	float	b;
 
 	t_vec3d o, c;
-	o = r.o;
-	c = r.c;
+	o = r->o;
+	c = r->c;
 	(void)objs;
 	//前後
 	{
@@ -33,10 +33,10 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[0] + c._[0];
 			b = k * o._[1] + c._[1];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
-							5) <= 0.5l))
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5 || fmodf(fmodf(b, 5) + 5,
+							5) <= 0.5))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
 					return ((t_color){.raw = COLOR_RAW_RED});
@@ -47,10 +47,10 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[0] + c._[0];
 			b = k * o._[1] + c._[1];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
-							5) <= 0.5l))
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5 || fmodf(fmodf(b, 5) + 5,
+							5) <= 0.5))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
 					return ((t_color){.raw = COLOR_RAW_BLUE});
@@ -64,9 +64,9 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[0] + c._[0];
 			b = k * o._[2] + c._[2];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5l || fmodf(fmodf(b, 5) + 5,
 							5) <= 0.5l))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
@@ -78,9 +78,9 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[0] + c._[0];
 			b = k * o._[2] + c._[2];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5l || fmodf(fmodf(b, 5) + 5,
 							5) <= 0.5l))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
@@ -95,9 +95,9 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[1] + c._[1];
 			b = k * o._[2] + c._[2];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5l || fmodf(fmodf(b, 5) + 5,
 							5) <= 0.5l))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else
@@ -109,9 +109,9 @@ t_color	rt2img(t_rtobjs *objs, t_ray r)
 		{
 			a = k * o._[1] + c._[1];
 			b = k * o._[2] + c._[2];
-			if (fabsl(a) <= 50 && fabsl(b) <= 50)
+			if (fabsf(a) <= 50 && fabsf(b) <= 50)
 			{
-				if ((fmodl(fmodl(a, 5) + 5, 5) <= 0.5l || fmodl(fmodl(b, 5) + 5,
+				if ((fmodf(fmodf(a, 5) + 5, 5) <= 0.5l || fmodf(fmodf(b, 5) + 5,
 							5) <= 0.5l))
 					return ((t_color){.raw = COLOR_RAW_WHITE});
 				else

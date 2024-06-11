@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/09 19:31:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:23:19 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static inline int	take_camera2(char **str, t_scene *scene, char *s,
 	ret = take_integer(&s, &tmp->fov);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
-	if (tmp->fov < 0 || tmp->fov > 180)
+	if (!ALLOW_FOV_UNLIMITED && (tmp->fov < 0 || tmp->fov > 180))
 		return (camera_del(tmp), free(tmp), OUT_OF_RANGE);
 	ret = take_optional(&s, (t_take_optional_fn)take_camera_optional, tmp);
 	if (ret)

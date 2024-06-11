@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:21:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:52:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 
 # include "objects/scene.h"
 # include <stddef.h>
+
+# ifndef ALLOW_FOV_UNLIMITED
+#  define ALLOW_FOV_UNLIMITED 0
+# endif
 
 typedef int	(*t_take_optional_fn)(char **str, void *value);
 

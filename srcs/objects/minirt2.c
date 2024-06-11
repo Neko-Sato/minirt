@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 04:30:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 20:42:58 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 01:09:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "objects/scene.h"
 #include "rt_errno.h"
 #include <stdlib.h>
+#include <libft.h>
 
 /*
 	I feel dirty here, so I think it needs to be fixed.

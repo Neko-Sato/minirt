@@ -6,13 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 23:47:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:54:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/renderer.h"
-#include "rt_errno.h"
 #include "rt2img.h"
+#include "rt_errno.h"
 #include "utils/ray.h"
 #include <math.h>
 #include <mlx.h>
@@ -79,9 +79,10 @@ int	renderer_render(t_renderer *self)
 		while (j < self->camera->width / 2)
 		{
 			*img++ = rt2img(self->objs,
-					(t_ray){matrix3x3_mul_vec3d(self->transform,
-						(t_vec3d){{tanf(d * j), -tanf(d * i), 1}}),
-					self->camera->coordinates}).raw;
+					&(t_ray){matrix3x3_mul_vec3d(matrix3x3_mul(self->transform,
+							matrix3x3_mul(matrix3x3_rotation_x(d * i),
+								matrix3x3_rotation_y(d * j))), (t_vec3d){{0, 0,
+						1}}), self->camera->coordinates}).raw;
 			j++;
 		}
 		i++;

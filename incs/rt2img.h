@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:16:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 23:39:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 02:43:19 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@
 	結果を返す。
 */
 
-t_color	rt2img(t_rtobjs *objs, t_ray r);
+t_color	rt2img(t_rtobjs *objs, t_ray *r);
 
 #endif
