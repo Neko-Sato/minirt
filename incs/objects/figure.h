@@ -6,14 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:21:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:30:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIGURE_H
 # define FIGURE_H
 
-# include "utils/ray.h"
 # include "utils/vec3d.h"
 # include <libft.h>
 
@@ -27,14 +26,20 @@ typedef struct s_figure		t_figure;
 	create and replace a virtual table that is compatible
 	with the parent virtual table.
 */
+/*
+	AABB is an “Axis-Aligned Bounding Box”.
+	it's used for rough intersection checks.
+	This time, I will not use a tree structure and
+	will not make it retain values,
+	It may be useful to do a rough intersection check
+	when checking intersections.
+	Rather than mucking around with trigonometric functions
+	every time....
+*/
 
 typedef struct s_figure_vtable
 {
 	void					(*del)(t_figure *self);
-	int						(*intersect)(t_figure *self, t_ray *ray,
-			t_vec3d *result);
-	int						(*normal_vector)(t_figure *self,
-			t_vec3d *coordinates, t_vec3d *result);
 }							t_figure_vtable;
 
 typedef struct s_figure
@@ -49,21 +54,5 @@ typedef struct s_figure
 
 int							figure_init(t_figure *self);
 void						figure_del(t_figure *self);
-
-/*
-int	figure_intersect(t_figure *self, t_ray *ray, t_vec3d *result)
-{
-	The intersection of a vector and a vector is obtained.
-	If they do not intersect, the return value is 0.
-	You will use it to find distances and normal vectors.
-}
-
-int	figure_normal_vector(t_figure *self, t_vec3d *coordinates, t_vec3d *result)
-{
-	Calculate the normal vector to the coordinates.
-	If something goes wrong, return -1.
-	But will not happen.
-}
-*/
 
 #endif

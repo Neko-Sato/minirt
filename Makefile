@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/06 05:02:46 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/11 20:36:58 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,11 @@ SRCS		:= \
 			minirt2.c \
 			scene.c \
 			scene2.c \
+			renderer.c \
+			renderer2.c \
+			renderer3.c \
+			renderer4.c \
+			renderer5.c \
 			ambient.c \
 			camera.c \
 			light.c \
@@ -63,7 +68,7 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -g #-fsanitize=address
+CFLAGS		+= -g -fsanitize=address
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
 LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lXext -lX11
@@ -95,7 +100,7 @@ test: $(NAME) $(TEST_RT)
 
 .PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
-	@make -C $(FT) norm
+	# @make -C $(FT) norm
 	@norminette $^
 
 norm-upgrade:

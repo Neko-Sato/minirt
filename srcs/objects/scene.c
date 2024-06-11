@@ -6,15 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:33:23 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
 #include "parser.h"
 #include "rt_errno.h"
-#include "utils/matrix3x3.h"
-#include "utils/vec3d.h"
 #include <fcntl.h>
 #include <stdlib.h>
 
@@ -22,34 +20,21 @@ int	scene_init(t_scene *self, char *title)
 {
 	*self = (t_scene){};
 	ft_strlcpy(self->title, title, sizeof(self->title));
-	self->ambient = NULL;
-	self->camera = NULL;
-	self->lights = NULL;
-	self->figures = NULL;
 	return (NO_ERROR);
 }
 
 void	scene_del(t_scene *self)
 {
-	t_light		*light;
-	t_figure	*figure;
+	void	*tmp;
 
-	if (self->ambient)
-		ambient_del(self->ambient);
-	free(self->ambient);
-	if (self->camera)
-		camera_del(self->camera);
-	free(self->camera);
-	while (ft_xlstpop(&self->lights, 0, &light, sizeof(light)) != -1)
-	{
-		light_del(light);
-		free(light);
-	}
-	while (ft_xlstpop(&self->figures, 0, &figure, sizeof(figure)) != -1)
-	{
-		figure->_->del(figure);
-		free(figure);
-	}
+	while (ft_xlstpop(&self->objs.ambients, 0, &tmp, sizeof(t_ambient *)) != -1)
+		(void)(ambient_del((t_ambient *)tmp), free(tmp));
+	while (ft_xlstpop(&self->cameras, 0, &tmp, sizeof(t_camera *)) != -1)
+		(void)(camera_del((t_camera *)tmp), free(tmp));
+	while (ft_xlstpop(&self->objs.lights, 0, &tmp, sizeof(t_light *)) != -1)
+		(void)(light_del((t_light *)tmp), free(tmp));
+	while (ft_xlstpop(&self->objs.figures, 0, &tmp, sizeof(t_figure *)) != -1)
+		(void)(((t_figure *)tmp)->_->del(((t_figure *)tmp)), free(tmp));
 }
 
 int	scene_load(t_scene *self, char *filename)
@@ -79,46 +64,4 @@ int	scene_load(t_scene *self, char *filename)
 	if (ft_feof(f))
 		return (ft_fclose(f), NO_ERROR);
 	return (ft_fclose(f), FAILED_ALLOCATE);
-}
-
-int	scene_move(t_scene *self, float leftright, float updown,
-		float frontback)
-{
-	const t_vec3d		f = vec3d_norm(self->camera->orientation);
-	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
-	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
-	t_vec3d				tmp;
-
-	tmp = vec3d_add(vec3d_add(
-				vec3d_mul(leftright, r),
-				vec3d_mul(updown, u)),
-			vec3d_mul(frontback, f));
-	self->camera->coordinates = vec3d_add(self->camera->coordinates, tmp);
-	return (0);
-}
-
-int	scene_rotate(t_scene *self, float updown, float leftright)
-{
-	const t_vec3d		f = vec3d_norm(self->camera->orientation);
-	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
-	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
-	const t_matrix3x3	rotation = matrix3x3_mul(
-			matrix3x3_rotation_axis(leftright, u),
-			matrix3x3_rotation_axis(updown, r));
-	t_vec3d				tmp;
-
-	tmp = matrix3x3_mul_vec3d(rotation, f);
-	if (updown)
-	{
-		if (self->camera->orientation._[0] < 0 && 0 <= tmp._[0])
-			return (1);
-		else if (self->camera->orientation._[0] > 0 && 0 >= tmp._[0])
-			return (1);
-		if (self->camera->orientation._[2] < 0 && 0 <= tmp._[2])
-			return (1);
-		else if (self->camera->orientation._[2] > 0 && 0 >= tmp._[2])
-			return (1);
-	}
-	self->camera->orientation = tmp;
-	return (0);
 }

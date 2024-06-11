@@ -6,13 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/04 23:08:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:34:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/light.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 
 int	light_init(t_light *self)
 {

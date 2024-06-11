@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:42:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:31:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static inline int	take_camera2(char **str, t_scene *scene, char *s,
 	ret = take_optional(&s, (t_take_optional_fn)take_camera_optional, tmp);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
-	ret = scene_set_camera(scene, tmp);
+	ret = scene_add_camera(scene, tmp);
 	if (ret)
 		return (camera_del(tmp), free(tmp), FAILED_ALLOCATE);
 	*str = s;

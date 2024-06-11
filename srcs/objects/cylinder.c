@@ -6,14 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/07 23:03:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:41:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/cylinder.h"
 #include "objects/figure.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 
 int	cylinder_init(t_cylinder *self)
 {

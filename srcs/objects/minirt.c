@@ -6,97 +6,84 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:09:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:32:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/minirt.h"
+#include "objects/renderer.h"
+#include "objects/scene.h"
 #include "rt_errno.h"
-#include <X11/X.h>
-#include <X11/keysym.h>
 #include <mlx.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-static int	expose_hook(t_minirt *self);
-static int	loop_hook(t_minirt *self);
-static int	key_hook(int keycode, t_minirt *self);
-static int	destroy_window(t_minirt *self);
-
-int	minirt_init(t_minirt *self, t_scene *scene)
+int	minirt_init(t_minirt *self)
 {
 	*self = (t_minirt){};
-	if (!scene->ambient)
-		return (minirt_del(self), UNDEFINED_AMBIENT);
-	if (!scene->camera)
-		return (minirt_del(self), UNDEFINED_CAMERA);
 	self->mlx = mlx_init();
 	if (!self->mlx)
 		return (minirt_del(self), FAILED_INITIALIZE_MLX);
-	self->win = mlx_new_window(self->mlx, scene->camera->width,
-			scene->camera->height, scene->title);
-	if (!self->win)
-		return (minirt_del(self), FAILED_ALLOCATE);
-	self->img = mlx_new_image(self->mlx, scene->camera->width,
-			scene->camera->height);
-	if (!self->img)
-		return (minirt_del(self), FAILED_ALLOCATE);
-	self->scene = scene;
-	self->needs_rendering = 1;
-	mlx_hook(self->win, DestroyNotify, NoEventMask, destroy_window, self);
-	mlx_expose_hook(self->win, expose_hook, self);
-	mlx_key_hook(self->win, key_hook, self);
-	mlx_loop_hook(self->mlx, loop_hook, self);
+	mlx_do_key_autorepeaton(self->mlx);
+	mlx_loop_hook(self->mlx, minirt_loop_hook, self);
 	return (NO_ERROR);
 }
 
-static int	loop_hook(t_minirt *self)
+void	minirt_del(t_minirt *self)
 {
-	if (self->win && self->needs_rendering)
+	void	*tmp;
+
+	while (ft_xlstpop(&self->renderers, 0, &tmp, sizeof(t_renderer *)) != -1)
 	{
-		self->errno = minirt_render(self);
-		if (self->errno)
-			return (mlx_loop_end(self->mlx), -1);
-		self->needs_rendering = 0;
+		renderer_del((t_renderer *)tmp);
+		free(tmp);
 	}
-	return (0);
+	while (ft_xlstpop(&self->scenes, 0, &tmp, sizeof(t_scene *)) != -1)
+	{
+		scene_del((t_scene *)tmp);
+		free(tmp);
+	}
+	if (self->mlx)
+		mlx_destroy_display(self->mlx);
+	free(self->mlx);
 }
 
-static int	expose_hook(t_minirt *self)
+void	minirt_put_using(void)
 {
-	self->needs_rendering = 1;
-	return (0);
+	ft_putstr_fd(USING, STDERR_FILENO);
 }
 
-static int	destroy_window(t_minirt *self)
+int	minirt_loop(t_minirt *self)
 {
-	mlx_destroy_window(self->mlx, self->win);
-	self->win = NULL;
-	return (0);
+	mlx_loop(self->mlx);
+	return (self->errno);
 }
 
-static int	key_hook(int keycode, t_minirt *self)
+int	minirt_loop_hook(t_minirt *self)
 {
-	if (keycode == XK_Escape)
-		destroy_window(self);
-	else if (keycode == XK_a)
-		self->needs_rendering = !scene_move(self->scene, -MOVE_UNIT, 0, 0);
-	else if (keycode == XK_d)
-		self->needs_rendering = !scene_move(self->scene, MOVE_UNIT, 0, 0);
-	else if (keycode == XK_w)
-		self->needs_rendering = !scene_move(self->scene, 0, 0, MOVE_UNIT);
-	else if (keycode == XK_x)
-		self->needs_rendering = !scene_move(self->scene, 0, 0, -MOVE_UNIT);
-	else if (keycode == XK_q)
-		self->needs_rendering = !scene_move(self->scene, 0, MOVE_UNIT, 0);
-	else if (keycode == XK_e)
-		self->needs_rendering = !scene_move(self->scene, 0, -MOVE_UNIT, 0);
-	else if (keycode == XK_Left)
-		self->needs_rendering = !scene_rotate(self->scene, 0, -ROTATE_UNIT);
-	else if (keycode == XK_Right)
-		self->needs_rendering = !scene_rotate(self->scene, 0, ROTATE_UNIT);
-	else if (keycode == XK_Up)
-		self->needs_rendering = !scene_rotate(self->scene, -ROTATE_UNIT, 0);
-	else if (keycode == XK_Down)
-		self->needs_rendering = !scene_rotate(self->scene, ROTATE_UNIT, 0);
+	void		*unnecessary;
+	t_xlst		**tmp;
+	t_renderer	*renderer;
+
+	tmp = &self->renderers;
+	while (*tmp)
+	{
+		renderer = *(t_renderer **)(*tmp)->data;
+		if (!renderer->win)
+		{
+			unnecessary = *tmp;
+			*tmp = (*tmp)->next;
+			renderer_del(renderer);
+			free(unnecessary);
+			continue ;
+		}
+		self->errno = renderer_loop_hook(renderer);
+		if (self->errno)
+		{
+			mlx_loop_end(self->mlx);
+			break ;
+		}
+		tmp = &(*tmp)->next;
+	}
 	return (0);
 }

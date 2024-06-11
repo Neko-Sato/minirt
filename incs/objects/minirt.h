@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:21:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:43:19 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,27 @@ github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 "
 
-# define ITER_MAX 5
-# define MOVE_UNIT 1
-# define ROTATE_UNIT 0.03490658503988659
+# ifndef  ALLOW_MULTIPLE_CAMERAS
+#  define ALLOW_MULTIPLE_CAMERAS 0
+# endif
+
+# ifndef ALLOW_MULTIPLE_AMIBIENTS
+#  define ALLOW_MULTIPLE_AMIBIENTS 0
+# endif
 
 typedef struct s_minirt
 {
 	void	*mlx;
 	int		errno;
-	t_scene	*scene;
-	int		needs_rendering;
-	void	*win;
-	void	*img;
+	t_xlst	*scenes;
+	t_xlst	*renderers;
 }			t_minirt;
 
-int			minirt_init(t_minirt *self, t_scene *scene);
+int			minirt_init(t_minirt *self);
 void		minirt_del(t_minirt *self);
 void		minirt_put_using(void);
-int			minirt_show(t_minirt *self);
-int			minirt_render(t_minirt *self);
+int			minirt_loop_hook(t_minirt *self);
+int			minirt_loop(t_minirt *self);
+int			minirt_add_scene(t_minirt *self, t_scene *scene);
 
 #endif

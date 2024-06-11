@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:26:32 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:45:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	load(t_scene **scene, char *filename)
 	tmp = malloc(sizeof(t_scene));
 	if (!tmp)
 		return (FAILED_ALLOCATE);
-	title = ft_strchr(filename, '/');
+	title = ft_strrchr(filename, '/');
 	if (title)
 		title++;
 	else
@@ -77,10 +77,13 @@ static int	internal(char *filename)
 	ret = load(&scene, filename);
 	if (ret)
 		return (ret);
-	ret = minirt_init(&minirt, scene);
+	ret = minirt_init(&minirt);
 	if (ret)
 		return (scene_del(scene), free(scene), ret);
-	ret = minirt_show(&minirt);
+	ret = minirt_add_scene(&minirt, scene);
+	if (ret)
+		return (minirt_del(&minirt), scene_del(scene), free(scene), ret);
+	ret = minirt_loop(&minirt);
 	minirt_del(&minirt);
 	return (ret);
 }
