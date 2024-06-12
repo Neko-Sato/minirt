@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 16:32:04 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:53:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,9 @@ void	minirt_del(t_minirt *self)
 	void	*tmp;
 
 	while (ft_xlstpop(&self->renderers, 0, &tmp, sizeof(t_renderer *)) != -1)
-	{
-		renderer_del((t_renderer *)tmp);
-		free(tmp);
-	}
+		(void)(renderer_del((t_renderer *)tmp), free(tmp));
 	while (ft_xlstpop(&self->scenes, 0, &tmp, sizeof(t_scene *)) != -1)
-	{
-		scene_del((t_scene *)tmp);
-		free(tmp);
-	}
+		(void)(scene_del((t_scene *)tmp), free(tmp));
 	if (self->mlx)
 		mlx_destroy_display(self->mlx);
 	free(self->mlx);
@@ -73,8 +67,7 @@ int	minirt_loop_hook(t_minirt *self)
 		{
 			unnecessary = *tmp;
 			*tmp = (*tmp)->next;
-			renderer_del(renderer);
-			free(unnecessary);
+			(void)(renderer_del(renderer), free(renderer), free(unnecessary));
 			continue ;
 		}
 		self->errno = renderer_loop_hook(renderer);
