@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.c                                           :+:      :+:    :+:   */
+/*   cylinder_0.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 11:34:01 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/12 12:36:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/camera.h"
+#include "objects/cylinder.h"
+#include "objects/figure.h"
 #include "rt_errno.h"
 
-int	camera_init(t_camera *self)
+int	cylinder_init(t_cylinder *self)
 {
-	*self = (t_camera){};
-	self->coordinates = (t_vec3d){{0, 0, 0}};
-	self->orientation = (t_vec3d){{0, 0, 1}};
-	self->fov = 60;
-	self->width = DEFAULT_WIDTH;
-	self->height = DEFAULT_HEIGHT;
+	static const t_figure_vtable	vtable = {
+		.del = (void *)cylinder_del,
+	};
+	int								ret;
+
+	*self = (t_cylinder){};
+	ret = figure_init((t_figure *)self);
+	if (ret)
+		return (ret);
+	((t_figure *)self)->_ = &vtable;
+	self->axis = (t_vec3d){{0, 1, 0}};
+	self->diameter = 5.;
+	self->height = 10.;
 	return (NO_ERROR);
 }
 
-void	camera_del(t_camera *self)
+void	cylinder_del(t_cylinder *self)
 {
-	(void)self;
+	figure_del((t_figure *)self);
 }

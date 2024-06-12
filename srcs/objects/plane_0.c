@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder.c                                         :+:      :+:    :+:   */
+/*   plane_0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 11:41:24 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/12 12:36:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/cylinder.h"
+#include "objects/plane.h"
 #include "objects/figure.h"
 #include "rt_errno.h"
+#include <stdlib.h>
 
-int	cylinder_init(t_cylinder *self)
+int	plane_init(t_plane *self)
 {
 	static const t_figure_vtable	vtable = {
-		.del = (void *)cylinder_del,
+		.del = (void *)plane_del,
 	};
 	int								ret;
 
-	*self = (t_cylinder){};
+	*self = (t_plane){};
 	ret = figure_init((t_figure *)self);
 	if (ret)
-		return (ret);
+		return (-1);
 	((t_figure *)self)->_ = &vtable;
-	self->axis = (t_vec3d){{0, 1, 0}};
-	self->diameter = 5.;
-	self->height = 10.;
+	self->normal = (t_vec3d){{0, 1, 1}};
 	return (NO_ERROR);
 }
 
-void	cylinder_del(t_cylinder *self)
+void	plane_del(t_plane *self)
 {
 	figure_del((t_figure *)self);
 }

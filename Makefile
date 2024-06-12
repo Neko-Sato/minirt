@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/12 02:49:28 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/12 12:40:09 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,21 +23,21 @@ TEST_RT		:= $(DIR)/scene/test.rt
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix objects/, \
-			minirt.c \
-			minirt2.c \
-			scene.c \
-			scene2.c \
-			renderer.c \
-			renderer2.c \
-			renderer3.c \
-			renderer4.c \
-			ambient.c \
-			camera.c \
-			light.c \
-			figure.c \
-			sphere.c \
-			plane.c \
-			cylinder.c \
+			minirt_0.c \
+			minirt_1.c \
+			scene_0.c \
+			scene_1.c \
+			renderer_0.c \
+			renderer_1.c \
+			renderer_2.c \
+			renderer_3.c \
+			ambient_0.c \
+			camera_0.c \
+			light_0.c \
+			figure_0.c \
+			sphere_0.c \
+			plane_0.c \
+			cylinder_0.c \
 		) \
 		$(addprefix parsers/, \
 			token_basic_0.c \
@@ -53,9 +53,9 @@ SRCS		:= \
 			token_cylinder.c \
 		) \
 		$(addprefix utils/, \
-			vec3d.c \
-			vec3d2.c \
-			matrix3x3.c \
+			vec3d_operator.c \
+			vec3d_basic.c \
+			matrix3x3_operator.c \
 			matrix3x3_rotation.c \
 		) \
 		main.c \

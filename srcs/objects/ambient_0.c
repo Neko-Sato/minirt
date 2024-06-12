@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   ambient_0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 00:35:39 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/12 12:36:23 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/sphere.h"
-#include "objects/figure.h"
+#include "objects/ambient.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 
-int	sphere_init(t_sphere *self)
+int	ambient_init(t_ambient *self)
 {
-	static const t_figure_vtable	vtable = {
-		.del = (void *)sphere_del,
-	};
-	int								ret;
-
-	*self = (t_sphere){};
-	ret = figure_init((t_figure *)self);
-	if (ret)
-		return (ret);
-	((t_figure *)self)->_ = &vtable;
-	self->diameter = 1.;
+	*self = (t_ambient){};
+	self->ratio = 0.5;
+	self->color = (t_color){.raw = COLOR_RAW_WHITE};
 	return (NO_ERROR);
 }
 
-void	sphere_del(t_sphere *self)
+void	ambient_del(t_ambient *self)
 {
-	figure_del((t_figure *)self);
+	(void)self;
 }
