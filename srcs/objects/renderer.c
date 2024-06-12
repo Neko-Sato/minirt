@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 02:54:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:43:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,37 @@ void	renderer_update_transform(t_renderer *self)
 	self->transform = tmp;
 }
 
-int	renderer_render(t_renderer *self)
+static inline void	render(t_renderer *self, unsigned int *img)
 {
-	const float		d = ft_deg2rad(self->camera->fov
-			/ (float)self->camera->width);
-	unsigned int	*img;
-	int				i;
-	int				j;
+	const float	d = ft_deg2rad(self->camera->fov / (float)self->camera->width);
+	int			i;
+	int			j;
+	t_vec3d		tmp;
 
-	img = (void *)mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
 	i = -self->camera->height / 2;
 	while (i < self->camera->height / 2)
 	{
+		tmp = matrix3x3_mul_vec3d(matrix3x3_rotation_x(d * i), (t_vec3d){{0, 0,
+				1}});
 		j = -self->camera->width / 2;
 		while (j < self->camera->width / 2)
 		{
 			*img++ = rt2img(self->objs,
-					&(t_ray){matrix3x3_mul_vec3d(matrix3x3_mul(self->transform,
-							matrix3x3_mul(matrix3x3_rotation_x(d * i),
-								matrix3x3_rotation_y(d * j))), (t_vec3d){{0, 0,
-						1}}), self->camera->coordinates}).raw;
+					&(t_ray){matrix3x3_mul_vec3d(self->transform,
+						matrix3x3_mul_vec3d(matrix3x3_rotation_y(d * j), tmp)),
+					self->camera->coordinates}).raw;
 			j++;
 		}
 		i++;
 	}
+}
+
+int	renderer_render(t_renderer *self)
+{
+	unsigned int	*img;
+
+	img = (void *)mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
+	render(self, img);
 	mlx_clear_window(self->mlx, self->win);
 	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
 	return (NO_ERROR);
