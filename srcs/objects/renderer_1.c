@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:32:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:36:55 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:57:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	keypress_hook(int keycode, t_renderer *self)
 {
 	if (keycode == XK_Escape)
 		destroy_window(self);
-	else if (keycode == XK_F5)
-		self->needs_rendring = 1;
+	else if (keycode == XK_r)
+		self->action.reset = 1;
 	else if (keycode == XK_Up)
 		self->action.look_up = 1;
 	else if (keycode == XK_Down)

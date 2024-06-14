@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:36:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:52:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	renderer_init(t_renderer *self, t_renderer_init *args)
 		return (renderer_del(self), FAILED_ALLOCATE);
 	self->needs_rendring = 1;
 	self->camera->orientation = vec3d_norm(self->camera->orientation);
+	self->save_ray = (t_ray){self->camera->orientation,
+		self->camera->coordinates};
 	renderer_update_transform(self);
 	renderer_set_hook(self);
 	renderer_set_hook2(self);

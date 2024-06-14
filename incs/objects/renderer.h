@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 23:47:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:53:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 # include "./camera.h"
 # include "./scene.h"
 # include "./utils/matrix3x3.h"
+# include "./utils/ray.h"
 # include <libft.h>
 
 typedef struct s_action
 {
+	int			reset : 1;
 	int			look_up : 1;
 	int			look_down : 1;
 	int			look_left : 1;
@@ -44,6 +46,7 @@ typedef struct s_renderer
 	int			focus;
 	int			needs_rendring;
 	t_matrix3x3	transform;
+	t_ray		save_ray;
 	t_action	action;
 	t_camera	*camera;
 	t_rtobjs	*objs;

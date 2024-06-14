@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:37:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:56:58 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,27 @@ static inline void	route_pitch(t_renderer *self)
 	self->needs_rendring = 1;
 }
 
+static inline void	action(t_renderer *self)
+{
+	if (self->action.reset)
+	{
+		self->action.reset = 0;
+		self->camera->orientation = self->save_ray.o;
+		self->camera->coordinates = self->save_ray.c;
+		renderer_update_transform(self);
+		self->needs_rendring = 1;
+		return ;
+	}
+	move(self);
+	route_yaw(self);
+	route_pitch(self);
+}
+
 int	renderer_loop_hook(t_renderer *self)
 {
 	if (!self->focus)
 		return (NO_ERROR);
-	move(self);
-	route_yaw(self);
-	route_pitch(self);
+	action(self);
 	if (!self->needs_rendring)
 		return (NO_ERROR);
 	self->needs_rendring = 0;
