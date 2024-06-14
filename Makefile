@@ -6,9 +6,11 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/12 12:40:09 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/14 17:24:29 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+UNAME		:= $(shell uname)
 
 NAME		:= miniRT
 
@@ -70,7 +72,14 @@ CFLAGS		:= -Wall -Wextra -Werror
 CFLAGS		+= -g -fsanitize=address
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
-LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lXext -lX11
+LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm
+ifeq ($(UNAME), Darwin)
+LIBS		+= -framework OpenGL -framework AppKit
+else ifeq ($(UNAME), Linux)
+LIBS		+= -lX11 -lXext
+else
+$(error Unsupported OS)
+endif
 
 .PHONY: all clean fclean re bonus
 
