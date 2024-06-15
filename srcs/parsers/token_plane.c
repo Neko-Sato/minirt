@@ -31,7 +31,7 @@ int	take_plane(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates, 0);
+	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates);
 	if (ret)
 		return (plane_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);

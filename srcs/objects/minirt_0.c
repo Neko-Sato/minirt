@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:36:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:12:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	minirt_init(t_minirt *self)
 	self->mlx = mlx_init();
 	if (!self->mlx)
 		return (minirt_del(self), FAILED_INITIALIZE_MLX);
-	mlx_do_key_autorepeaton(self->mlx);
+	mlx_do_key_autorepeatoff(self->mlx);
 	mlx_loop_hook(self->mlx, minirt_loop_hook, self);
 	return (NO_ERROR);
 }

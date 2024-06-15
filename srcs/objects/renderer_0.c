@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/14 11:52:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:09:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/renderer.h"
-#include "rt2img.h"
 #include "rt_errno.h"
 #include "utils/ray.h"
+#include "rt2img.h"
 #include <math.h>
 #include <mlx.h>
 
@@ -80,7 +80,7 @@ static inline void	render(t_renderer *self, unsigned int *img)
 		j = -self->camera->width / 2;
 		while (j < self->camera->width / 2)
 		{
-			*img++ = rt2img(self->objs,
+			*img++ = rt2img_test(
 					&(t_ray){matrix3x3_mul_vec3d(self->transform,
 						matrix3x3_mul_vec3d(matrix3x3_rotation_y(d * j), tmp)),
 					self->camera->coordinates}).raw;

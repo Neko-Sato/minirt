@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:19:40 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 08:05:53 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:52:20 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	take_light(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &tmp->coordinates, 0);
+	ret = take_vec3d(&s, &tmp->coordinates);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
 	ret = take_blank(&s);

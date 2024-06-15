@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:14:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:54:22 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:12:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_camera
 	int		fov;
 	int		width;
 	int		height;
+	float	dist;
 }			t_camera;
 
 int			camera_init(t_camera *self);

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:40:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:24:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "rt_errno.h"
 #include <libft.h>
 #include <limits.h>
+#include <math.h>
 #include <stddef.h>
 
 int	take_blank(char **str)
@@ -52,7 +53,7 @@ int	take_identifier(char **str, t_identifier *value)
 	return (NO_ERROR);
 }
 
-int	take_integer(char **str, int *value)
+int	take_integer(char **str, int *value, int unsign)
 {
 	long	tmp;
 	char	*endptr;
@@ -62,31 +63,35 @@ int	take_integer(char **str, int *value)
 		return (INCORRECT_FORMAT);
 	if (tmp < INT_MIN || tmp > INT_MAX)
 		return (OUT_OF_RANGE);
+	if (unsign && tmp < 0)
+		return (OUT_OF_RANGE);
 	*value = tmp;
 	*str = endptr;
 	return (NO_ERROR);
 }
 
-int	take_decimal(char **str, float *value, int delta)
+int	take_decimal(char **str, float *value, int unsign)
 {
 	double	tmp;
 	char	*endptr;
 
-	if (delta && ft_strchr("+-", (*str)[0]) && (*str)[1] == 'd')
+	if (ft_strchr("+-", (*str)[0]) && (*str)[1] == 'd')
 	{
 		if ((*str)[0] == '-')
 			*value = -__FLT_MIN__;
 		else
 			*value = __FLT_MIN__;
-		*str += 2;
-		return (NO_ERROR);
+		endptr = *str + 2;
 	}
-	tmp = (float)ft_strtod(*str, &endptr);
-	if (endptr == *str)
-		return (INCORRECT_FORMAT);
-	if (tmp < -__FLT_MAX__ || __FLT_MAX__ < tmp)
+	else
+	{
+		tmp = (float)ft_strtod(*str, &endptr);
+		if (endptr == *str)
+			return (INCORRECT_FORMAT);
+		*value = tmp;
+	}
+	if ((unsign && *value < 0) || isnan(*value))
 		return (OUT_OF_RANGE);
-	*value = tmp;
 	*str = endptr;
 	return (NO_ERROR);
 }

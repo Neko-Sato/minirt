@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 02:52:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:49:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ typedef enum e_identifier
 
 int			take_blank(char **str);
 int			take_identifier(char **str, t_identifier *value);
-int			take_integer(char **str, int *value);
-int			take_decimal(char **str, float *value, int delta);
+int			take_integer(char **str, int *value, int unsign);
+int			take_decimal(char **str, float *value, int unsign);
 int			take_string(char **str, char **value);
 
-int			take_vec3d(char **str, t_vec3d *value, int delta);
+int			take_vec3d(char **str, t_vec3d *value);
 int			take_color(char **str, t_color *value);
 int			take_rate(char **str, float *value);
 int			take_norm_vec3d(char **str, t_vec3d *value);

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 04:19:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:45:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:20:36 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,6 @@ int	take_figure_optional(char **str, t_figure *value)
 	return (NO_ERROR);
 }
 
-static int	take_size(char **str, int *value)
-{
-	int		ret;
-	char	*s;
-
-	s = *str;
-	ret = take_integer(&s, value);
-	if (ret)
-		return (ret);
-	if (*value <= 0)
-		return (INCORRECT_FORMAT);
-	*str = s;
-	return (NO_ERROR);
-}
-
 int	take_camera_optional(char **str, t_camera *value)
 {
 	int		ret;
@@ -93,11 +78,13 @@ int	take_camera_optional(char **str, t_camera *value)
 	if (*s++ != '=')
 		return (INCORRECT_FORMAT);
 	if (!ft_strcmp("width", text))
-		ret = take_size(&s, &value->width);
+		ret = take_integer(&s, &value->width, 1);
 	else if (!ft_strcmp("height", text))
-		ret = take_size(&s, &value->height);
+		ret = take_integer(&s, &value->height, 1);
+	else if (!ft_strcmp("dist", text))
+		ret = take_decimal(&s, &value->dist, 1);
 	else
 		return (INCORRECT_FORMAT);
 	*str = s;
-	return (NO_ERROR);
+	return (ret);
 }
