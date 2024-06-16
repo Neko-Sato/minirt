@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/15 16:02:49 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/16 13:12:33 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,13 +72,11 @@ CFLAGS		:= -Wall -Wextra -Werror
 CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
-LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm
+LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lX11 -lXext
 ifeq ($(UNAME), Darwin)
+LDFLAGS		+= -L/usr/X11/lib
+IDFLAGS		+= -I/usr/X11/include
 LIBS		+= -framework OpenGL -framework AppKit
-else ifeq ($(UNAME), Linux)
-LIBS		+= -lX11 -lXext
-else
-$(error Unsupported OS)
 endif
 
 .PHONY: all clean fclean re bonus
