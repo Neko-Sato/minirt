@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 16:09:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/16 13:21:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	renderer_render(t_renderer *self)
 
 	img = (void *)mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
 	render(self, img);
-	mlx_clear_window(self->mlx, self->win);
 	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
 	return (NO_ERROR);
 }

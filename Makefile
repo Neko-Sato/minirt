@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/16 13:12:33 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/16 13:19:05 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,7 @@ re: fclean all
 
 .PHONY: test
 test: $(NAME) $(TEST_RT)
-	@lldb $< $(TEST_RT) -o r
+	@lldb -o r -- $< $(TEST_RT)
 
 .PHONY: norm norm-upgrade
 norm: $(SRCS) $(INCS_DIR)
