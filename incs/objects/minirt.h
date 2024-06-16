@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 00:47:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/16 18:06:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ rt-file format:\n\
 \tSphere\t\tsp <coordinates> <diameter> <color>\n\
 \tPlane\t\tpl <coordinates> <normal> <color>\n\
 \tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
+\n\
+key operation:\n\
+\tUp\tFace upwards.\n\
+\tDown\tFace downwards.\n\
+\tLeft\tFace left.\n\
+\tRight\tFace right.\n\
+\tw\tMove forward.\n\
+\tx\tMove backward.\n\
+\ta\tMove left.\n\
+\td\tMove right.\n\
+\tq\tAscend.\n\
+\te\tDescend.\n\
+\tr\tReturn to initial position.\n\
+\tEsc\tClose the window.\n\
 \n\
 Made by hshimizu.\n\
 github\t: https://github.com/Neko-Sato\n\
