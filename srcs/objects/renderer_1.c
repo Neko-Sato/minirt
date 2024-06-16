@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:32:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/14 11:57:33 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/16 13:49:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	destroy_window(t_renderer *self)
 //	mlx cannot handle changes to the screen ratio. Damn...
 static int	expose_hook(t_renderer *self)
 {
-	self->needs_rendring = 1;
+	self->iter = 0;
 	return (0);
 }
 

@@ -6,14 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:21:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:31:51 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/renderer.h"
 #include "rt_errno.h"
 #include "utils/ray.h"
-#include "rt2img.h"
 #include <math.h>
 #include <mlx.h>
 
@@ -31,7 +30,9 @@ int	renderer_init(t_renderer *self, t_renderer_init *args)
 			self->camera->height);
 	if (!self->img)
 		return (renderer_del(self), FAILED_ALLOCATE);
-	self->needs_rendring = 1;
+	self->max_iter = pow(ft_max(self->camera->height, self->camera->width), 2)
+		/ PIXEL_COUNT;
+	self->iter = 0;
 	self->camera->orientation = vec3d_norm(self->camera->orientation);
 	self->save_ray = (t_ray){self->camera->orientation,
 		self->camera->coordinates};
@@ -63,39 +64,4 @@ void	renderer_update_transform(t_renderer *self)
 	}};
 
 	self->transform = tmp;
-}
-
-static inline void	render(t_renderer *self, unsigned int *img)
-{
-	const float	d = ft_deg2rad(self->camera->fov / (float)self->camera->width);
-	int			i;
-	int			j;
-	t_vec3d		tmp;
-
-	i = -self->camera->height / 2;
-	while (i < self->camera->height / 2)
-	{
-		tmp = matrix3x3_mul_vec3d(matrix3x3_rotation_x(d * i), (t_vec3d){{0, 0,
-				1}});
-		j = -self->camera->width / 2;
-		while (j < self->camera->width / 2)
-		{
-			*img++ = rt2img_test(
-					&(t_ray){matrix3x3_mul_vec3d(self->transform,
-						matrix3x3_mul_vec3d(matrix3x3_rotation_y(d * j), tmp)),
-					self->camera->coordinates}).raw;
-			j++;
-		}
-		i++;
-	}
-}
-
-int	renderer_render(t_renderer *self)
-{
-	unsigned int	*img;
-
-	img = (void *)mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
-	render(self, img);
-	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
-	return (NO_ERROR);
 }

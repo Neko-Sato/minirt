@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/16 13:19:05 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/16 15:21:48 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS		:= \
 			renderer_1.c \
 			renderer_2.c \
 			renderer_3.c \
+			renderer_4.c \
 			ambient_0.c \
 			camera_0.c \
 			light_0.c \
@@ -69,7 +70,7 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1
+CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1 -D ALLOW_FOV_UNLIMITED=1
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
 LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lX11 -lXext

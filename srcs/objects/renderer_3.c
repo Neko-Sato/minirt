@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/14 11:56:58 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/16 15:00:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline void	move(t_renderer *self)
 		self->camera->coordinates = vec3d_add(self->camera->coordinates,
 				matrix3x3_mul_vec3d(self->transform, movement));
 		renderer_update_transform(self);
-		self->needs_rendring = 1;
+		self->iter = 0;
 	}
 }
 
@@ -57,7 +57,7 @@ static inline void	route_yaw(t_renderer *self)
 	self->camera->orientation = matrix3x3_mul_vec3d(rotation,
 			self->camera->orientation);
 	renderer_update_transform(self);
-	self->needs_rendring = 1;
+	self->iter = 0;
 }
 
 static inline void	route_pitch(t_renderer *self)
@@ -85,7 +85,7 @@ static inline void	route_pitch(t_renderer *self)
 		return ;
 	self->camera->orientation = tmp;
 	renderer_update_transform(self);
-	self->needs_rendring = 1;
+	self->iter = 0;
 }
 
 static inline void	action(t_renderer *self)
@@ -96,7 +96,7 @@ static inline void	action(t_renderer *self)
 		self->camera->orientation = self->save_ray.o;
 		self->camera->coordinates = self->save_ray.c;
 		renderer_update_transform(self);
-		self->needs_rendring = 1;
+		self->iter = 0;
 		return ;
 	}
 	move(self);
@@ -109,8 +109,7 @@ int	renderer_loop_hook(t_renderer *self)
 	if (!self->focus)
 		return (NO_ERROR);
 	action(self);
-	if (!self->needs_rendring)
+	if (self->max_iter <= self->iter)
 		return (NO_ERROR);
-	self->needs_rendring = 0;
 	return (renderer_render(self));
 }
