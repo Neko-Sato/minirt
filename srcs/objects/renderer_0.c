@@ -6,11 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 02:16:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 03:05:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/renderer.h"
+#include "rt2img.h"
 #include "rt_errno.h"
 #include "utils/ray.h"
 #include <math.h>
@@ -64,4 +65,48 @@ void	renderer_update_transform(t_renderer *self)
 	}};
 
 	self->transform = tmp;
+}
+
+static inline int	renderer_render_internal(t_renderer *self,
+		unsigned int *img)
+{
+	const float	d = ft_deg2rad(self->camera->fov / (float)self->camera->width);
+	int			i;
+	int			j;
+	t_vec3d		tmp;
+
+	i = self->iter;
+	while (i < self->camera->height)
+	{
+		tmp = matrix3x3_mul_vec3d(matrix3x3_rotation_x(d * (i
+						- self->camera->height / 2.)), (t_vec3d){{0, 0, 1}});
+		j = 0;
+		while (j < self->camera->width)
+		{
+			img[i * self->camera->width + j] = rt2img_test2(&(t_ray){
+					matrix3x3_mul_vec3d(self->transform,
+						matrix3x3_mul_vec3d(matrix3x3_rotation_y(d * (j
+									- self->camera->width / 2.)), tmp)),
+					self->camera->coordinates}).raw;
+			j++;
+		}
+		i += self->max_iter;
+	}
+	return (NO_ERROR);
+}
+
+int	renderer_render(t_renderer *self)
+{
+	int				ret;
+	unsigned int	*img;
+
+	img = (void *)mlx_get_data_addr(self->img, &(int){0}, &(int){0}, &(int){0});
+	if (!self->iter)
+		ft_bzero(img, sizeof(int [self->camera->width][self->camera->height]));
+	ret = renderer_render_internal(self, img);
+	if (ret)
+		return (ret);
+	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
+	self->iter++;
+	return (NO_ERROR);
 }

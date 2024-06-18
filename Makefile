@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/18 20:28:00 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/19 02:52:20 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS		:= \
 			renderer_1.c \
 			renderer_2.c \
 			renderer_3.c \
-			renderer_4.c \
 			ambient_0.c \
 			camera_0.c \
 			light_0.c \
@@ -67,7 +66,7 @@ SRCS		:= \
 		) \
 		main.c \
 		rt_errno.c \
-		rt2img.c \
+		rt2img_test.c \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
