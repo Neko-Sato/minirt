@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 18:06:35 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:53:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ rt-file format:\n\
 \tLight\t\tL <coordinates> <brightness> <color>\n\
 \n\
 \tSphere\t\tsp <coordinates> <diameter> <color>\n\
-\tPlane\t\tpl <coordinates> <normal> <color>\n\
+\tPlane\t\tpl <coordinates> <orientation> <color>\n\
 \tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
+\tTriangle\ttr <first> <second> <third> <color>\n\
+\tSqaure\t\tsq <coordinates> <orientation> <size> <color>\n\
 \n\
 key operation:\n\
 \tUp\tFace upwards.\n\

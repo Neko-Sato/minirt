@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:55:52 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:34:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-static inline int	take_sphere2(char **str, t_scene *scene, char *s,
+static inline int	parse_sphere2(char **str, t_scene *scene, char *s,
 						t_sphere *tmp);
 
-int	take_sphere(char **str, t_scene *scene)
+int	parse_sphere(char **str, t_scene *scene)
 {
 	int			ret;
 	char		*s;
@@ -31,30 +31,30 @@ int	take_sphere(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates);
+	ret = parse_vec3d(&s, &tmp->coordinates);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	ret = take_decimal(&s, &tmp->diameter, 1);
+	ret = parse_decimal(&s, &tmp->diameter, 1);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	return (take_sphere2(str, scene, s, tmp));
+	return (parse_sphere2(str, scene, s, tmp));
 }
 
-static inline int	take_sphere2(char **str, t_scene *scene, char *s,
+static inline int	parse_sphere2(char **str, t_scene *scene, char *s,
 		t_sphere *tmp)
 {
 	int	ret;
 
-	ret = take_color(&s, &((t_figure *)tmp)->color);
+	ret = parse_color(&s, &((t_figure *)tmp)->color);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
-	ret = take_optional(&s, (t_take_optional_fn)take_figure_optional, tmp);
+	ret = parse_optional(&s, (t_parse_optional_fn)parse_figure_optional, tmp);
 	if (ret)
 		return (sphere_del(tmp), free(tmp), ret);
 	ret = scene_add_figure(scene, (t_figure *)tmp);

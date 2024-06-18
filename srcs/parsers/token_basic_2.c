@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:49:06 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:16:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/vec3d.h"
 #include <libft.h>
 
-int	take_vec3d(char **str, t_vec3d *value)
+int	parse_vec3d(char **str, t_vec3d *value)
 {
 	int		ret;
 	char	*s;
@@ -26,7 +26,7 @@ int	take_vec3d(char **str, t_vec3d *value)
 	i = 0;
 	while (1)
 	{
-		ret = take_decimal(&s, &tmp, 0);
+		ret = parse_decimal(&s, &tmp, 0);
 		if (ret)
 			return (ret);
 		value->_[i++] = tmp;
@@ -39,7 +39,7 @@ int	take_vec3d(char **str, t_vec3d *value)
 	return (NO_ERROR);
 }
 
-int	take_color(char **str, t_color *value)
+int	parse_color(char **str, t_color *value)
 {
 	int		ret;
 	char	*s;
@@ -51,7 +51,7 @@ int	take_color(char **str, t_color *value)
 	i = 0;
 	while (1)
 	{
-		ret = take_integer(&s, &tmp, 1);
+		ret = parse_integer(&s, &tmp, 1);
 		if (ret)
 			return (ret);
 		if (255 < tmp)
@@ -66,13 +66,13 @@ int	take_color(char **str, t_color *value)
 	return (NO_ERROR);
 }
 
-int	take_rate(char **str, float *value)
+int	parse_rate(char **str, float *value)
 {
 	int		ret;
 	char	*s;
 
 	s = *str;
-	ret = take_decimal(&s, value, 1);
+	ret = parse_decimal(&s, value, 1);
 	if (ret)
 		return (ret);
 	if (1. < *value)
@@ -81,13 +81,13 @@ int	take_rate(char **str, float *value)
 	return (NO_ERROR);
 }
 
-int	take_norm_vec3d(char **str, t_vec3d *value)
+int	parse_norm_vec3d(char **str, t_vec3d *value)
 {
 	int		ret;
 	char	*s;
 
 	s = *str;
-	ret = take_vec3d(&s, value);
+	ret = parse_vec3d(&s, value);
 	if (ret)
 		return (ret);
 	if (value->_[0] < -1. || 1. < value->_[0] || value->_[1] < -1.

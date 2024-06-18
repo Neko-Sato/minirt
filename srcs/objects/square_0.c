@@ -1,52 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_0.c                                         :+:      :+:    :+:   */
+/*   square_0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:35:15 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/18 19:49:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/sphere.h"
 #include "objects/figure.h"
+#include "objects/square.h"
 #include "rt_errno.h"
+#include <math.h>
 #include <stdlib.h>
 
-int	sphere_init(t_sphere *self)
+int	square_init(t_square *self)
 {
 	static const t_figure_vtable	vtable = {
-		.del = (void *)sphere_del,
+		.del = (void *)square_del,
 	};
 	int								ret;
 
-	*self = (t_sphere){};
+	*self = (t_square){};
 	ret = figure_init((t_figure *)self);
 	if (ret)
-		return (ret);
+		return (-1);
 	((t_figure *)self)->_ = &vtable;
-	self->diameter = 1.;
+	self->orientation = (t_vec3d){{0, 1, 1}};
+	self->size = 10.;
 	return (NO_ERROR);
 }
 
-void	sphere_del(t_sphere *self)
+void	square_del(t_square *self)
 {
 	figure_del((t_figure *)self);
-}
-
-void	sphere_update_aabb(t_sphere *self)
-{
-	t_figure *const	figure = (t_figure *)self;
-	const float		r = self->diameter / 2.;
-
-	figure->aabb[0] = (t_vec3d){{
-		self->coordinates._[0] - r,
-		self->coordinates._[1] - r,
-		self->coordinates._[2] - r}};
-	figure->aabb[0] = (t_vec3d){{
-		self->coordinates._[0] + r,
-		self->coordinates._[1] + r,
-		self->coordinates._[2] + r}};
 }

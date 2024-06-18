@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:49:29 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:46:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #  define ALLOW_FOV_UNLIMITED 0
 # endif
 
-typedef int	(*t_take_optional_fn)(char **str, void *value);
+typedef int	(*t_parse_optional_fn)(char **str, void *value);
 
 # define IDENTIFIER_NUM 6
 
@@ -38,32 +38,36 @@ typedef enum e_identifier
 	identifier_sp,
 	identifier_pl,
 	identifier_cy,
+	identifier_tr,
+	identifier_sq,
 }			t_identifier;
 
-int			take_blank(char **str);
-int			take_identifier(char **str, t_identifier *value);
-int			take_integer(char **str, int *value, int unsign);
-int			take_decimal(char **str, float *value, int unsign);
-int			take_string(char **str, char **value);
+int			parse_blank(char **str);
+int			parse_identifier(char **str, t_identifier *value);
+int			parse_integer(char **str, int *value, int unsign);
+int			parse_decimal(char **str, float *value, int unsign);
+int			parse_string(char **str, char **value);
 
-int			take_vec3d(char **str, t_vec3d *value);
-int			take_color(char **str, t_color *value);
-int			take_rate(char **str, float *value);
-int			take_norm_vec3d(char **str, t_vec3d *value);
-int			take_text(char **str, char *buf, size_t buf_size);
+int			parse_vec3d(char **str, t_vec3d *value);
+int			parse_color(char **str, t_color *value);
+int			parse_rate(char **str, float *value);
+int			parse_norm_vec3d(char **str, t_vec3d *value);
+int			parse_text(char **str, char *buf, size_t buf_size);
 
-int			take_line(char **str, t_scene *scene);
-int			take_eol(char **str);
-int			take_object(char **str, t_scene *scene);
-int			take_optional(char **str, t_take_optional_fn fun, void *value);
-int			take_figure_optional(char **str, t_figure *value);
-int			take_camera_optional(char **str, t_camera *value);
+int			parse_line(char **str, t_scene *scene);
+int			parse_eol(char **str);
+int			parse_object(char **str, t_scene *scene);
+int			parse_optional(char **str, t_parse_optional_fn fun, void *value);
+int			parse_figure_optional(char **str, t_figure *value);
+int			parse_camera_optional(char **str, t_camera *value);
 
-int			take_ambient(char **str, t_scene *scene);
-int			take_camera(char **str, t_scene *scene);
-int			take_light(char **str, t_scene *scene);
-int			take_sphere(char **str, t_scene *scene);
-int			take_plane(char **str, t_scene *scene);
-int			take_cylinder(char **str, t_scene *scene);
+int			parse_ambient(char **str, t_scene *scene);
+int			parse_camera(char **str, t_scene *scene);
+int			parse_light(char **str, t_scene *scene);
+int			parse_sphere(char **str, t_scene *scene);
+int			parse_plane(char **str, t_scene *scene);
+int			parse_cylinder(char **str, t_scene *scene);
+int			parse_sqaure(char **str, t_scene *scene);
+int			parse_triangle(char **str, t_scene *scene);
 
 #endif

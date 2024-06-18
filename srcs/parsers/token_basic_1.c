@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:49:57 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:16:41 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <libft.h>
 #include <stddef.h>
 
-static int	take_string_internal(char **str, t_strgen *strgen);
+static int	parse_string_internal(char **str, t_strgen *strgen);
 
-int	take_string(char **str, char **value)
+int	parse_string(char **str, char **value)
 {
 	int			ret;
 	t_strgen	*strgen;
@@ -24,7 +24,7 @@ int	take_string(char **str, char **value)
 	strgen = ft_strgennew(STRGEN_BUUFERSIZE);
 	if (!strgen)
 		return (FAILED_ALLOCATE);
-	ret = take_string_internal(str, strgen);
+	ret = parse_string_internal(str, strgen);
 	if (!ret)
 	{
 		*value = ft_strgencomp(strgen);
@@ -35,7 +35,7 @@ int	take_string(char **str, char **value)
 	return (ret);
 }
 
-static int	take_string_internal(char **str, t_strgen *strgen)
+static int	parse_string_internal(char **str, t_strgen *strgen)
 {
 	char	*s;
 
@@ -56,7 +56,7 @@ static int	take_string_internal(char **str, t_strgen *strgen)
 	return (NO_ERROR);
 }
 
-int	take_text(char **str, char *buf, size_t buf_size)
+int	parse_text(char **str, char *buf, size_t buf_size)
 {
 	size_t	len;
 	char	*s;

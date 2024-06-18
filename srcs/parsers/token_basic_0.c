@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 16:24:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:16:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <math.h>
 #include <stddef.h>
 
-int	take_blank(char **str)
+int	parse_blank(char **str)
 {
 	char	*s;
 
@@ -30,7 +30,7 @@ int	take_blank(char **str)
 	return (NO_ERROR);
 }
 
-int	take_identifier(char **str, t_identifier *value)
+int	parse_identifier(char **str, t_identifier *value)
 {
 	static const char *const	identifiers[] = {
 		"A", "C", "L", "sp", "pl", "cy"};
@@ -40,7 +40,7 @@ int	take_identifier(char **str, t_identifier *value)
 	int							i;
 
 	s = *str;
-	ret = take_text(&s, buf, 5);
+	ret = parse_text(&s, buf, 5);
 	if (ret)
 		return (ret);
 	i = 0;
@@ -53,7 +53,7 @@ int	take_identifier(char **str, t_identifier *value)
 	return (NO_ERROR);
 }
 
-int	take_integer(char **str, int *value, int unsign)
+int	parse_integer(char **str, int *value, int unsign)
 {
 	long	tmp;
 	char	*endptr;
@@ -70,7 +70,7 @@ int	take_integer(char **str, int *value, int unsign)
 	return (NO_ERROR);
 }
 
-int	take_decimal(char **str, float *value, int unsign)
+int	parse_decimal(char **str, float *value, int unsign)
 {
 	double	tmp;
 	char	*endptr;

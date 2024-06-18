@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:21:28 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:49:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:20:55 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-int	take_ambient(char **str, t_scene *scene)
+int	parse_ambient(char **str, t_scene *scene)
 {
 	int			ret;
 	char		*s;
@@ -28,13 +28,13 @@ int	take_ambient(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_rate(&s, &tmp->ratio);
+	ret = parse_rate(&s, &tmp->ratio);
 	if (ret)
 		return (ambient_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (ambient_del(tmp), free(tmp), ret);
-	ret = take_color(&s, &tmp->color);
+	ret = parse_color(&s, &tmp->color);
 	if (ret)
 		return (ambient_del(tmp), free(tmp), ret);
 	ret = scene_add_ambient(scene, tmp);

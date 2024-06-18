@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 11:30:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:53:19 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,22 @@ typedef struct s_figure		t_figure;
 typedef struct s_figure_vtable
 {
 	void					(*del)(t_figure *self);
+	void					(*update_aabb)(t_figure *self);
 }							t_figure_vtable;
 
 typedef struct s_figure
 {
 	const t_figure_vtable	*_;
-	t_vec3d					coordinates;
 	t_color					color;
 	float					reflectivity;
 	t_color					checker;
 	void					*bump;
+	t_vec3d					aabb[2];
 }							t_figure;
 
 int							figure_init(t_figure *self);
 void						figure_del(t_figure *self);
+
+// void						figure_update_aabb(t_figure *self);
 
 #endif

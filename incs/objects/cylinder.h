@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:26:08 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:28:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:53:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct s_cylinder
 {
 	t_figure	__parent;
+	t_vec3d		coordinates;
 	t_vec3d		axis;
 	float		diameter;
 	float		height;

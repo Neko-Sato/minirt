@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/05 04:24:56 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:34:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 #include "rt_errno.h"
 #include <libft.h>
 
-int	take_line(char **str, t_scene *scene)
+int	parse_line(char **str, t_scene *scene)
 {
 	int		ret;
 	char	*s;
 
 	s = *str;
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
 		return (ret);
-	ret = take_eol(&s);
+	ret = parse_eol(&s);
 	if (ret == INCORRECT_FORMAT)
 	{
-		ret = take_object(&s, scene);
+		ret = parse_object(&s, scene);
 		if (ret)
 			return (ret);
-		ret = take_blank(&s);
+		ret = parse_blank(&s);
 		if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
 			return (ret);
-		ret = take_eol(&s);
+		ret = parse_eol(&s);
 	}
 	if (ret)
 		return (ret);
@@ -40,20 +40,20 @@ int	take_line(char **str, t_scene *scene)
 	return (ret);
 }
 
-int	take_object(char **str, t_scene *scene)
+int	parse_object(char **str, t_scene *scene)
 {
 	static int (*const	parsers[])(char **, t_scene *) = {
-		take_ambient, take_camera, take_light,
-		take_sphere, take_plane, take_cylinder};
+		parse_ambient, parse_camera, parse_light,
+		parse_sphere, parse_plane, parse_cylinder};
 	int					ret;
 	char				*s;
 	t_identifier		identifier;
 
 	s = *str;
-	ret = take_identifier(&s, &identifier);
+	ret = parse_identifier(&s, &identifier);
 	if (ret)
 		return (ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (ret);
 	ret = (parsers[identifier])(&s, scene);
@@ -63,7 +63,7 @@ int	take_object(char **str, t_scene *scene)
 	return (NO_ERROR);
 }
 
-int	take_eol(char **str)
+int	parse_eol(char **str)
 {
 	char	*s;
 

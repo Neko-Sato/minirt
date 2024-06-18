@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:51:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:16:53 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include "utils/vec3d.h"
 #include <stdlib.h>
 
-static inline int	take_camera2(char **str, t_scene *scene, char *s,
+static inline int	parse_camera2(char **str, t_scene *scene, char *s,
 						t_camera *tmp);
 
-int	take_camera(char **str, t_scene *scene)
+int	parse_camera(char **str, t_scene *scene)
 {
 	int			ret;
 	char		*s;
@@ -32,34 +32,34 @@ int	take_camera(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &tmp->coordinates);
+	ret = parse_vec3d(&s, &tmp->coordinates);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
-	return (take_camera2(str, scene, s, tmp));
+	return (parse_camera2(str, scene, s, tmp));
 }
 
-static inline int	take_camera2(char **str, t_scene *scene, char *s,
+static inline int	parse_camera2(char **str, t_scene *scene, char *s,
 		t_camera *tmp)
 {
-	int		ret;
+	int	ret;
 
-	ret = take_vec3d(&s, &tmp->orientation);
+	ret = parse_vec3d(&s, &tmp->orientation);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
 	if (!tmp->orientation._[0] && !tmp->orientation._[2])
 		return (camera_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
-	ret = take_integer(&s, &tmp->fov, 1);
+	ret = parse_integer(&s, &tmp->fov, 1);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
 	if (!ALLOW_FOV_UNLIMITED && tmp->fov > 180)
 		return (camera_del(tmp), free(tmp), OUT_OF_RANGE);
-	ret = take_optional(&s, (t_take_optional_fn)take_camera_optional, tmp);
+	ret = parse_optional(&s, (t_parse_optional_fn)parse_camera_optional, tmp);
 	if (ret)
 		return (camera_del(tmp), free(tmp), ret);
 	ret = scene_add_camera(scene, tmp);

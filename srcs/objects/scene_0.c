@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:37:04 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:34:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	scene_load(t_scene *self, char *filename)
 	while (ft_getline(&line, &size, f) > 0)
 	{
 		s = line;
-		ret = take_line(&s, self);
+		ret = parse_line(&s, self);
 		if (ret)
 			break ;
 	}

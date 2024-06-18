@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/16 15:21:48 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/18 19:50:36 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,9 @@ SRCS		:= \
 			light_0.c \
 			figure_0.c \
 			sphere_0.c \
-			plane_0.c \
 			cylinder_0.c \
+			square_0.c \
+			triangle_0.c \
 		) \
 		$(addprefix parsers/, \
 			token_basic_0.c \
@@ -54,6 +55,8 @@ SRCS		:= \
 			token_sphere.c \
 			token_plane.c \
 			token_cylinder.c \
+			token_square.c \
+			token_triangle.c \
 		) \
 		$(addprefix utils/, \
 			vec3d_operator.c \
@@ -116,7 +119,7 @@ norm-upgrade:
 .PHONY: $(FT)
 $(FT):
 	@git submodule update --init $@
-	@$(MAKE) -C $@
+	@$(MAKE) -C $@ libft.a
 
 .PHONY: $(MLX)
 $(MLX):

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_plane.c                                      :+:      :+:    :+:   */
+/*   token_square.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:49:55 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:47:53 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-static inline int	parse_plane2(char **str, t_scene *scene, char *s,
+static inline int	parse_square2(char **str, t_scene *scene, char *s,
 						t_square *tmp);
 
-int	parse_plane(char **str, t_scene *scene)
+int	parse_square(char **str, t_scene *scene)
 {
 	int			ret;
 	char		*s;
@@ -44,10 +44,10 @@ int	parse_plane(char **str, t_scene *scene)
 	if (!tmp->orientation._[0] && !tmp->orientation._[1]
 		&& !tmp->orientation._[2])
 		return (square_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
-	return (parse_plane2(str, scene, s, tmp));
+	return (parse_square2(str, scene, s, tmp));
 }
 
-static inline int	parse_plane2(char **str, t_scene *scene, char *s,
+static inline int	parse_square2(char **str, t_scene *scene, char *s,
 		t_square *tmp)
 {
 	int	ret;
@@ -55,7 +55,12 @@ static inline int	parse_plane2(char **str, t_scene *scene, char *s,
 	ret = parse_blank(&s);
 	if (ret)
 		return (square_del(tmp), free(tmp), ret);
-	tmp->size = INFINITY;
+	ret = parse_decimal(&s, &tmp->size, 1);
+	if (ret)
+		return (square_del(tmp), free(tmp), ret);
+	ret = parse_blank(&s);
+	if (ret)
+		return (square_del(tmp), free(tmp), ret);
 	ret = parse_color(&s, &((t_figure *)tmp)->color);
 	if (ret)
 		return (square_del(tmp), free(tmp), ret);

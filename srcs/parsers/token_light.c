@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:19:40 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:52:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:18:18 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-static inline int	take_light2(char **str, t_scene *scene, char *s,
+static inline int	parse_light2(char **str, t_scene *scene, char *s,
 						t_light *tmp);
 
-int	take_light(char **str, t_scene *scene)
+int	parse_light(char **str, t_scene *scene)
 {
 	int		ret;
 	char	*s;
@@ -31,27 +31,27 @@ int	take_light(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &tmp->coordinates);
+	ret = parse_vec3d(&s, &tmp->coordinates);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
-	ret = take_rate(&s, &tmp->brightness);
+	ret = parse_rate(&s, &tmp->brightness);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
-	return (take_light2(str, scene, s, tmp));
+	return (parse_light2(str, scene, s, tmp));
 }
 
-static inline int	take_light2(char **str, t_scene *scene, char *s,
+static inline int	parse_light2(char **str, t_scene *scene, char *s,
 		t_light *tmp)
 {
 	int	ret;
 
-	ret = take_color(&s, &tmp->color);
+	ret = parse_color(&s, &tmp->color);
 	if (ret)
 		return (light_del(tmp), free(tmp), ret);
 	ret = scene_add_light(scene, tmp);

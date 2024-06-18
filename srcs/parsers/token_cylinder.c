@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/15 15:55:35 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:17:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-static inline int	take_cylinder2(char **str, t_scene *scene, char *s,
+static inline int	parse_cylinder2(char **str, t_scene *scene, char *s,
 						t_cylinder *tmp);
 
-int	take_cylinder(char **str, t_scene *scene)
+int	parse_cylinder(char **str, t_scene *scene)
 {
 	int			ret;
 	char		*s;
@@ -31,36 +31,38 @@ int	take_cylinder(char **str, t_scene *scene)
 	if (ret)
 		return (free(tmp), ret);
 	s = *str;
-	ret = take_vec3d(&s, &((t_figure *)tmp)->coordinates);
+	ret = parse_vec3d(&s, &tmp->coordinates);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_blank(&s);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_norm_vec3d(&s, &tmp->axis);
+	ret = parse_norm_vec3d(&s, &tmp->axis);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
-	if (ret)
-		return (cylinder_del(tmp), free(tmp), ret);
-	return (take_cylinder2(str, scene, s, tmp));
+	if (!tmp->axis._[0] && !tmp->axis._[1] && !tmp->axis._[2])
+		return (cylinder_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
+	return (parse_cylinder2(str, scene, s, tmp));
 }
 
-static inline int	take_cylinder2(char **str, t_scene *scene, char *s,
+static inline int	parse_cylinder2(char **str, t_scene *scene, char *s,
 		t_cylinder *tmp)
 {
 	int	ret;
 
-	ret = take_decimal(&s, &tmp->diameter, 1);
+	ret = parse_blank(&s);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_blank(&s);
+	ret = parse_decimal(&s, &tmp->diameter, 1);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_decimal(&s, &tmp->height, 1);
+	ret = parse_blank(&s);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	ret = take_optional(&s, (t_take_optional_fn)take_figure_optional, tmp);
+	ret = parse_decimal(&s, &tmp->height, 1);
+	if (ret)
+		return (cylinder_del(tmp), free(tmp), ret);
+	ret = parse_optional(&s, (t_parse_optional_fn)parse_figure_optional, tmp);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = scene_add_figure(scene, (t_figure *)tmp);

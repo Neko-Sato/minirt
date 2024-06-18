@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane_0.c                                          :+:      :+:    :+:   */
+/*   triangle_0.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:36:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:51:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/plane.h"
 #include "objects/figure.h"
+#include "objects/triangle.h"
 #include "rt_errno.h"
+#include <math.h>
 #include <stdlib.h>
 
-int	plane_init(t_plane *self)
+int	triangle_init(t_triangle *self)
 {
 	static const t_figure_vtable	vtable = {
-		.del = (void *)plane_del,
+		.del = (void *)triangle_del,
 	};
 	int								ret;
 
-	*self = (t_plane){};
+	*self = (t_triangle){};
 	ret = figure_init((t_figure *)self);
 	if (ret)
 		return (-1);
 	((t_figure *)self)->_ = &vtable;
-	self->normal = (t_vec3d){{0, 1, 1}};
+	self->first = (t_vec3d){{0, 1, 0}};
+	self->second = (t_vec3d){{-1, 0, 0}};
+	self->third = (t_vec3d){{1, 0, 0}};
 	return (NO_ERROR);
 }
 
-void	plane_del(t_plane *self)
+void	triangle_del(t_triangle *self)
 {
 	figure_del((t_figure *)self);
 }
