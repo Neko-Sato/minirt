@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:35:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:10:53 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void	sphere_del(t_sphere *self)
 	figure_del((t_figure *)self);
 }
 
+/*
+	Nothing else is this easy.
+*/
 void	sphere_update_aabb(t_sphere *self)
 {
 	t_figure *const	figure = (t_figure *)self;
@@ -45,7 +48,7 @@ void	sphere_update_aabb(t_sphere *self)
 		self->coordinates._[0] - r,
 		self->coordinates._[1] - r,
 		self->coordinates._[2] - r}};
-	figure->aabb[0] = (t_vec3d){{
+	figure->aabb[1] = (t_vec3d){{
 		self->coordinates._[0] + r,
 		self->coordinates._[1] + r,
 		self->coordinates._[2] + r}};

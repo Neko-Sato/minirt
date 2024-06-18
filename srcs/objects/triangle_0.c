@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:51:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:30:28 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,13 @@ int	triangle_init(t_triangle *self)
 void	triangle_del(t_triangle *self)
 {
 	figure_del((t_figure *)self);
+}
+
+/*
+	For triangles,
+	there must have been a better algorithm using the outer product.
+*/
+void	triangle_update_aabb(t_triangle *self)
+{
+	(void)self;
 }

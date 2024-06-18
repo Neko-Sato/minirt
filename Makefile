@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/18 19:50:36 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/18 20:28:00 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS		:= \
 			light_0.c \
 			figure_0.c \
 			sphere_0.c \
+			plane_0.c \
 			cylinder_0.c \
 			square_0.c \
 			triangle_0.c \

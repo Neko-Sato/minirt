@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:34:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 01:54:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	parse_object(char **str, t_scene *scene)
 {
 	static int (*const	parsers[])(char **, t_scene *) = {
 		parse_ambient, parse_camera, parse_light,
-		parse_sphere, parse_plane, parse_cylinder};
+		parse_sphere, parse_plane, parse_cylinder,
+		parse_square, parse_triangle};
 	int					ret;
 	char				*s;
 	t_identifier		identifier;

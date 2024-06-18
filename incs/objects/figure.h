@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 18:53:19 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:11:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct s_figure		t_figure;
 	when checking intersections.
 	Rather than mucking around with trigonometric functions
 	every time....
+	I still let them have AABB.
+	aabb[0] is the lower left front
+	aabb[1] is at the upper right back.
 */
 
 typedef struct s_figure_vtable

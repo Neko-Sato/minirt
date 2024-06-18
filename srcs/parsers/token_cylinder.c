@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:17:59 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:06:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "parser.h"
 #include "rt_errno.h"
 #include <stdlib.h>
+
+/*
+	This is not by having infinite size,
+	unlike plane. It is just that it is always point symmetric,
+*/
 
 static inline int	parse_cylinder2(char **str, t_scene *scene, char *s,
 						t_cylinder *tmp);
@@ -40,8 +45,6 @@ int	parse_cylinder(char **str, t_scene *scene)
 	ret = parse_norm_vec3d(&s, &tmp->axis);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
-	if (!tmp->axis._[0] && !tmp->axis._[1] && !tmp->axis._[2])
-		return (cylinder_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
 	return (parse_cylinder2(str, scene, s, tmp));
 }
 

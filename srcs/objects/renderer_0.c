@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 14:31:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:41:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	renderer_del(t_renderer *self)
 void	renderer_update_transform(t_renderer *self)
 {
 	const t_vec3d		f = vec3d_norm(self->camera->orientation);
-	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
-	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
+	const t_vec3d		r = vec3d_cross((t_vec3d){{0, 1, 0}}, f);
+	const t_vec3d		u = vec3d_cross(f, r);
 	const t_matrix3x3	tmp = {{
 	{r._[0], u._[0], f._[0]},
 	{r._[1], u._[1], f._[1]},

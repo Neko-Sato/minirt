@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:16:33 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 01:54:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	parse_blank(char **str)
 int	parse_identifier(char **str, t_identifier *value)
 {
 	static const char *const	identifiers[] = {
-		"A", "C", "L", "sp", "pl", "cy"};
+		"A", "C", "L", "sp", "pl", "cy", "sq", "tr"};
 	int							ret;
 	char						*s;
 	char						buf[5];

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:46:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 01:55:53 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 typedef int	(*t_parse_optional_fn)(char **str, void *value);
 
-# define IDENTIFIER_NUM 6
+# define IDENTIFIER_NUM 8
 
 typedef enum e_identifier
 {
@@ -38,8 +38,8 @@ typedef enum e_identifier
 	identifier_sp,
 	identifier_pl,
 	identifier_cy,
-	identifier_tr,
 	identifier_sq,
+	identifier_tr,
 }			t_identifier;
 
 int			parse_blank(char **str);
@@ -67,7 +67,7 @@ int			parse_light(char **str, t_scene *scene);
 int			parse_sphere(char **str, t_scene *scene);
 int			parse_plane(char **str, t_scene *scene);
 int			parse_cylinder(char **str, t_scene *scene);
-int			parse_sqaure(char **str, t_scene *scene);
+int			parse_square(char **str, t_scene *scene);
 int			parse_triangle(char **str, t_scene *scene);
 
 #endif
