@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 15:25:46 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 02:21:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
 # define RENDERER_H
 
-# define PIXEL_COUNT 40000
+# define PIXEL_COUNT 100000
 # define MAX_DEPTH 5
 # define MOVE_UNIT 1
 # define ROTATE_UNIT 0.08726646259971647
