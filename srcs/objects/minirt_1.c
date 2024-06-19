@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 04:30:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:36:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	minirt_add_scene(t_minirt *self, t_scene *scene)
 	if (ft_xlstappend(&self->scenes, &scene, sizeof(scene)))
 		return (del_renderers(&renderers), FAILED_ALLOCATE);
 	ft_xlstcat(&self->renderers, &renderers);
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 static inline int	add_renderers(t_minirt *self, t_xlst **renderers,
@@ -67,7 +67,7 @@ static inline int	add_renderers(t_minirt *self, t_xlst **renderers,
 			return (renderer_del(renderer), free(renderer), FAILED_ALLOCATE);
 		tmp = tmp->next;
 	}
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 static inline void	del_renderers(t_xlst **renderers)

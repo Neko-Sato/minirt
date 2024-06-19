@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 20:30:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	triangle_init(t_triangle *self)
 	self->first = (t_vec3d){{0, 1, 0}};
 	self->second = (t_vec3d){{-1, 0, 0}};
 	self->third = (t_vec3d){{1, 0, 0}};
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 void	triangle_del(t_triangle *self)

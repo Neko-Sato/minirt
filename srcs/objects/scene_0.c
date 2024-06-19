@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:34:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	scene_init(t_scene *self, char *title)
 {
 	*self = (t_scene){};
 	ft_strlcpy(self->title, title, sizeof(self->title));
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 void	scene_del(t_scene *self)
@@ -62,6 +62,6 @@ int	scene_load(t_scene *self, char *filename)
 	if (ft_ferror(f))
 		return (ft_fclose(f), FAILED_READ);
 	if (ft_feof(f))
-		return (ft_fclose(f), NO_ERROR);
+		return (ft_fclose(f), SUCCESS);
 	return (ft_fclose(f), FAILED_ALLOCATE);
 }

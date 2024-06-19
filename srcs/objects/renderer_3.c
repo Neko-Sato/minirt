@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 15:00:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ static inline void	action(t_renderer *self)
 int	renderer_loop_hook(t_renderer *self)
 {
 	if (!self->focus)
-		return (NO_ERROR);
+		return (SUCCESS);
 	action(self);
 	if (self->max_iter <= self->iter)
-		return (NO_ERROR);
+		return (SUCCESS);
 	return (renderer_render(self));
 }

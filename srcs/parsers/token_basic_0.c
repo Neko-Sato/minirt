@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 01:54:47 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse_blank(char **str)
 	if (*str == s)
 		return (INCORRECT_FORMAT);
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_identifier(char **str, t_identifier *value)
@@ -50,7 +50,7 @@ int	parse_identifier(char **str, t_identifier *value)
 		return (UNKNOW_IDENTIFIER);
 	*value = i;
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_integer(char **str, int *value, int unsign)
@@ -67,7 +67,7 @@ int	parse_integer(char **str, int *value, int unsign)
 		return (OUT_OF_RANGE);
 	*value = tmp;
 	*str = endptr;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_decimal(char **str, float *value, int unsign)
@@ -93,5 +93,5 @@ int	parse_decimal(char **str, float *value, int unsign)
 	if ((unsign && *value < 0) || isnan(*value))
 		return (OUT_OF_RANGE);
 	*str = endptr;
-	return (NO_ERROR);
+	return (SUCCESS);
 }

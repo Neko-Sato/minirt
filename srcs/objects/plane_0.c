@@ -30,7 +30,7 @@ int	plane_init(t_plane *self)
 		return (-1);
 	((t_figure *)self)->_ = &vtable;
 	self->orientation = (t_vec3d){{0, 1, 1}};
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 void	plane_del(t_plane *self)

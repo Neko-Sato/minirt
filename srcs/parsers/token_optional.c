@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 04:19:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:18:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse_optional(char **str, t_parse_optional_fn fun, void *value)
 			return (ret);
 		*str = s;
 	}
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_figure_optional(char **str, t_figure *value)
@@ -62,7 +62,7 @@ int	parse_figure_optional(char **str, t_figure *value)
 	if (ret)
 		return (ret);
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_camera_optional(char **str, t_camera *value)

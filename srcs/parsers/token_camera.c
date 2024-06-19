@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:16:53 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ static inline int	parse_camera2(char **str, t_scene *scene, char *s,
 	if (ret)
 		return (camera_del(tmp), free(tmp), FAILED_ALLOCATE);
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }

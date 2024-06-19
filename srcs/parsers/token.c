@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 01:54:21 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	parse_line(char **str, t_scene *scene)
 
 	s = *str;
 	ret = parse_blank(&s);
-	if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
+	if (ret != SUCCESS && ret != INCORRECT_FORMAT)
 		return (ret);
 	ret = parse_eol(&s);
 	if (ret == INCORRECT_FORMAT)
@@ -30,7 +30,7 @@ int	parse_line(char **str, t_scene *scene)
 		if (ret)
 			return (ret);
 		ret = parse_blank(&s);
-		if (ret != NO_ERROR && ret != INCORRECT_FORMAT)
+		if (ret != SUCCESS && ret != INCORRECT_FORMAT)
 			return (ret);
 		ret = parse_eol(&s);
 	}
@@ -61,7 +61,7 @@ int	parse_object(char **str, t_scene *scene)
 	if (ret)
 		return (ret);
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_eol(char **str)
@@ -74,5 +74,5 @@ int	parse_eol(char **str)
 	while (*s)
 		s++;
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }

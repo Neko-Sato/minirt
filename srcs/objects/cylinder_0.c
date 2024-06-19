@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 02:17:14 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	cylinder_init(t_cylinder *self)
 	self->axis = (t_vec3d){{0, 1, 0}};
 	self->diameter = 5.;
 	self->height = 10.;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 void	cylinder_del(t_cylinder *self)

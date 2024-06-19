@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:16:41 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	parse_string_internal(char **str, t_strgen *strgen)
 	if (*s++ != '\"')
 		return (INCORRECT_FORMAT);
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	parse_text(char **str, char *buf, size_t buf_size)
@@ -73,5 +73,5 @@ int	parse_text(char **str, char *buf, size_t buf_size)
 	ft_strncpy(buf, *str, len);
 	buf[len] = '\0';
 	*str = s;
-	return (NO_ERROR);
+	return (SUCCESS);
 }

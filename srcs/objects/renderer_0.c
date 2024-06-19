@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 03:05:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	renderer_init(t_renderer *self, t_renderer_init *args)
 	renderer_set_hook2(self);
 	mlx_string_put(self->mlx, self->win, self->camera->width / 2,
 		self->camera->height / 2, 0xFFFFFF, "now rendering...");
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 void	renderer_del(t_renderer *self)
@@ -92,7 +92,7 @@ static inline int	renderer_render_internal(t_renderer *self,
 		}
 		i += self->max_iter;
 	}
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 int	renderer_render(t_renderer *self)
@@ -108,5 +108,5 @@ int	renderer_render(t_renderer *self)
 		return (ret);
 	mlx_put_image_to_window(self->mlx, self->win, self->img, 0, 0);
 	self->iter++;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
