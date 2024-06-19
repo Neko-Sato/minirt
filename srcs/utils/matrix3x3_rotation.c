@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:58:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/09 18:13:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:06:25 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_matrix3x3	matrix3x3_rotation_x(float n)
 {
 	const t_matrix3x3	tmp = {{
 	{1, 0, 0},
-	{0, cosf(n), -sinf(n)},
-	{0, sinf(n), cosf(n)}
+	{0, cos(n), -sin(n)},
+	{0, sin(n), cos(n)}
 	}};
 
 	return (tmp);
@@ -27,9 +27,9 @@ t_matrix3x3	matrix3x3_rotation_x(float n)
 t_matrix3x3	matrix3x3_rotation_y(float n)
 {
 	const t_matrix3x3	tmp = {{
-	{cosf(n), 0, sinf(n)},
+	{cos(n), 0, sin(n)},
 	{0, 1, 0},
-	{-sinf(n), 0, cosf(n)}
+	{-sin(n), 0, cos(n)}
 	}};
 
 	return (tmp);
@@ -38,8 +38,8 @@ t_matrix3x3	matrix3x3_rotation_y(float n)
 t_matrix3x3	matrix3x3_rotation_z(float n)
 {
 	const t_matrix3x3	tmp = {{
-	{cosf(n), -sinf(n), 0},
-	{sinf(n), cosf(n), 0},
+	{cos(n), -sin(n), 0},
+	{sin(n), cos(n), 0},
 	{0, 0, 1}
 	}};
 
@@ -48,9 +48,9 @@ t_matrix3x3	matrix3x3_rotation_z(float n)
 
 t_matrix3x3	matrix3x3_rotation_axis(float n, t_vec3d axis)
 {
-	const float			cos_n = cosf(n);
+	const float			cos_n = cos(n);
 	const float			_cos_n = 1 - cos_n;
-	const float			sin_n = sinf(n);
+	const float			sin_n = sin(n);
 	const t_matrix3x3	tmp = {{
 	{
 		cos_n + axis._[0] * axis._[0] * _cos_n,

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:05:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	cylinder_update_aabb(t_cylinder *self)
 	const t_vec3d	r1 = vec3d_mul(self->diameter / 2., r);
 
 	figure->aabb[0] = (t_vec3d){{
-		self->coordinates._[0] - fabsf(r1._[0]) - fabsf(u1._[0]),
-		self->coordinates._[1] - fabsf(r1._[1]) - fabsf(u1._[1]),
-		self->coordinates._[2] - fabsf(r1._[2]) - fabsf(u1._[2])}};
+		self->coordinates._[0] - fabs(r1._[0]) - fabs(u1._[0]),
+		self->coordinates._[1] - fabs(r1._[1]) - fabs(u1._[1]),
+		self->coordinates._[2] - fabs(r1._[2]) - fabs(u1._[2])}};
 	figure->aabb[1] = (t_vec3d){{
-		self->coordinates._[0] + fabsf(r1._[0]) + fabsf(u1._[0]),
-		self->coordinates._[1] + fabsf(r1._[1]) + fabsf(u1._[1]),
-		self->coordinates._[2] + fabsf(r1._[2]) + fabsf(u1._[2])}};
+		self->coordinates._[0] + fabs(r1._[0]) + fabs(u1._[0]),
+		self->coordinates._[1] + fabs(r1._[1]) + fabs(u1._[1]),
+		self->coordinates._[2] + fabs(r1._[2]) + fabs(u1._[2])}};
 }

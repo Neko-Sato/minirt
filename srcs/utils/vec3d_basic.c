@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3d2_1.c                                         :+:      :+:    :+:   */
+/*   vec3d_basic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:05:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/12 12:38:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:03:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec3d	vec3d_cross(t_vec3d a, t_vec3d b)
 
 float	vec3d_abs(t_vec3d vec)
 {
-	return (sqrtf(powl(vec._[0], 2) + powf(vec._[1], 2) + powf(vec._[2], 2)));
+	return (sqrt(pow(vec._[0], 2) + pow(vec._[1], 2) + pow(vec._[2], 2)));
 }
 
 t_vec3d	vec3d_norm(t_vec3d vec)
