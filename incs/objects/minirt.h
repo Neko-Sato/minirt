@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/21 23:43:40 by hshimizu         ###   ########.fr       */
-/*                                                                            */
+/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t*/
+/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t:::\t  ::::::::*/
+/*minirt.h\t\t\t\t\t\t\t\t\t\t:+:\t  :+:\t:+:*/
+/*\t\t\t\t\t\t\t\t\t\t\t\t\t+:+ +:+\t\t +:+\t */
+/*By: hshimizu <hshimizu@student.42.fr>\t\t  +#+  +:+\t+#+\t\t*/
+/*\t\t\t\t\t\t\t\t\t\t\t\t+#+#+#+#+#++#+\t\t*/
+/*Created: 2024/06/02 03:12:12 by hshimizu\t\t  #+#\t#+#\t\t\t */
+/*Updated: 2024/06/21 23:43:40 by hshimizu\t\t ###########.fr\t*/
+/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t*/
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
@@ -37,18 +37,22 @@ rt-file format:\n\
 \tSqaure\t\tsq <coordinates> <orientation> <size> <color>\n\
 \n\
 key operation:\n\
-\tUp\tFace upwards.\n\
-\tDown\tFace downwards.\n\
-\tLeft\tFace left.\n\
-\tRight\tFace right.\n\
-\tw\tMove forward.\n\
-\tx\tMove backward.\n\
-\ta\tMove left.\n\
-\td\tMove right.\n\
-\tq\tAscend.\n\
-\te\tDescend.\n\
+\tUp\tMove forward.\n\
+\tDown\tMove backward.\n\
+\tLeft\tMove left.\n\
+\tRight\tMove right.\n\
+\tz\tMove down.\n\
+\tc\tMove up.\n\
+\te\tRoll up.\n\
+\tq\tRoll down.\n\
+\tw\tPitch up.\n\
+\ts\tPitch down.\n\
+\ta\tYaw up.\n\
+\td\tYaw down.\n\
+\tk\tIncrease fov.\n\
+\tj\tDecrease fov.\n\
 \tr\tReturn to initial position.\n\
-\tEsc\tClose the window.\n\
+\tEsc\tClose window.\n\
 \n\
 Made by hshimizu.\n\
 github\t: https://github.com/Neko-Sato\n\
