@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/11 15:45:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	load(t_scene **scene, char *filename)
 	if (ret)
 		return (scene_del(tmp), free(tmp), ret);
 	*scene = tmp;
-	return (NO_ERROR);
+	return (SUCCESS);
 }
 
 static int	internal(char *filename)

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 01:37:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	parse_square(char **str, t_scene *scene)
 	ret = parse_norm_vec3d(&s, &tmp->orientation);
 	if (ret)
 		return (square_del(tmp), free(tmp), ret);
-	if (!tmp->orientation._[0] && !tmp->orientation._[1]
-		&& !tmp->orientation._[2])
+	if (!vec3d_abs(tmp->orientation))
 		return (square_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
 	return (parse_square2(str, scene, s, tmp));
 }

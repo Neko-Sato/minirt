@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 01:21:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	parse_cylinder(char **str, t_scene *scene)
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	ret = parse_norm_vec3d(&s, &tmp->axis);
+	if (!vec3d_abs(tmp->axis))
+		return (cylinder_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
 	if (ret)
 		return (cylinder_del(tmp), free(tmp), ret);
 	return (parse_cylinder2(str, scene, s, tmp));

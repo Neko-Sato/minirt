@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:58:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 18:06:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 00:26:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ t_matrix3x3	matrix3x3_rotation_z(float n)
 	}};
 
 	return (tmp);
+}
+
+t_matrix3x3	matrix3x3_rotation_rollpitchyaw(float roll, float pitch, float yaw)
+{
+	return (matrix3x3_mul(matrix3x3_mul(matrix3x3_rotation_z(roll),
+				matrix3x3_rotation_x(pitch)), matrix3x3_rotation_y(yaw)));
 }
 
 t_matrix3x3	matrix3x3_rotation_axis(float n, t_vec3d axis)

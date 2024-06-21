@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/21 23:10:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ int	renderer_init(t_renderer *self, t_renderer_init *args)
 			self->camera->height);
 	if (!self->img)
 		return (renderer_del(self), FAILED_ALLOCATE);
-	self->max_iter = pow(ft_max(self->camera->height, self->camera->width), 2)
-		/ PIXEL_COUNT;
+	self->max_iter = self->camera->height * self->camera->width
+		/ PIXELS_PER_SIDE;
 	self->iter = 0;
-	self->camera->orientation = vec3d_norm(self->camera->orientation);
-	self->save_ray = (t_ray){self->camera->orientation,
-		self->camera->coordinates};
-	renderer_update_transform(self);
+	self->save = *self->camera;
 	renderer_set_hook(self);
 	renderer_set_hook2(self);
 	mlx_string_put(self->mlx, self->win, self->camera->width / 2,
@@ -53,24 +50,10 @@ void	renderer_del(t_renderer *self)
 		mlx_destroy_window(self->mlx, self->win);
 }
 
-void	renderer_update_transform(t_renderer *self)
-{
-	const t_vec3d		f = vec3d_norm(self->camera->orientation);
-	const t_vec3d		r = vec3d_norm(vec3d_cross((t_vec3d){{0, 1, 0}}, f));
-	const t_vec3d		u = vec3d_norm(vec3d_cross(f, r));
-	const t_matrix3x3	tmp = {{
-	{r._[0], u._[0], f._[0]},
-	{r._[1], u._[1], f._[1]},
-	{r._[2], u._[2], f._[2]},
-	}};
-
-	self->transform = tmp;
-}
-
 static inline int	renderer_render_internal(t_renderer *self,
 		unsigned int *img)
 {
-	const float	d = ft_deg2rad(self->camera->fov / (float)self->camera->width);
+	const float	d = self->camera->fov / (float)self->camera->width;
 	int			i;
 	int			j;
 	t_vec3d		tmp;
@@ -83,11 +66,11 @@ static inline int	renderer_render_internal(t_renderer *self,
 		j = 0;
 		while (j < self->camera->width)
 		{
-			img[i * self->camera->width + j] = rt2img_test2(&(t_ray){
-					matrix3x3_mul_vec3d(self->transform,
+			img[i * self->camera->width + j] = rt2img(self->objs,
+					&(t_ray){matrix3x3_mul_vec3d(self->camera->transform,
 						matrix3x3_mul_vec3d(matrix3x3_rotation_y(d * (j
 									- self->camera->width / 2.)), tmp)),
-					self->camera->coordinates}).raw;
+					self->camera->coordinates}, 1).raw;
 			j++;
 		}
 		i += self->max_iter;

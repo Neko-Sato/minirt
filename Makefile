@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/19 02:52:20 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/06/19 20:23:40 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,13 +67,14 @@ SRCS		:= \
 		main.c \
 		rt_errno.c \
 		rt2img_test.c \
+		rt2img.c \
 	)
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1 -D ALLOW_FOV_UNLIMITED=1
+CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1 -D ALLOW_MULTIPLE_AMIBIENTS=1 -D ALLOW_FOV_UNLIMITED=1
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
 LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lX11 -lXext

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 01:20:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	parse_plane(char **str, t_scene *scene)
 	if (ret)
 		return (plane_del(tmp), free(tmp), ret);
 	ret = parse_norm_vec3d(&s, &tmp->orientation);
+	if (!vec3d_abs(tmp->orientation))
+		return (plane_del(tmp), free(tmp), AMBIGUOUS_ORIENTATION);
 	if (ret)
 		return (plane_del(tmp), free(tmp), ret);
 	return (parse_plane2(str, scene, s, tmp));

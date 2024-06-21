@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:05:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 18:03:45 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/21 22:35:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,9 @@ float	vec3d_abs(t_vec3d vec)
 
 t_vec3d	vec3d_norm(t_vec3d vec)
 {
-	return (vec3d_mul(1 / vec3d_abs(vec), vec));
+	const float	size = vec3d_abs(vec);
+
+	if (size == 0.)
+		return ((t_vec3d){{0, 0, 0}});
+	return (vec3d_mul(1 / size, vec));
 }

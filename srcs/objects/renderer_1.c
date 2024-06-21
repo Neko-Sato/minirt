@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:32:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/16 13:49:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 00:48:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,52 +47,39 @@ static int	keypress_hook(int keycode, t_renderer *self)
 {
 	if (keycode == XK_Escape)
 		destroy_window(self);
-	else if (keycode == XK_r)
-		self->action.reset = 1;
-	else if (keycode == XK_Up)
-		self->action.look_up = 1;
-	else if (keycode == XK_Down)
-		self->action.look_down = 1;
-	else if (keycode == XK_Left)
-		self->action.look_left = 1;
-	else if (keycode == XK_Right)
-		self->action.look_right = 1;
-	else if (keycode == XK_w)
-		self->action.move_forward = 1;
-	else if (keycode == XK_x)
-		self->action.move_backward = 1;
-	else if (keycode == XK_a)
-		self->action.move_left = 1;
-	else if (keycode == XK_d)
-		self->action.move_right = 1;
-	else if (keycode == XK_q)
-		self->action.move_up = 1;
-	else if (keycode == XK_e)
-		self->action.move_down = 1;
+	self->action.reset |= (keycode == XK_r);
+	self->action.forward |= (keycode == XK_Up);
+	self->action.backward |= (keycode == XK_Down);
+	self->action.left |= (keycode == XK_Left);
+	self->action.right |= (keycode == XK_Right);
+	self->action.up |= (keycode == XK_z);
+	self->action.down |= (keycode == XK_c);
+	self->action.roll_up |= (keycode == XK_q);
+	self->action.roll_dn |= (keycode == XK_e);
+	self->action.pitch_up |= (keycode == XK_w);
+	self->action.pitch_dn |= (keycode == XK_s);
+	self->action.yaw_up |= (keycode == XK_a);
+	self->action.yaw_dn |= (keycode == XK_d);
+	self->action.broaden |= (keycode == XK_j);
+	self->action.narrow |= (keycode == XK_k);
 	return (0);
 }
 
 static int	keyrelease_hook(int keycode, t_renderer *self)
 {
-	if (keycode == XK_Up)
-		self->action.look_up = 0;
-	else if (keycode == XK_Down)
-		self->action.look_down = 0;
-	else if (keycode == XK_Left)
-		self->action.look_left = 0;
-	else if (keycode == XK_Right)
-		self->action.look_right = 0;
-	else if (keycode == XK_w)
-		self->action.move_forward = 0;
-	else if (keycode == XK_x)
-		self->action.move_backward = 0;
-	else if (keycode == XK_a)
-		self->action.move_left = 0;
-	else if (keycode == XK_d)
-		self->action.move_right = 0;
-	else if (keycode == XK_q)
-		self->action.move_up = 0;
-	else if (keycode == XK_e)
-		self->action.move_down = 0;
+	self->action.forward &= (keycode != XK_Up);
+	self->action.backward &= (keycode != XK_Down);
+	self->action.left &= (keycode != XK_Left);
+	self->action.right &= (keycode != XK_Right);
+	self->action.up &= (keycode != XK_z);
+	self->action.down &= (keycode != XK_c);
+	self->action.roll_up &= (keycode != XK_q);
+	self->action.roll_dn &= (keycode != XK_e);
+	self->action.pitch_up &= (keycode != XK_w);
+	self->action.pitch_dn &= (keycode != XK_s);
+	self->action.yaw_up &= (keycode != XK_a);
+	self->action.yaw_dn &= (keycode != XK_d);
+	self->action.broaden &= (keycode != XK_j);
+	self->action.narrow &= (keycode != XK_k);
 	return (0);
 }

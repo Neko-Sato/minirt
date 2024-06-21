@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:12:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 19:53:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/21 23:43:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 
 # ifndef ALLOW_MULTIPLE_AMIBIENTS
 #  define ALLOW_MULTIPLE_AMIBIENTS 0
+# endif
+
+# ifndef ALLOW_FOV_UNLIMITED
+#  define ALLOW_FOV_UNLIMITED 0
 # endif
 
 typedef struct s_minirt

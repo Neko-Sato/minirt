@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/22 01:22:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,17 @@ int	parse_rate(char **str, float *value)
 int	parse_norm_vec3d(char **str, t_vec3d *value)
 {
 	int		ret;
+	t_vec3d	tmp;
 	char	*s;
 
 	s = *str;
-	ret = parse_vec3d(&s, value);
+	ret = parse_vec3d(&s, &tmp);
 	if (ret)
 		return (ret);
-	if (value->_[0] < -1. || 1. < value->_[0] || value->_[1] < -1.
-		|| 1. < value->_[1] || value->_[2] < -1. || 1. < value->_[2])
+	if (tmp._[0] < -1. || 1. < tmp._[0] || tmp._[1] < -1.
+		|| 1. < tmp._[1] || tmp._[2] < -1. || 1. < tmp._[2])
 		return (OUT_OF_RANGE);
+	*value = vec3d_norm(tmp);
 	*str = s;
 	return (SUCCESS);
 }
