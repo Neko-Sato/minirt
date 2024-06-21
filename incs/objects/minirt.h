@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t*/
-/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t:::\t  ::::::::*/
-/*minirt.h\t\t\t\t\t\t\t\t\t\t:+:\t  :+:\t:+:*/
-/*\t\t\t\t\t\t\t\t\t\t\t\t\t+:+ +:+\t\t +:+\t */
-/*By: hshimizu <hshimizu@student.42.fr>\t\t  +#+  +:+\t+#+\t\t*/
-/*\t\t\t\t\t\t\t\t\t\t\t\t+#+#+#+#+#++#+\t\t*/
-/*Created: 2024/06/02 03:12:12 by hshimizu\t\t  #+#\t#+#\t\t\t */
-/*Updated: 2024/06/21 23:43:40 by hshimizu\t\t ###########.fr\t*/
-/*\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/22 01:51:22 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/22 01:51:31 by hshimizu         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
