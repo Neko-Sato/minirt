@@ -6,59 +6,58 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 23:11:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/01 23:59:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIGURE_H
 # define FIGURE_H
 
+# include "rt_errno.h"
+# include "utils/ray.h"
 # include "utils/vec3d.h"
 # include <libft.h>
 
-typedef struct s_figure		t_figure;
-
-/*
-	Functions here must reference a table to achieve polymorphism.
-	When overriding,
-	create and replace a new virtual table.
-	When adding a new virtual function,
-	create and replace a virtual table that is compatible
-	with the parent virtual table.
-*/
-/*
-	AABB is an “Axis-Aligned Bounding Box”.
-	it's used for rough intersection checks.
-	This time, I will not use a tree structure and
-	will not make it retain values,
-	It may be useful to do a rough intersection check
-	when checking intersections.
-	Rather than mucking around with trigonometric functions
-	every time....
-	I still let them have AABB.
-	aabb[0] is the lower left front
-	aabb[1] is at the upper right back.
-*/
-
-typedef struct s_figure_vtable
-{
-	void					(*del)(t_figure *self);
-	void					(*update_aabb)(t_figure *self);
-}							t_figure_vtable;
+typedef struct s_figure_vtable	t_figure_vtable;
 
 typedef struct s_figure
 {
-	const t_figure_vtable	*_;
-	t_color					color;
-	float					reflectivity;
-	t_color					checker;
-	void					*bump;
-	t_vec3d					aabb[2];
-}							t_figure;
+	const t_figure_vtable		*_;
+	t_color						color;
+	float						reflectivity;
+	t_color						checker;
+	void						*bump;
+	t_vec3d						aabb[2];
+}								t_figure;
 
-int							figure_init(t_figure *self);
-void						figure_del(t_figure *self);
+typedef struct s_figure_vtable
+{
+	void						(*del)(t_figure *self);
+	int							(*intersect)(t_figure *self, const t_ray *r,
+			float max_dist, float *t);
+	union u_color				(*get_color)(t_figure *self, const t_vec3d *p);
+}								t_figure_vtable;
 
-// void						figure_update_aabb(t_figure *self);
+typedef struct s_figure_opt
+{
+	float						reflectivity;
+	t_color						checker;
+	void						*bump;
+}								t_figure_opt;
+
+typedef struct s_figure_init
+{
+	t_color						color;
+	t_figure_opt				opt;
+}								t_figure_init;
+
+t_rt_errno						figure_init(t_figure *self,
+									t_figure_init *args);
+void							figure_del(t_figure *self);
+
+int								figure_intersect(t_figure *self, const t_ray *r,
+									float max_dist, float *t);
+t_color							figure_get_color(t_figure *self,
+									const t_vec3d *p);
 
 #endif

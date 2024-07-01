@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.h                                          :+:      :+:    :+:   */
+/*   static_methods.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 02:13:17 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 22:48:02 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/28 17:27:48 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/06/28 17:28:16 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMBIENT_H
-# define AMBIENT_H
+#include "objects/minirt.h"
+#include <unistd.h>
 
-# include "rt_errno.h"
-# include <libft.h>
-
-typedef struct s_ambient
+void	minirt_put_using(void)
 {
-	float	ratio;
-	t_color	color;
-}			t_ambient;
-
-typedef struct s_ambient_init
-{
-	float	ratio;
-	t_color	color;
-}			t_ambient_init;
-
-t_rt_errno	ambient_init(t_ambient *self, t_ambient_init *args);
-void		ambient_del(t_ambient *self);
-
-#endif
+	ft_putstr_fd(USING, STDERR_FILENO);
+}

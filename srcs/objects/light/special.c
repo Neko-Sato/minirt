@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_0.c                                          :+:      :+:    :+:   */
+/*   special.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:07:28 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/light.h"
 #include "rt_errno.h"
 
-int	light_init(t_light *self)
+t_rt_errno	light_init(t_light *self, t_light_init *args)
 {
 	*self = (t_light){};
-	self->coordinates = (t_vec3d){{0, 100, 0}};
-	self->brightness = 1.;
-	self->color = (t_color){.raw = COLOR_RAW_WHITE};
+	self->coord = args->coord;
+	if (args->brightness < 0 || 1 < args->brightness)
+		return (OUT_OF_RANGE);
+	self->brightness = args->brightness;
+	self->color = args->color;
 	return (SUCCESS);
 }
 

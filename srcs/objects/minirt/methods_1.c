@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt_1.c                                         :+:      :+:    :+:   */
+/*   methods_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 04:30:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:21:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 #include "objects/renderer.h"
 #include "objects/scene.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 #include <libft.h>
+#include <stdlib.h>
 
-/*
-	I feel dirty here, so I think it needs to be fixed.
-*/
+static t_rt_errno	add_renderers(t_minirt *self, t_xlst **renderers,
+						t_scene *scene);
+static void			del_renderers(t_xlst **renderers);
 
-static inline int		add_renderers(t_minirt *self, t_xlst **renderers,
-							t_scene *scene);
-static inline void	del_renderers(t_xlst **renderers);
-
-int	minirt_add_scene(t_minirt *self, t_scene *scene)
+t_rt_errno	minirt_add_scene(t_minirt *self, t_scene *scene)
 {
-	int		ret;
-	t_xlst	*renderers;
+	t_rt_errno	ret;
+	t_xlst		*renderers;
 
 	if (!ALLOW_MULTIPLE_CAMERAS && scene->cameras->next)
 		return (MULTIPLE_DEFINED_CAMERA);
-	if (!ALLOW_MULTIPLE_AMIBIENTS && scene->objs.ambients->next)
+	if (!ALLOW_MULTIPLE_AMIBIENTS && scene->ambients->next)
 		return (MULTIPLE_DEFINED_AMBIENT);
 	renderers = NULL;
 	ret = add_renderers(self, &renderers, scene);
@@ -44,10 +40,10 @@ int	minirt_add_scene(t_minirt *self, t_scene *scene)
 	return (SUCCESS);
 }
 
-static inline int	add_renderers(t_minirt *self, t_xlst **renderers,
+static t_rt_errno	add_renderers(t_minirt *self, t_xlst **renderers,
 		t_scene *scene)
 {
-	int			ret;
+	t_rt_errno	ret;
 	t_xlst		*tmp;
 	t_camera	*camera;
 	t_renderer	*renderer;
@@ -59,8 +55,12 @@ static inline int	add_renderers(t_minirt *self, t_xlst **renderers,
 		renderer = malloc(sizeof(t_renderer));
 		if (!renderer)
 			return (FAILED_ALLOCATE);
-		ret = renderer_init(renderer, &(t_renderer_init){self->mlx,
-				scene->title, camera, &scene->objs});
+		ret = renderer_init(renderer,
+				&(t_renderer_init){
+				.mlx = self->mlx,
+				.camera = camera,
+				.scene = scene,
+			});
 		if (ret)
 			return (free(renderer), ret);
 		if (ft_xlstappend(renderers, &renderer, sizeof(renderer)))
@@ -70,13 +70,10 @@ static inline int	add_renderers(t_minirt *self, t_xlst **renderers,
 	return (SUCCESS);
 }
 
-static inline void	del_renderers(t_xlst **renderers)
+static void	del_renderers(t_xlst **renderers)
 {
 	t_renderer	*renderer;
 
-	while (ft_xlstpop(renderers, 0, &renderer, sizeof(renderer)) != -1)
-	{
-		renderer_del(renderer);
-		free(renderer);
-	}
+	while (!ft_xlstpop(renderers, 0, &renderer, sizeof(renderer)))
+		(void)(renderer_del(renderer), free(renderer));
 }

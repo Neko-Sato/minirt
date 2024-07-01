@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient_0.c                                        :+:      :+:    :+:   */
+/*   special.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:02:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/ambient.h"
 #include "rt_errno.h"
 
-int	ambient_init(t_ambient *self)
+t_rt_errno	ambient_init(t_ambient *self, t_ambient_init *args)
 {
 	*self = (t_ambient){};
-	self->ratio = 0.5;
-	self->color = (t_color){.raw = COLOR_RAW_WHITE};
+	if (args->ratio < 0 || 1 < args->ratio)
+		return (OUT_OF_RANGE);
+	self->ratio = args->ratio;
+	self->color = args->color;
 	return (SUCCESS);
 }
 

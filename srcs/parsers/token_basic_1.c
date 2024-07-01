@@ -5,73 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/02 00:54:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "rt_errno.h"
-#include <libft.h>
-#include <stddef.h>
+#include "utils/vec3d.h"
 
-static int	parse_string_internal(char **str, t_strgen *strgen);
-
-int	parse_string(char **str, char **value)
+t_rt_errno	parse_vec3d(char **str, t_vec3d *dst)
 {
-	int			ret;
-	t_strgen	*strgen;
-
-	strgen = ft_strgennew(STRGEN_BUUFERSIZE);
-	if (!strgen)
-		return (FAILED_ALLOCATE);
-	ret = parse_string_internal(str, strgen);
-	if (!ret)
-	{
-		*value = ft_strgencomp(strgen);
-		if (!*value)
-			ret = FAILED_ALLOCATE;
-	}
-	ft_strgendel(strgen);
-	return (ret);
-}
-
-static int	parse_string_internal(char **str, t_strgen *strgen)
-{
-	char	*s;
+	t_rt_errno	ret;
+	char		*s;
+	int			i;
+	float		tmp;
 
 	s = *str;
-	if (*s++ != '"')
-		return (INCORRECT_FORMAT);
-	while (*s && *s != '"')
+	i = 0;
+	while (1)
 	{
-		if (*s == '\\')
-			if (*++s)
-				break ;
-		if (ft_strgenchr(strgen, *s++))
-			return (FAILED_ALLOCATE);
+		ret = parse_decimal(&s, &tmp);
+		if (ret)
+			return (ret);
+		dst->_[i++] = tmp;
+		if (i >= 3)
+			break ;
+		if (*s++ != ',')
+			return (INCORRECT_FORMAT);
 	}
-	if (*s++ != '\"')
-		return (INCORRECT_FORMAT);
 	*str = s;
 	return (SUCCESS);
 }
 
-int	parse_text(char **str, char *buf, size_t buf_size)
+t_rt_errno	parse_norm_vec3d(char **str, t_vec3d *dst)
 {
-	size_t	len;
-	char	*s;
+	t_rt_errno	ret;
+	t_vec3d		tmp;
+	char		*s;
 
 	s = *str;
-	len = 0;
-	if (ft_isalpha(*s) || *s == '_')
-		s++;
-	while (ft_isalnum(*s) || *s == '_')
-		s++;
-	len = s - *str;
-	if (len >= buf_size)
+	ret = parse_vec3d(&s, &tmp);
+	if (ret)
+		return (ret);
+	if (tmp._[0] < -1. || 1. < tmp._[0] || tmp._[1] < -1. || 1. < tmp._[1]
+		|| tmp._[2] < -1. || 1. < tmp._[2])
 		return (INCORRECT_FORMAT);
-	ft_strncpy(buf, *str, len);
-	buf[len] = '\0';
+	*dst = tmp;
+	*str = s;
+	return (SUCCESS);
+}
+
+t_rt_errno	parse_color(char **str, t_color *dst)
+{
+	t_rt_errno	ret;
+	char		*s;
+	int			i;
+	int			tmp;
+
+	s = *str;
+	dst->raw = 0xff000000;
+	i = 0;
+	while (1)
+	{
+		ret = parse_unsigned(&s, &tmp);
+		if (ret)
+			return (ret);
+		if (0xff < tmp)
+			return (INCORRECT_FORMAT);
+		dst->raw |= (tmp & 0xff) << ((3 - ++i) * 8);
+		if (i >= 3)
+			break ;
+		if (*s++ != ',')
+			return (INCORRECT_FORMAT);
+	}
 	*str = s;
 	return (SUCCESS);
 }

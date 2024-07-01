@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:12 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/27 02:23:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ typedef enum e_rt_errno
 	AMBIGUOUS_ORIENTATION,
 }		t_rt_errno;
 
-void	rt_perror(int rt_errno);
+void	rt_perror(t_rt_errno rt_errno);
 
 #endif

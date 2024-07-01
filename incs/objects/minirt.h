@@ -6,18 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 01:51:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/22 01:51:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/30 23:06:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-
-/*
-	My minirt is moving, asshole!
-	That's why a few are all floats!
-	You got a problem with that?
-*/
 
 # include "./scene.h"
 # include <libft.h>
@@ -71,19 +65,29 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 #  define ALLOW_FOV_UNLIMITED 0
 # endif
 
+# ifndef ALTERNATIVE_UP_VECTOR
+#  define ALTERNATIVE_UP_VECTOR 1
+# endif
+
 typedef struct s_minirt
 {
-	void	*mlx;
-	int		errno;
-	t_xlst	*scenes;
-	t_xlst	*renderers;
-}			t_minirt;
+	void		*mlx;
+	t_rt_errno	errno;
+	t_xlst		*scenes;
+	t_xlst		*renderers;
+}				t_minirt;
 
-int			minirt_init(t_minirt *self);
-void		minirt_del(t_minirt *self);
-void		minirt_put_using(void);
-int			minirt_loop_hook(t_minirt *self);
-int			minirt_loop(t_minirt *self);
-int			minirt_add_scene(t_minirt *self, t_scene *scene);
+typedef struct s_minirt_init
+{
+}				t_minirt_init;
+
+t_rt_errno		minirt_init(t_minirt *self, t_minirt_init *args);
+void			minirt_del(t_minirt *self);
+
+void			minirt_set_hook(t_minirt *self);
+t_rt_errno		minirt_loop(t_minirt *self);
+t_rt_errno		minirt_add_scene(t_minirt *self, t_scene *scene);
+
+void			minirt_put_using(void);
 
 #endif

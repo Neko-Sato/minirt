@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:21:28 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/01 23:53:34 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,36 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-int	parse_ambient(char **str, t_scene *scene)
-{
-	int			ret;
-	char		*s;
-	t_ambient	*tmp;
+static t_rt_errno	internal(char **str, t_ambient_init *args);
 
+t_rt_errno	parse_ambient(char **str, t_scene *scene)
+{
+	t_rt_errno		ret;
+	t_ambient_init	args;
+	t_ambient		*tmp;
+
+	ret = internal(str, &args);
+	if (ret)
+		return (ret);
 	tmp = malloc(sizeof(*tmp));
 	if (!tmp)
 		return (FAILED_ALLOCATE);
-	ret = ambient_init(tmp);
+	ret = ambient_init(tmp, &args);
 	if (ret)
 		return (free(tmp), ret);
-	s = *str;
-	ret = parse_rate(&s, &tmp->ratio);
-	if (ret)
-		return (ambient_del(tmp), free(tmp), ret);
-	ret = parse_blank(&s);
-	if (ret)
-		return (ambient_del(tmp), free(tmp), ret);
-	ret = parse_color(&s, &tmp->color);
-	if (ret)
-		return (ambient_del(tmp), free(tmp), ret);
 	ret = scene_add_ambient(scene, tmp);
 	if (ret)
 		return (ambient_del(tmp), free(tmp), ret);
-	*str = s;
 	return (SUCCESS);
+}
+
+static t_rt_errno	internal(char **str, t_ambient_init *args)
+{
+	const t_parse_entry	entries[] = {
+	{(void *)parse_decimal, &args->ratio},
+	{(void *)parse_color, &args->color},
+	};
+	static const size_t	size = sizeof(entries) / sizeof(*entries);
+
+	return (parse_entries(str, entries, size));
 }

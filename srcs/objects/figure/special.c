@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   figure_0.c                                         :+:      :+:    :+:   */
+/*   special.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:06:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/figure.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 #include <math.h>
+#include <libft.h>
+#include <stdlib.h>
 
-int	figure_init(t_figure *self)
+t_rt_errno	figure_init(t_figure *self, t_figure_init *args)
 {
-	static const t_figure_vtable	vtable = {
-		.del = figure_del,
-	};
-
 	*self = (t_figure){};
-	self->_ = &vtable;
-	self->color = (t_color){.raw = COLOR_RAW_RED};
-	self->reflectivity = 0.;
-	self->checker = (t_color){.raw = COLOR_RAW_TRANSPARENT};
-	self->bump = NULL;
+	self->color = args->color;
+	if (args->opt.reflectivity < 0 || 1 < args->opt.reflectivity)
+		return (OUT_OF_RANGE);
+	self->reflectivity = args->opt.reflectivity;
+	self->color = args->color;
+	self->checker = args->opt.checker;
+	self->bump = args->opt.bump;
 	self->aabb[0] = (t_vec3d){{-INFINITY, -INFINITY, -INFINITY}};
 	self->aabb[1] = (t_vec3d){{INFINITY, INFINITY, INFINITY}};
 	return (SUCCESS);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   triangle_0.c                                       :+:      :+:    :+:   */
+/*   special.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 01:17:39 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,31 @@
 #include <math.h>
 #include <stdlib.h>
 
-int	triangle_init(t_triangle *self)
+static const t_figure_vtable	g_vtable = {
+	.del = (void *)triangle_del,
+	.intersect = figure_intersect,
+	.get_color = figure_get_color,
+};
+
+t_rt_errno	triangle_init(t_triangle *self, t_triangle_init *args)
 {
-	static const t_figure_vtable	vtable = {
-		.del = (void *)triangle_del,
-	};
-	int								ret;
+	t_rt_errno	ret;
 
 	*self = (t_triangle){};
-	ret = figure_init((t_figure *)self);
+	ret = figure_init((t_figure *)self, &(t_figure_init){
+			.color = args->color,
+			.opt = args->opt,
+		});
 	if (ret)
-		return (-1);
-	((t_figure *)self)->_ = &vtable;
-	self->first = (t_vec3d){{0, 1, 0}};
-	self->second = (t_vec3d){{-1, 0, 0}};
-	self->third = (t_vec3d){{1, 0, 0}};
+		return (ret);
+	((t_figure *)self)->_ = &g_vtable;
+	self->first = args->first;
+	self->second = args->second;
+	self->third = args->third;
 	return (SUCCESS);
 }
 
 void	triangle_del(t_triangle *self)
 {
 	figure_del((t_figure *)self);
-}
-
-/*
-	For triangles,
-	there must have been a better algorithm using the outer product.
-*/
-void	triangle_update_aabb(t_triangle *self)
-{
-	(void)self;
 }

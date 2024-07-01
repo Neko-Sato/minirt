@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 00:19:40 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/02 00:15:18 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,37 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-static inline int	parse_light2(char **str, t_scene *scene, char *s,
-						t_light *tmp);
+static t_rt_errno	internal(char **str, t_light_init *args);
 
-int	parse_light(char **str, t_scene *scene)
+t_rt_errno	parse_light(char **str, t_scene *scene)
 {
-	int		ret;
-	char	*s;
-	t_light	*tmp;
+	t_rt_errno		ret;
+	t_light_init	args;
+	t_light			*tmp;
 
+	ret = internal(str, &args);
+	if (ret)
+		return (ret);
 	tmp = malloc(sizeof(*tmp));
 	if (!tmp)
 		return (FAILED_ALLOCATE);
-	ret = light_init(tmp);
+	ret = light_init(tmp, &args);
 	if (ret)
 		return (free(tmp), ret);
-	s = *str;
-	ret = parse_vec3d(&s, &tmp->coordinates);
-	if (ret)
-		return (light_del(tmp), free(tmp), ret);
-	ret = parse_blank(&s);
-	if (ret)
-		return (light_del(tmp), free(tmp), ret);
-	ret = parse_rate(&s, &tmp->brightness);
-	if (ret)
-		return (light_del(tmp), free(tmp), ret);
-	ret = parse_blank(&s);
-	if (ret)
-		return (light_del(tmp), free(tmp), ret);
-	return (parse_light2(str, scene, s, tmp));
-}
-
-static inline int	parse_light2(char **str, t_scene *scene, char *s,
-		t_light *tmp)
-{
-	int	ret;
-
-	ret = parse_color(&s, &tmp->color);
-	if (ret)
-		return (light_del(tmp), free(tmp), ret);
 	ret = scene_add_light(scene, tmp);
 	if (ret)
-		return (light_del(tmp), free(tmp), FAILED_ALLOCATE);
-	*str = s;
+		return (light_del(tmp), free(tmp), ret);
 	return (SUCCESS);
+}
+
+static t_rt_errno	internal(char **str, t_light_init *args)
+{
+	const t_parse_entry		entries[] = {
+	{(void *)parse_vec3d, &args->coord},
+	{(void *)parse_decimal, &args->brightness},
+	{(void *)parse_color, &args->color},
+	};
+	static const size_t		size = sizeof(entries) / sizeof(*entries);
+
+	return (parse_entries(str, entries, size));
 }

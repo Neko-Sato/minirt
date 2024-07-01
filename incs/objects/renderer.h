@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/22 00:21:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:07:20 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define PIXELS_PER_SIDE 50000
 # define MAX_DEPTH 5
 # define MOVE_UNIT 1.0
-# define ROTATE_UNIT 0.08726646259971647
+# define ROTATE_UNIT 0.04363323129985824
 
 # include "./camera.h"
 # include "./scene.h"
@@ -52,24 +52,23 @@ typedef struct s_renderer
 	t_camera	save;
 	t_action	action;
 	t_camera	*camera;
-	t_rtobjs	*objs;
+	t_scene		*scene;
 }				t_renderer;
 
 typedef struct s_renderer_init
 {
 	void		*mlx;
-	char		*title;
 	t_camera	*camera;
-	t_rtobjs	*objs;
+	t_scene		*scene;
 }				t_renderer_init;
 
-int				renderer_init(t_renderer *self, t_renderer_init *args);
+t_rt_errno		renderer_init(t_renderer *self, t_renderer_init *args);
 void			renderer_del(t_renderer *self);
+
 void			renderer_set_hook(t_renderer *self);
 void			renderer_set_hook2(t_renderer *self);
 
-int				renderer_render(t_renderer *self);
-void			renderer_update_transform(t_renderer *self);
-int				renderer_loop_hook(t_renderer *self);
+t_rt_errno		renderer_render(t_renderer *self);
+t_rt_errno		renderer_loop_hook(t_renderer *self);
 
 #endif

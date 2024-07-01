@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:16:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/27 04:31:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <libft.h>
 #include <unistd.h>
 
-void	rt_perror(int rt_errno)
+void	rt_perror(t_rt_errno rt_errno)
 {
 	static const char *const	rt_errmsg[] = {
 		"Success.",

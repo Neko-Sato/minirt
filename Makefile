@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/06/19 20:23:40 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/02 00:41:37 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,30 +25,63 @@ TEST_RT		:= $(DIR)/scene/test.rt
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
 		$(addprefix objects/, \
-			minirt_0.c \
-			minirt_1.c \
-			scene_0.c \
-			scene_1.c \
-			renderer_0.c \
-			renderer_1.c \
-			renderer_2.c \
-			renderer_3.c \
-			ambient_0.c \
-			camera_0.c \
-			light_0.c \
-			figure_0.c \
-			sphere_0.c \
-			plane_0.c \
-			cylinder_0.c \
-			square_0.c \
-			triangle_0.c \
+			$(addprefix minirt/, \
+				methods_0.c \
+				methods_1.c \
+				special.c \
+				static_methods_0.c \
+			) \
+			$(addprefix scene/, \
+				methods_0.c \
+				methods_1.c \
+				methods_2.c \
+				special.c \
+			) \
+			$(addprefix renderer/, \
+				methods_0.c \
+				methods_1.c \
+				methods_2.c \
+				methods_3.c \
+				special.c \
+			) \
+			$(addprefix ambient/, \
+				special.c \
+			) \
+			$(addprefix camera/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix light/, \
+				special.c \
+			) \
+			$(addprefix figure/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix sphere/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix plane/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix cylinder/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix square/, \
+				special.c \
+			) \
+			$(addprefix triangle/, \
+				special.c \
+			) \
 		) \
 		$(addprefix parsers/, \
+			token.c \
 			token_basic_0.c \
 			token_basic_1.c \
-			token_basic_2.c \
-			token.c \
-			token_optional.c \
+			token_utils.c \
 			token_ambient.c \
 			token_camera.c \
 			token_light.c \
@@ -59,16 +92,17 @@ SRCS		:= \
 			token_triangle.c \
 		) \
 		$(addprefix utils/, \
-			vec3d_operator.c \
 			vec3d_basic.c \
+			vec3d_operator.c \
 			matrix3x3_operator.c \
 			matrix3x3_rotation.c \
+			matrix3x3_transform.c \
 		) \
-		main.c \
-		rt_errno.c \
-		rt2img_test.c \
-		rt2img.c \
-	)
+	main.c \
+	rt2img.c \
+	rt2img_test.c \
+	rt_errno.c \
+	) 
 
 OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
@@ -119,8 +153,8 @@ norm-upgrade:
 
 .PHONY: $(FT)
 $(FT):
-	@git submodule update --init $@
-	@$(MAKE) -C $@ libft.a
+	# @git submodule update --init $@
+	@$(MAKE) -C $@
 
 .PHONY: $(MLX)
 $(MLX):

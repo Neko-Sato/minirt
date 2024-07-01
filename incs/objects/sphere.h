@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/18 18:53:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 01:13:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@
 
 typedef struct s_sphere
 {
-	t_figure	__parent;
-	t_vec3d		coordinates;
-	float		diameter;
-}				t_sphere;
+	t_figure		__parent;
+	t_vec3d			coord;
+	float			radius;
+}					t_sphere;
 
-int				sphere_init(t_sphere *self);
-void			sphere_del(t_sphere *self);
+typedef struct s_sphere_init
+{
+	t_vec3d			coord;
+	float			diameter;
+	t_color			color;
+	t_figure_opt	opt;
+}					t_sphere_init;
 
-void			sphere_update_aabb(t_sphere *self);
+t_rt_errno			sphere_init(t_sphere *self, t_sphere_init *args);
+void				sphere_del(t_sphere *self);
+
+void				sphere_set_aabb(t_sphere *self);
+int					sphere_intersect(t_sphere *self, const t_ray *r,
+						float max_dist, float *t);
 
 #endif

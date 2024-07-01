@@ -1,55 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere_0.c                                         :+:      :+:    :+:   */
+/*   special.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/19 16:14:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:09:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/sphere.h"
 #include "objects/figure.h"
+#include "objects/sphere.h"
 #include "rt_errno.h"
-#include <stdlib.h>
 
-int	sphere_init(t_sphere *self)
+static const t_figure_vtable	g_vtable = {
+	.del = (void *)sphere_del,
+	.intersect = (void *)sphere_intersect,
+	.get_color = figure_get_color,
+};
+
+t_rt_errno	sphere_init(t_sphere *self, t_sphere_init *args)
 {
-	static const t_figure_vtable	vtable = {
-		.del = (void *)sphere_del,
-	};
-	int								ret;
+	t_rt_errno	ret;
 
 	*self = (t_sphere){};
-	ret = figure_init((t_figure *)self);
+	ret = figure_init((t_figure *)self, &(t_figure_init){
+			.color = args->color,
+			.opt = args->opt,
+		});
 	if (ret)
 		return (ret);
-	((t_figure *)self)->_ = &vtable;
-	self->diameter = 1.;
+	((t_figure *)self)->_ = &g_vtable;
+	if (ret)
+		return (ret);
+	if (args->diameter < 0 || args->diameter < 0)
+		return (OUT_OF_RANGE);
+	self->coord = args->coord;
+	self->radius = args->diameter / 2.;
+	sphere_set_aabb(self);
 	return (SUCCESS);
 }
 
 void	sphere_del(t_sphere *self)
 {
 	figure_del((t_figure *)self);
-}
-
-/*
-	Nothing else is this easy.
-*/
-void	sphere_update_aabb(t_sphere *self)
-{
-	t_figure *const	figure = (t_figure *)self;
-	const float		r = self->diameter / 2.;
-
-	figure->aabb[0] = (t_vec3d){{
-		self->coordinates._[0] - r,
-		self->coordinates._[1] - r,
-		self->coordinates._[2] - r}};
-	figure->aabb[1] = (t_vec3d){{
-		self->coordinates._[0] + r,
-		self->coordinates._[1] + r,
-		self->coordinates._[2] + r}};
 }
