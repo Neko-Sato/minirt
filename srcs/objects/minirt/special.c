@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:57:27 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 00:57:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:29:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "rt_errno.h"
 #include <mlx.h>
 #include <stdlib.h>
-#include <libft.h>
-#include <unistd.h>
 
 t_rt_errno	minirt_init(t_minirt *self, t_minirt_init *args)
 {
@@ -27,7 +25,6 @@ t_rt_errno	minirt_init(t_minirt *self, t_minirt_init *args)
 	if (!self->mlx)
 		return (FAILED_INITIALIZE_MLX);
 	minirt_set_hook(self);
-	ft_putendl_fd("Welcome to miniRT!", STDOUT_FILENO);
 	return (SUCCESS);
 }
 

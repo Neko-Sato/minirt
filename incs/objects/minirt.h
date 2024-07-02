@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 01:51:22 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/30 23:06:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:15:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 
 # define USING "\
 Usage: ./miniRT <rt-file>\n\
-\n\
+"
+
+# define FORMAT_DESCRIPTION "\
 rt-file format:\n\
 \tAmbient\t\tA <ratio> <color>\n\
 \tCamera\t\tC <coordinates> <orientation> <fov>\n\
@@ -29,7 +31,9 @@ rt-file format:\n\
 \tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
 \tTriangle\ttr <first> <second> <third> <color>\n\
 \tSqaure\t\tsq <coordinates> <orientation> <size> <color>\n\
-\n\
+"
+
+# define KEY_OPERATION_DESCRIPTION "\
 key operation:\n\
 \tUp\tMove forward.\n\
 \tDown\tMove backward.\n\
@@ -47,7 +51,9 @@ key operation:\n\
 \tj\tDecrease fov.\n\
 \tr\tReturn to initial position.\n\
 \tEsc\tClose window.\n\
-\n\
+"
+
+# define ABOUT "\
 Made by hshimizu.\n\
 github\t: https://github.com/Neko-Sato\n\
 profile\t: https://profile.intra.42.fr/users/hshimizu\n\

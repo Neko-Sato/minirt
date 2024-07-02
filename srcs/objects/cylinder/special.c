@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 16:06:08 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/03 07:09:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ t_rt_errno	cylinder_init(t_cylinder *self, t_cylinder_init *args)
 	if (ret)
 		return (ret);
 	((t_figure *)self)->_ = &g_vtable;
-	self->rotation = matrix3x3_transform(args->axis, (t_vec3d){{0, 1, 0}});
-	self->r_coord = matrix3x3_mul_vec3d(self->rotation, args->coord);
+	self->coord = args->coord;
+	if (!vec3d_abs(args->axis))
+		return (AMBIGUOUS_ORIENTATION);
+	self->axis = vec3d_norm(args->axis);
 	if (args->diameter < 0 || args->height < 0)
 		return (OUT_OF_RANGE);
 	self->height = args->height;

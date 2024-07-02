@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/01 23:59:10 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 03:20:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,19 @@ typedef struct s_figure
 	t_vec3d						aabb[2];
 }								t_figure;
 
+//	This is a damn code written for a bad norminette!
+typedef t_color					(*t_figure_get_color)(t_figure *self,
+						const t_vec3d *p);
+typedef t_ray					(*t_figure_get_normal)(t_figure *self,
+						const t_vec3d *p, const t_vec3d *c);
+
 typedef struct s_figure_vtable
 {
 	void						(*del)(t_figure *self);
 	int							(*intersect)(t_figure *self, const t_ray *r,
 			float max_dist, float *t);
-	union u_color				(*get_color)(t_figure *self, const t_vec3d *p);
+	t_figure_get_color			get_color;
+	t_figure_get_normal			get_normal;
 }								t_figure_vtable;
 
 typedef struct s_figure_opt

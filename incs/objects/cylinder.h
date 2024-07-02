@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:26:08 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 01:12:39 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/03 07:09:06 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 typedef struct s_cylinder
 {
 	t_figure					__parent;
-	t_vec3d						r_coord;
-	t_matrix3x3					rotation;
+	t_vec3d						coord;
+	t_vec3d						axis;
 	float						radius;
 	float						height;
 }								t_cylinder;

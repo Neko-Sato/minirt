@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 18:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 21:28:45 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:31:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include <libft.h>
+#include <unistd.h>
 
 t_rt_errno	minirt_loop(t_minirt *self)
 {
+	ft_putendl_fd("🐈 Welcome to miniRT!", STDOUT_FILENO);
+	ft_putstr_fd(KEY_OPERATION_DESCRIPTION, STDOUT_FILENO);
 	mlx_loop(self->mlx);
+	ft_putendl_fd("🐈 goodbye!", STDOUT_FILENO);
 	return (self->errno);
 }
 

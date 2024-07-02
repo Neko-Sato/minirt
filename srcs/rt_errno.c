@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/27 04:31:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:22:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	rt_perror(t_rt_errno rt_errno)
 		"Ambiguous orientation.",
 	};
 
+	ft_putstr_fd("🐈 ", STDERR_FILENO);
 	ft_putendl_fd((char *)rt_errmsg[rt_errno], STDERR_FILENO);
 }

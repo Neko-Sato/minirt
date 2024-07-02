@@ -6,13 +6,15 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:37:42 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 22:14:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 22:32:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/minirt.h"
 #include "rt_errno.h"
 #include <stdlib.h>
+#include <unistd.h>
+#include <libft.h>
 
 /*
 	Welcome to my wonderful code!
@@ -34,6 +36,7 @@ int	main(int argc, char *argv[])
 		ret = internal(argv[1]);
 	if (!ret)
 		return (EXIT_SUCCESS);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	rt_perror(ret);
 	return (EXIT_FAILURE);
 }
@@ -78,8 +81,7 @@ static t_rt_errno	internal(char *filename)
 		return (scene_del(scene), free(scene), ret);
 	ret = minirt_add_scene(&minirt, scene);
 	if (ret)
-		return (minirt_del(&minirt), scene_del(scene), free(scene), ret);
+		return (scene_del(scene), free(scene), minirt_del(&minirt), ret);
 	ret = minirt_loop(&minirt);
-	minirt_del(&minirt);
-	return (ret);
+	return (minirt_del(&minirt), ret);
 }

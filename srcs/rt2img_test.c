@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 00:17:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/23 23:08:47 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/02 01:05:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <libft.h>
 #include <math.h>
 
-t_color	rt2img_test1(t_ray *r)
+t_color	rt2img_test1(const t_ray *r)
 {
 	float	k;
 	float	a;
@@ -44,7 +44,7 @@ t_color	rt2img_test1(t_ray *r)
 	return ((t_color){.raw = COLOR_RAW_TRANSPARENT});
 }
 
-t_color	rt2img_test2(t_ray *r)
+t_color	rt2img_test2(const t_ray *r)
 {
 	float	k;
 	float	a;
