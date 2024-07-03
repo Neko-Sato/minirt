@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 04:57:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/03 08:15:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/04 08:18:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 void	cylinder_set_aabb(t_cylinder *self)
 {
 	t_figure *const	figure = (t_figure *)self;
-	t_vec3d			axis;
 	t_vec3d			tmp;
+	t_vec3d			axis;
 
-	axis = (t_vec3d){
-	{fabs(self->axis._[0]), fabs(self->axis._[1]), fabs(self->axis._[2])}};
+	axis = (t_vec3d){{fabs(self->axis._[0]), fabs(self->axis._[1]),
+		fabs(self->axis._[2])}};
 	tmp = matrix3x3_mul_vec3d(matrix3x3_transform((t_vec3d){{0, 1, 0}}, axis),
 			(t_vec3d){{self->radius, 0, self->radius}});
 	tmp = (t_vec3d){{fabs(tmp._[0]), fabs(tmp._[1]), fabs(tmp._[2])}};
@@ -59,11 +59,13 @@ int	cylinder_intersect(t_cylinder *self, const t_ray *r, float max_dist,
 		return (0);
 	tmp = sqrt(tmp);
 	k = ((-coeff[1] - tmp) / (2 * coeff[0]));
-	dist = vec3d_dot(self->axis, vec3d_add(vec3d_mul(k, r->o), r->c));
+	dist = vec3d_dot(self->axis, vec3d_sub(vec3d_add(vec3d_mul(k, r->o), r->c),
+				self->coord));
 	if (!(0 < k && k < max_dist && fabs(dist) < self->height / 2.))
 	{
 		k = ((-coeff[1] + tmp) / (2 * coeff[0]));
-		dist = vec3d_dot(self->axis, vec3d_add(vec3d_mul(k, r->o), r->c));
+		dist = vec3d_dot(self->axis, vec3d_sub(vec3d_add(vec3d_mul(k, r->o),
+						r->c), self->coord));
 		if (!(0 < k && k < max_dist && fabs(dist) < self->height / 2.))
 			return (0);
 	}
