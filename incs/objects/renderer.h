@@ -6,14 +6,15 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 18:07:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 07:12:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
 # define RENDERER_H
 
-# define PIXELS_PER_SIDE 50000
+# define PIXELS_PER_DRAW 5000
+# define PIXELS_PER_DRAW_PREVIEW 25000
 # define MAX_DEPTH 5
 # define MOVE_UNIT 1.0
 # define ROTATE_UNIT 0.04363323129985824
@@ -47,7 +48,8 @@ typedef struct s_renderer
 	void		*win;
 	void		*img;
 	int			focus;
-	int			max_iter;
+	int			box[2];
+	int			preview_box[2];
 	int			iter;
 	t_camera	save;
 	t_action	action;
@@ -69,6 +71,7 @@ void			renderer_set_hook(t_renderer *self);
 void			renderer_set_hook2(t_renderer *self);
 
 t_rt_errno		renderer_render(t_renderer *self);
+t_rt_errno		renderer_preview(t_renderer *self);
 t_rt_errno		renderer_loop_hook(t_renderer *self);
 
 #endif

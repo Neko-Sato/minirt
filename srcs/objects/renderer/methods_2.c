@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods_3.c                                        :+:      :+:    :+:   */
+/*   methods_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 20:05:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 07:10:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline void	move(t_renderer *self)
 	if (!vec3d_abs(movement))
 		return ;
 	camera_move(self->camera, &movement);
-	self->iter = 0;
+	self->iter = -1;
 }
 
 static inline void	route(t_renderer *self)
@@ -43,7 +43,7 @@ static inline void	route(t_renderer *self)
 	if (!roll && !pitch && !yaw)
 		return ;
 	camera_rotate(self->camera, roll, pitch, yaw);
-	self->iter = 0;
+	self->iter = -1;
 }
 
 static inline void	fov(t_renderer *self)
@@ -55,7 +55,7 @@ static inline void	fov(t_renderer *self)
 		return ;
 	if (camera_fov(self->camera, ft_deg2rad(tmp) + self->camera->fov))
 		return ;
-	self->iter = 0;
+	self->iter = -1;
 }
 
 static inline void	action(t_renderer *self)
@@ -77,7 +77,9 @@ t_rt_errno	renderer_loop_hook(t_renderer *self)
 	if (!self->focus)
 		return (SUCCESS);
 	action(self);
-	if (self->max_iter <= self->iter)
+	if (self->iter < 0)
+		;
+	else if (self->box[0] <= self->iter / self->box[1])
 		return (SUCCESS);
 	return (renderer_render(self));
 }
