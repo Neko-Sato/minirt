@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/05 07:12:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 21:44:25 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RENDERER_H
 
 # define PIXELS_PER_DRAW 5000
-# define PIXELS_PER_DRAW_PREVIEW 25000
+# define PIXELS_PER_DRAW_PREVIEW 40000
 # define MAX_DEPTH 5
 # define MOVE_UNIT 1.0
 # define ROTATE_UNIT 0.04363323129985824

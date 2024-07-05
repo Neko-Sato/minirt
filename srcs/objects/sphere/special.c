@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 16:09:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:38:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static const t_figure_vtable	g_vtable = {
 	.del = (void *)sphere_del,
 	.intersect = (void *)sphere_intersect,
 	.get_color = figure_get_color,
+	.get_normal = (void *)sphere_get_normal,
 };
 
 t_rt_errno	sphere_init(t_sphere *self, t_sphere_init *args)

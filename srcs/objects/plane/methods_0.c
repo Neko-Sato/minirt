@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:50:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 12:25:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 22:14:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,16 @@ int	plane_intersect(t_plane *self, const t_ray *r, float max_dist, float *t)
 		return (0);
 	*t = k;
 	return (1);
+}
+
+t_ray	plane_get_normal(t_plane *self, float dist, const t_ray *r)
+{
+	const t_vec3d	point = vec3d_add(r->c, vec3d_mul(dist, r->o));
+	t_vec3d			normal;
+
+	if (vec3d_dot(self->orient, vec3d_sub(r->c, point)) < 0)
+		normal = vec3d_mul(-1, self->orient);
+	else
+		normal = self->orient;
+	return ((t_ray){normal, point});
 }

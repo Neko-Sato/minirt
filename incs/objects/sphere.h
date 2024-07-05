@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 01:13:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:14:28 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void				sphere_del(t_sphere *self);
 void				sphere_set_aabb(t_sphere *self);
 int					sphere_intersect(t_sphere *self, const t_ray *r,
 						float max_dist, float *t);
+t_ray				sphere_get_normal(t_sphere *self, float dist,
+						const t_ray *r);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 04:57:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/04 08:18:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 21:16:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,16 @@ int	cylinder_intersect(t_cylinder *self, const t_ray *r, float max_dist,
 	return (1);
 }
 
-t_ray	cylinder_get_normal(t_cylinder *self, const t_vec3d *p,
-		const t_vec3d *c)
+t_ray	cylinder_get_normal(t_cylinder *self, float dist, const t_ray *r)
 {
-	t_vec3d	normal;
+	const t_vec3d	point = vec3d_add(r->c, vec3d_mul(dist, r->o));
+	t_vec3d			coord2point;
+	t_vec3d			normal;
 
-	normal = vec3d_norm(vec3d_sub(*p, self->coord));
-	if (vec3d_dot(normal, vec3d_sub(*p, *c)) < 0)
+	coord2point = vec3d_sub(point, self->coord);
+	normal = vec3d_sub(coord2point, vec3d_add(self->coord,
+				vec3d_mul(vec3d_dot(coord2point, self->axis), self->axis)));
+	if (vec3d_dot(normal, vec3d_sub(r->c, point)) < 0)
 		normal = vec3d_mul(-1, normal);
-	return ((t_ray){normal, *p});
+	return ((t_ray){normal, point});
 }

@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/02 01:06:11 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/05 17:18:19 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		:= \
 				methods_0.c \
 				methods_1.c \
 				methods_2.c \
+				methods_3.c \
 				special.c \
 			) \
 			$(addprefix renderer/, \

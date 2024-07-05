@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:30:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/05 07:13:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:06:25 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ t_rt_errno	scene_add_camera(t_scene *self, t_camera *camera);
 t_rt_errno	scene_add_light(t_scene *self, t_light *light);
 t_rt_errno	scene_add_figure(t_scene *self, t_figure *figure);
 
-t_figure	*scene_get_nearest(t_scene *self, const t_ray *r, float max_dist,
-				float *dist);
 t_color		scene_trace(t_scene *self, const t_ray *r, float max_dist,
 				int max_depth);
 t_color		scene_rough_trace(t_scene *self, const t_ray *r, float max_dist);
+
+t_figure	*scene_get_nearest(t_scene *self, const t_ray *r, float max_dist,
+				float *dist);
+void		scene_apply_ambients(t_scene *self, t_color *color);
+void		scene_apply_lights(t_scene *self, const t_ray *normal,
+				t_color *color);
 
 #endif

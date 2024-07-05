@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:21:11 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 00:43:20 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:10:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	figure_intersect(t_figure *self, const t_ray *r, float max_dist, float *t)
 	return (1);
 }
 
-t_color	figure_get_color(t_figure *self, const t_vec3d *p)
+t_color	figure_get_color(t_figure *self, const t_ray *normal)
 {
-	(void)p;
+	(void)normal;
 	return (self->color);
 }

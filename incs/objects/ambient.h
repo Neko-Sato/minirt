@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:13:17 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 22:48:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 08:36:59 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct s_ambient
 {
-	float	ratio;
 	t_color	color;
 }			t_ambient;
 

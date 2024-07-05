@@ -18,6 +18,7 @@ static const t_figure_vtable	g_vtable = {
 	.del = (void *)plane_del,
 	.intersect = (void *)plane_intersect,
 	.get_color = figure_get_color,
+	.get_normal = (void *)plane_get_normal,
 };
 
 t_rt_errno	plane_init(t_plane *self, t_plane_init *args)

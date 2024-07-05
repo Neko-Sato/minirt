@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:16:57 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 03:20:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:04:30 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_figure
 
 //	This is a damn code written for a bad norminette!
 typedef t_color					(*t_figure_get_color)(t_figure *self,
-						const t_vec3d *p);
+						const t_ray *normal);
 typedef t_ray					(*t_figure_get_normal)(t_figure *self,
-						const t_vec3d *p, const t_vec3d *c);
+						float dist, const t_ray *r);
 
 typedef struct s_figure_vtable
 {
@@ -65,6 +65,6 @@ void							figure_del(t_figure *self);
 int								figure_intersect(t_figure *self, const t_ray *r,
 									float max_dist, float *t);
 t_color							figure_get_color(t_figure *self,
-									const t_vec3d *p);
+									const t_ray *normal);
 
 #endif

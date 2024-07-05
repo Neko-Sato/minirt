@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 01:12:59 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:39:58 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void				plane_del(t_plane *self);
 void				plane_set_aabb(t_plane *self);
 int					plane_intersect(t_plane *self, const t_ray *r,
 						float max_dist, float *t);
+t_ray				plane_get_normal(t_plane *self, float dist, const t_ray *r);
 
 #endif
