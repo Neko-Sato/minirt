@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 00:27:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:00:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "rt_errno.h"
 #include <libft.h>
 
-t_rt_errno	parse_line(char **str, t_scene *scene)
+t_rt_errno	parse_line(char **str, t_parser *context)
 {
 	t_rt_errno	ret;
 	char		*s;
@@ -26,7 +26,7 @@ t_rt_errno	parse_line(char **str, t_scene *scene)
 	ret = parse_eol(&s);
 	if (ret == INCORRECT_FORMAT)
 	{
-		ret = parse_object(&s, scene);
+		ret = parse_object(&s, context);
 		if (ret)
 			return (ret);
 		ret = parse_blank(&s);
@@ -53,7 +53,7 @@ t_rt_errno	parse_eol(char **str)
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_object(char **str, t_scene *scene)
+t_rt_errno	parse_object(char **str, t_parser *context)
 {
 	t_rt_errno			ret;
 	char				*s;
@@ -63,7 +63,7 @@ t_rt_errno	parse_object(char **str, t_scene *scene)
 	ret = parse_identifier(&s, &identifier);
 	if (ret)
 		return (ret);
-	ret = identifier->fun(&s, scene);
+	ret = identifier->fun(&s, context);
 	if (ret)
 		return (ret);
 	*str = s;
@@ -77,7 +77,6 @@ const t_identifier	g_identifiers[] = {
 {"sp", (void *)parse_sphere},
 {"pl", (void *)parse_plane},
 {"cy", (void *)parse_cylinder},
-{"sq", (void *)parse_square},
 {"tr", (void *)parse_triangle},
 };
 
@@ -111,9 +110,3 @@ t_rt_errno	parse_identifier(char **str, const t_identifier **identifier)
 	*str = s;
 	return (SUCCESS);
 }
-
-const t_figure_opt	g_default_figure_opt = {
-	.reflectivity = 0.0f,
-	.checker = {.raw = COLOR_RAW_TRANSPARENT},
-	.bump = NULL,
-};

@@ -6,16 +6,16 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 00:44:39 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 05:22:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/camera.h"
-#include "objects/minirt.h"
+#include "constants.h"
 #include "rt_errno.h"
 #include "utils/matrix3x3.h"
-#include <libft.h>
 #include <unistd.h>
+#include <libft.h>
 
 t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 {
@@ -35,11 +35,10 @@ t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 	if (!ALLOW_FOV_UNLIMITED && (args->fov < 0 || 180 < args->fov))
 		return (OUT_OF_RANGE);
 	self->fov = ft_deg2rad(args->fov);
-	if (self->width < 0 || self->height < 0 || self->dist < 0)
+	if (self->width < 0 || self->height < 0)
 		return (OUT_OF_RANGE);
 	self->width = args->width;
 	self->height = args->height;
-	self->dist = args->dist;
 	return (SUCCESS);
 }
 

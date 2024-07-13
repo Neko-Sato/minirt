@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   static_methods_0.c                                 :+:      :+:    :+:   */
+/*   methods_0.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 17:27:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 16:09:06 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/07/09 10:50:51 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/13 17:42:36 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "constants.h"
-#include <unistd.h>
+#include "objects/ambient.h"
+#include "utils/ray.h"
 #include <libft.h>
 
-void	minirt_put_using(void)
+t_color	ambient_get_intensity(t_ambient *self, t_scene *scene,
+	const t_ray *normal)
 {
-	ft_putendl_fd(USING, STDERR_FILENO);
-	ft_putendl_fd(FORMAT_DESCRIPTION, STDERR_FILENO);
-	ft_putendl_fd(KEY_OPERATION_DESCRIPTION, STDERR_FILENO);
-	ft_putstr_fd(ABOUT, STDERR_FILENO);
+	t_abstract_light *const	light = (t_abstract_light *)self;
+
+	(void)scene;
+	(void)normal;
+	return (ft_color_brightness(light->brightness, light->color));
 }

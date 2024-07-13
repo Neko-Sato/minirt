@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 00:15:08 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 03:21:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "parser.h"
 #include "rt_errno.h"
 #include <stdlib.h>
+#include <libft.h>
 
 static t_rt_errno	internal(char **str, t_cylinder_init *args);
 
-t_rt_errno	parse_cylinder(char **str, t_scene *scene)
+t_rt_errno	parse_cylinder(char **str, t_parser *context)
 {
 	t_rt_errno		ret;
 	t_cylinder_init	args;
@@ -32,9 +33,9 @@ t_rt_errno	parse_cylinder(char **str, t_scene *scene)
 	ret = cylinder_init(tmp, &args);
 	if (ret)
 		return (free(tmp), ret);
-	ret = scene_add_figure(scene, (t_figure *)tmp);
-	if (ret)
-		return (((t_figure *)tmp)->_->del((t_figure *)tmp), free(tmp), ret);
+	if (ft_xlstappend(&context->figures, &tmp, sizeof(tmp)))
+		return (((t_abstract_figure *)tmp)->_->del((t_abstract_figure *)tmp), \
+			free(tmp), FAILED_ALLOCATE);
 	return (SUCCESS);
 }
 
@@ -48,15 +49,15 @@ static t_rt_errno	internal(char **str, t_cylinder_init *args)
 	{(void *)parse_color, &args->color},
 	};
 	const t_parse_opt	opt[] = {
-	{"reflectivity", (void *)parse_decimal, &args->opt.reflectivity},
-	{"checker", (void *)parse_color, &args->opt.checker},
-	{"bump", (void *)parse_string, &args->opt.bump},
+	{"reflectivity", (void *)parse_decimal, &args->reflectivity},
+	{"checker", (void *)parse_color, &args->checker},
+	{"bump", (void *)parse_string, &args->bump},
 	};
 	static const size_t	size = sizeof(entries) / sizeof(*entries);
 	static const size_t	opt_size = sizeof(opt) / sizeof(*opt);
 	t_rt_errno			ret;
 
-	args->opt = g_default_figure_opt;
+	*args = (t_cylinder_init){};
 	ret = parse_entries(str, entries, size);
 	if (ret)
 		return (ret);

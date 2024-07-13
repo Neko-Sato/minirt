@@ -6,38 +6,48 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 22:15:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 04:22:07 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "objects/abstract_figure.h"
 #include "objects/scene.h"
-#include "rt_errno.h"
+#include "utils/ray.h"
 #include <libft.h>
 
-t_rt_errno	scene_add_ambient(t_scene *self, t_ambient *ambient)
+t_color	scene_trace(t_scene *self, const t_ray *ray, float max_dist,
+		int max_depth)
 {
-	if (ft_xlstappend(&self->ambients, &ambient, sizeof(ambient)))
-		return (FAILED_ALLOCATE);
-	return (SUCCESS);
+	t_color				color;
+	t_abstract_figure	*nearest;
+	float				dist;
+	t_ray				normal;
+
+	color.raw = COLOR_RAW_BLACK;
+	if (!max_depth)
+		return (color);
+	nearest = scene_get_nearest(self, ray, max_dist, &dist);
+	if (nearest)
+	{
+		normal = nearest->_->get_normal(nearest, dist, ray);
+		color = nearest->_->get_color(nearest, &normal);
+		color = ft_color_sub(color, scene_get_intensity(self, &normal));
+		if (nearest->texture.reflectivity)
+			color = ft_color_add(
+					ft_color_brightness(1 - nearest->texture.reflectivity,
+						color),
+					ft_color_brightness(nearest->texture.reflectivity,
+						scene_trace(self, &normal, max_dist, max_depth - 1)));
+	}
+	return (color);
 }
 
-t_rt_errno	scene_add_camera(t_scene *self, t_camera *camera)
+t_color	scene_rough_trace(t_scene *self, const t_ray *ray, float max_dist)
 {
-	if (ft_xlstappend(&self->cameras, &camera, sizeof(camera)))
-		return (FAILED_ALLOCATE);
-	return (SUCCESS);
-}
+	t_abstract_figure	*nearest;
 
-t_rt_errno	scene_add_light(t_scene *self, t_light *light)
-{
-	if (ft_xlstappend(&self->lights, &light, sizeof(light)))
-		return (FAILED_ALLOCATE);
-	return (SUCCESS);
-}
-
-t_rt_errno	scene_add_figure(t_scene *self, t_figure *figure)
-{
-	if (ft_xlstappend(&self->figures, &figure, sizeof(figure)))
-		return (FAILED_ALLOCATE);
-	return (SUCCESS);
+	nearest = scene_get_nearest(self, ray, max_dist, &(float){0});
+	if (nearest)
+		return (nearest->texture.color);
+	return ((t_color){.raw = COLOR_RAW_BLACK});
 }

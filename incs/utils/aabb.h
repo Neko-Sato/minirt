@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   static_methods_0.c                                 :+:      :+:    :+:   */
+/*   aabb.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 17:27:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 16:09:06 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/07/13 10:01:15 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/13 10:04:06 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "constants.h"
-#include <unistd.h>
-#include <libft.h>
+#ifndef AABB_H
+# define AABB_H
 
-void	minirt_put_using(void)
+# include "./vec3d.h"
+# include "./ray.h"
+
+typedef struct s_aabb
 {
-	ft_putendl_fd(USING, STDERR_FILENO);
-	ft_putendl_fd(FORMAT_DESCRIPTION, STDERR_FILENO);
-	ft_putendl_fd(KEY_OPERATION_DESCRIPTION, STDERR_FILENO);
-	ft_putstr_fd(ABOUT, STDERR_FILENO);
-}
+	t_vec3d	min;
+	t_vec3d	max;
+}			t_aabb;
+
+int			aabb_contains(\
+	const t_aabb *aabb, const t_ray *ray, float max_dist);
+
+#endif

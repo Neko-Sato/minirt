@@ -6,12 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 18:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 22:31:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 03:10:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/minirt.h"
 #include "objects/renderer.h"
+#include "constants.h"
 #include <mlx.h>
 #include <stdlib.h>
 #include <libft.h>

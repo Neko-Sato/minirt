@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/27 02:23:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:06:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef enum e_rt_errno
 	FAILED_OPEN,
 	UNKNOW_IDENTIFIER,
 	MULTIPLE_DEFINED_AMBIENT,
-	UNDEFINED_AMBIENT,
 	MULTIPLE_DEFINED_CAMERA,
+	MULTIPLE_DEFINED_LIGHT,
 	UNDEFINED_CAMERA,
 	INCORRECT_FORMAT,
 	OUT_OF_RANGE,

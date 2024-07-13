@@ -6,11 +6,12 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 05:31:52 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/05 16:29:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:21:00 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/renderer.h"
+#include "constants.h"
 #include "rt_errno.h"
 #include <mlx.h>
 #include <math.h>

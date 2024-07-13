@@ -5,45 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 16:10:34 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/07/12 20:55:30 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/14 00:18:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/figure.h"
-#include "objects/square.h"
+#include "objects/abstract_figure.h"
+#include "objects/texture.h"
 #include "rt_errno.h"
+#include "utils/vec3d.h"
+#include <math.h>
 #include <stdlib.h>
 
-static const t_figure_vtable	g_vtable = {
-	.del = (void *)square_del,
-	.intersect = figure_intersect,
-	.get_color = figure_get_color,
-};
-
-t_rt_errno	square_init(t_square *self, t_square_init *args)
+t_rt_errno	abstract_figure_init(t_abstract_figure *self,
+		t_abstract_figure_init *args)
 {
 	t_rt_errno	ret;
 
-	*self = (t_square){};
-	ret = figure_init((t_figure *)self, &(t_figure_init){
+	*self = (t_abstract_figure){};
+	(void)args;
+	self->aabb.min = (t_vec3d){{-INFINITY, -INFINITY, -INFINITY}};
+	self->aabb.max = (t_vec3d){{INFINITY, INFINITY, INFINITY}};
+	ret = texture_init(&self->texture, &(t_texture_init){
 			.color = args->color,
-			.opt = args->opt
+			.reflectivity = args->reflectivity,
+			.checker = args->checker,
+			.bump = args->bump
 		});
 	if (ret)
 		return (ret);
-	((t_figure *)self)->_ = &g_vtable;
-	if (!vec3d_abs(args->orient))
-		return (AMBIGUOUS_ORIENTATION);
-	if (args->size < 0)
-		return (OUT_OF_RANGE);
-	self->coord = args->coord;
-	self->orient = vec3d_norm(args->orient);
-	self->size = self->size;
 	return (SUCCESS);
 }
 
-void	square_del(t_square *self)
+void	abstract_figure_del(t_abstract_figure *self)
 {
-	figure_del((t_figure *)self);
+	texture_del(&self->texture);
 }

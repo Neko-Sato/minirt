@@ -5,38 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 18:49:24 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/03 08:34:52 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/14 03:50:19 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
-#include "parser.h"
-#include "rt_errno.h"
-#include <fcntl.h>
-#include <stdlib.h>
+#include "objects/abstract_figure.h"
+#include "objects/abstract_light.h"
+#include "utils/ray.h"
 #include <libft.h>
 
-t_rt_errno	scene_load(t_scene *self, char *filename)
+t_abstract_figure	*scene_get_nearest(t_scene *self, const t_ray *ray,
+		float max_dist, float *dist)
 {
-	t_rt_errno	ret;
-	t_file		*f;
-	char		*line;
-	size_t		size;
+	t_abstract_figure	*figure;
+	size_t				i;
+	t_abstract_figure	*nearest;
+	float				t;
 
-	f = ft_file_new(open(filename, O_RDONLY), 0b10, 0, 1);
-	if (!f)
-		return (FAILED_OPEN);
-	line = NULL;
-	ret = SUCCESS;
-	while (!ret && ft_getline(&line, &size, f) != -1)
-		ret = parse_line(&(char *){line}, self);
-	free(line);
-	if (ret)
-		return (ft_fclose(f), ret);
-	if (ft_ferror(f))
-		return (ft_fclose(f), FAILED_READ);
-	if (ft_feof(f))
-		return (ft_fclose(f), SUCCESS);
-	return (ft_fclose(f), FAILED_ALLOCATE);
+	nearest = NULL;
+	i = 0;
+	while (i < self->figures_size)
+	{
+		figure = self->figures[i++];
+		if (figure->_->intersect(figure, ray, max_dist, &t))
+		{
+			nearest = figure;
+			max_dist = t;
+		}
+	}
+	if (nearest)
+		*dist = t;
+	return (nearest);
+}
+
+t_color	scene_get_intensity(t_scene *self, const t_ray *normal)
+{
+	t_abstract_light	*light;
+	size_t				i;
+	t_color				intensity;
+
+	intensity.raw = COLOR_RAW_BLACK;
+	i = 0;
+	while (i < self->lights_size)
+	{
+		light = self->lights[i++];
+		intensity = ft_color_add(\
+			intensity, light->_->get_intensity(light, self, normal));
+	}
+	return (intensity);
 }

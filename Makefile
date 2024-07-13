@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/05 17:18:19 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/14 05:27:19 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ MLX			:= $(DIR)/libmlx
 INCS_DIR	:= $(DIR)/incs
 SRCS_DIR	:= $(DIR)/srcs
 OUT_DIR		:= $(DIR)/out
-TEST_RT		:= $(DIR)/scene/test.rt
+TEST_RT		:= $(DIR)/scenes/test.rt
 
 SRCS		:= \
 	$(addprefix $(SRCS_DIR)/, \
@@ -34,8 +34,7 @@ SRCS		:= \
 			$(addprefix scene/, \
 				methods_0.c \
 				methods_1.c \
-				methods_2.c \
-				methods_3.c \
+				static_methods_0.c \
 				special.c \
 			) \
 			$(addprefix renderer/, \
@@ -45,7 +44,18 @@ SRCS		:= \
 				methods_3.c \
 				special.c \
 			) \
+			$(addprefix abstract_figure/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix abstract_light/, \
+				special.c \
+			) \
+			$(addprefix texture/, \
+				special.c \
+			) \
 			$(addprefix ambient/, \
+				methods_0.c \
 				special.c \
 			) \
 			$(addprefix camera/, \
@@ -53,9 +63,6 @@ SRCS		:= \
 				special.c \
 			) \
 			$(addprefix light/, \
-				special.c \
-			) \
-			$(addprefix figure/, \
 				methods_0.c \
 				special.c \
 			) \
@@ -71,14 +78,13 @@ SRCS		:= \
 				methods_0.c \
 				special.c \
 			) \
-			$(addprefix square/, \
-				special.c \
-			) \
 			$(addprefix triangle/, \
+				methods_0.c \
 				special.c \
 			) \
 		) \
 		$(addprefix parsers/, \
+			parser.c \
 			token.c \
 			token_basic_0.c \
 			token_basic_1.c \
@@ -89,7 +95,6 @@ SRCS		:= \
 			token_sphere.c \
 			token_plane.c \
 			token_cylinder.c \
-			token_square.c \
 			token_triangle.c \
 		) \
 		$(addprefix utils/, \
@@ -98,9 +103,9 @@ SRCS		:= \
 			matrix3x3_operator.c \
 			matrix3x3_rotation.c \
 			matrix3x3_transform.c \
+			aabb.c \
 		) \
 	main.c \
-	rt2img_test.c \
 	rt_errno.c \
 	) 
 

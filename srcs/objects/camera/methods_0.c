@@ -6,15 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 04:37:36 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/28 20:04:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 05:12:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/camera.h"
-#include "objects/minirt.h"
 #include "utils/matrix3x3.h"
 #include "utils/vec3d.h"
-#include <libft.h>
+#include "constants.h"
 #include <math.h>
 
 int	camera_move(t_camera *self, const t_vec3d *direction)
@@ -32,7 +31,7 @@ int	camera_rotate(t_camera *self, float roll, float pitch, float yaw)
 	return (0);
 }
 
-int	camera_fov(t_camera *self, float fov)
+int	camera_set_fov(t_camera *self, float fov)
 {
 	if (!ALLOW_FOV_UNLIMITED && (fov < 0 || M_PI < fov))
 		return (1);

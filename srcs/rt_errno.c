@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 16:17:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 22:22:24 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:09:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	rt_perror(t_rt_errno rt_errno)
 		"Failed open.",
 		"Unknown identifier.",
 		"Multiple defined of ambient.",
-		"Undefined of ambient.",
 		"Multiple defined of camera.",
+		"Multiple defined of light.",
 		"Undefined of camera.",
 		"Incorrect format.",
 		"Value is out of range.",

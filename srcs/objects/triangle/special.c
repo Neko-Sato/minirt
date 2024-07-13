@@ -6,20 +6,21 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/29 01:17:39 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 03:20:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/figure.h"
+#include "objects/abstract_figure.h"
 #include "objects/triangle.h"
+#include "utils/vec3d.h"
 #include "rt_errno.h"
-#include <math.h>
-#include <stdlib.h>
 
-static const t_figure_vtable	g_vtable = {
-	.del = (void *)triangle_del,
-	.intersect = figure_intersect,
-	.get_color = figure_get_color,
+static const t_abstract_figure_vtable	g_vtable = {
+	.del = abstract_figure_del,
+	.calculate_aabb = (void *)triangle_calculate_aabb,
+	.intersect = (void *)triangle_intersect,
+	.get_color = abstract_figure_get_color,
+	.get_normal = (void *)triangle_get_normal,
 };
 
 t_rt_errno	triangle_init(t_triangle *self, t_triangle_init *args)
@@ -27,20 +28,20 @@ t_rt_errno	triangle_init(t_triangle *self, t_triangle_init *args)
 	t_rt_errno	ret;
 
 	*self = (t_triangle){};
-	ret = figure_init((t_figure *)self, &(t_figure_init){
+	ret = abstract_figure_init((t_abstract_figure *)self,
+			&(t_abstract_figure_init){
 			.color = args->color,
-			.opt = args->opt,
+			.reflectivity = args->reflectivity,
+			.checker = args->checker,
+			.bump = args->bump,
 		});
 	if (ret)
 		return (ret);
-	((t_figure *)self)->_ = &g_vtable;
-	self->first = args->first;
-	self->second = args->second;
-	self->third = args->third;
+	((t_abstract_figure *)self)->_ = &g_vtable;
+	self->a = args->first;
+	self->ab = vec3d_sub(args->second, args->first);
+	self->ac = vec3d_sub(args->third, args->first);
+	self->normal = vec3d_norm(vec3d_cross(self->ab, self->ac));
+	triangle_calculate_aabb(self);
 	return (SUCCESS);
-}
-
-void	triangle_del(t_triangle *self)
-{
-	figure_del((t_figure *)self);
 }
