@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:39:55 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:08:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 t_rt_errno	scene_init(t_scene *self, t_scene_init *args)
 {
 	*self = (t_scene){};
+	if (!args->cameras_size)
+		return (UNDEFINED_CAMERA);
 	self->title = ft_strdup(args->title);
 	if (!self->title)
 		return (FAILED_ALLOCATE);
