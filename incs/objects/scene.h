@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 03:30:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:18:19 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:01:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_abstract_figure		*scene_get_nearest(\
 t_color					scene_get_intensity(\
 	t_scene *self, const t_ray *normal);
 t_color					scene_trace(\
-	t_scene *self, const t_ray *ray, float max_dist, int max_depth);
+	t_scene *self, const t_ray *ray, int max_depth);
 t_color					scene_rough_trace(\
-	t_scene *self, const t_ray *ray, float max_dist);
+	t_scene *self, const t_ray *ray);
 
 t_rt_errno				scene_load(\
 	t_scene *scene, char *filename);

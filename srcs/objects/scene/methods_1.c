@@ -6,17 +6,17 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 13:18:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:08:07 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/abstract_figure.h"
 #include "objects/scene.h"
 #include "utils/ray.h"
+#include "constants.h"
 #include <libft.h>
 
-t_color	scene_trace(t_scene *self, const t_ray *ray, float max_dist,
-		int max_depth)
+t_color	scene_trace(t_scene *self, const t_ray *ray, int max_depth)
 {
 	t_color				color;
 	t_abstract_figure	*nearest;
@@ -26,7 +26,7 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, float max_dist,
 	color.raw = COLOR_RAW_BLACK;
 	if (!max_depth)
 		return (color);
-	nearest = scene_get_nearest(self, ray, max_dist, &dist);
+	nearest = scene_get_nearest(self, ray, MAX_DIST, &dist);
 	if (nearest)
 	{
 		normal = nearest->_->get_normal(nearest, dist, ray);
@@ -37,17 +37,16 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, float max_dist,
 					ft_color_brightness(1 - nearest->texture.reflectivity,
 						color),
 					ft_color_brightness(nearest->texture.reflectivity,
-						scene_trace(self, &normal, max_dist, max_depth - 1)));
+						scene_trace(self, &normal, max_depth - 1)));
 	}
-	color = ft_color_add(color, scene_get_intensity(self, ray));
 	return (color);
 }
 
-t_color	scene_rough_trace(t_scene *self, const t_ray *ray, float max_dist)
+t_color	scene_rough_trace(t_scene *self, const t_ray *ray)
 {
 	t_abstract_figure	*nearest;
 
-	nearest = scene_get_nearest(self, ray, max_dist, &(float){0});
+	nearest = scene_get_nearest(self, ray, MAX_DIST, &(float){0});
 	if (nearest)
 		return (nearest->texture.color);
 	return ((t_color){.raw = COLOR_RAW_BLACK});

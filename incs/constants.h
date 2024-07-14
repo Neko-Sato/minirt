@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 13:42:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:27:06 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,5 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 # define PIXELS_PER_DRAW 5000
 # define PIXELS_PER_DRAW_PREVIEW 50000
 # define MOVE_UNIT 1.0
-
-# define GLOSSINESS 8
 
 #endif

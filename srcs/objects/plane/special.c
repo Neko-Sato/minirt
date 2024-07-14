@@ -26,6 +26,8 @@ t_rt_errno	plane_init(t_plane *self, t_plane_init *args)
 {
 	t_rt_errno	ret;
 
+	if (!vec3d_abs(args->orient))
+		return (AMBIGUOUS_ORIENTATION);
 	*self = (t_plane){};
 	ret = abstract_figure_init((t_abstract_figure *)self,
 			&(t_abstract_figure_init){
@@ -38,8 +40,6 @@ t_rt_errno	plane_init(t_plane *self, t_plane_init *args)
 		return (ret);
 	((t_abstract_figure *)self)->_ = &g_vtable;
 	self->coord = args->coord;
-	if (!vec3d_abs(args->orient))
-		return (AMBIGUOUS_ORIENTATION);
 	self->orient = vec3d_norm(args->orient);
 	plane_calculate_aabb(self);
 	return (SUCCESS);

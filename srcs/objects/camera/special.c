@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 05:22:08 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:20:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@
 
 t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 {
-	*self = (t_camera){};
-	self->coord = self->coord;
 	if (!vec3d_abs(args->orient) || !vec3d_abs(args->up))
 		return (AMBIGUOUS_ORIENTATION);
+	if (!ALLOW_FOV_UNLIMITED && (args->fov < 0 || 180 < args->fov))
+		return (OUT_OF_RANGE);
+	if (self->width < 0 || self->height < 0)
+		return (OUT_OF_RANGE);
+	*self = (t_camera){};
+	self->coord = self->coord;
 	if (matrix3x3_orientation(args->orient, args->up, &self->transform))
 	{
 		if (!ALTERNATIVE_UP_VECTOR)
@@ -32,11 +36,7 @@ t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 				(t_vec3d){{1, 0, 0}}, &self->transform));
 		ft_putendl_fd("Using alternative up vector.", STDERR_FILENO);
 	}
-	if (!ALLOW_FOV_UNLIMITED && (args->fov < 0 || 180 < args->fov))
-		return (OUT_OF_RANGE);
 	self->fov = ft_deg2rad(args->fov);
-	if (self->width < 0 || self->height < 0)
-		return (OUT_OF_RANGE);
 	self->width = args->width;
 	self->height = args->height;
 	return (SUCCESS);

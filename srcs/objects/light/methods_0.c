@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:50:51 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 13:58:58 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 14:44:49 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ t_color	light_get_intensity(t_light *self, t_scene *scene, const t_ray *normal)
 	if (n < 0 || scene_get_nearest(scene, \
 			&(t_ray){o, normal->c}, dist, &(float){0}))
 		return ((t_color){.raw = COLOR_RAW_BLACK});
-	n = pow(n, GLOSSINESS) * light->brightness;
-	return (ft_color_brightness(n, light->color));
+	return (ft_color_brightness(n * light->brightness, light->color));
 }

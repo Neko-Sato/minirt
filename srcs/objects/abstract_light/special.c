@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:59:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/12 21:32:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:20:14 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 t_rt_errno	abstract_light_init(t_abstract_light *self,
 		t_abstract_light_init *args)
 {
-	*self = (t_abstract_light){};
-	self->color = args->color;
 	if (args->brightness < 0 || 1 < args->brightness)
 		return (OUT_OF_RANGE);
+	*self = (t_abstract_light){};
+	self->color = args->color;
 	self->brightness = args->brightness;
 	return (SUCCESS);
 }

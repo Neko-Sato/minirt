@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 18:01:45 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 12:55:35 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:07:10 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 
 static inline t_color	trace(t_scene *scene, const t_ray *ray)
 {
-	return (scene_trace(scene, ray, MAX_DIST, MAX_DEPTH));
+	return (scene_trace(scene, ray, MAX_DEPTH));
 }
 
 static inline t_color	preview(t_scene *scene, const t_ray *ray)
 {
-	return (scene_rough_trace(scene, ray, MAX_DIST));
+	return (scene_rough_trace(scene, ray));
 }
 
 static inline t_rt_errno	renderer_render_internal(\

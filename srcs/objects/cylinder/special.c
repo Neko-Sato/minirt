@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:19:57 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 22:03:16 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ t_rt_errno	cylinder_init(t_cylinder *self, t_cylinder_init *args)
 {
 	t_rt_errno	ret;
 
+	if (args->diameter < 0 || args->height < 0)
+		return (OUT_OF_RANGE);
+	if (!vec3d_abs(args->axis))
+		return (AMBIGUOUS_ORIENTATION);
 	*self = (t_cylinder){};
 	ret = abstract_figure_init((t_abstract_figure *)self,
 			&(t_abstract_figure_init){
@@ -39,11 +43,7 @@ t_rt_errno	cylinder_init(t_cylinder *self, t_cylinder_init *args)
 		return (ret);
 	((t_abstract_figure *)self)->_ = &g_vtable;
 	self->coord = args->coord;
-	if (!vec3d_abs(args->axis))
-		return (AMBIGUOUS_ORIENTATION);
 	self->axis = vec3d_norm(args->axis);
-	if (args->diameter < 0 || args->height < 0)
-		return (OUT_OF_RANGE);
 	self->height = args->height;
 	self->radius = args->diameter / 2.;
 	cylinder_calculate_aabb(self);
