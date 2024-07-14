@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 04:22:07 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:18:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, float max_dist,
 					ft_color_brightness(nearest->texture.reflectivity,
 						scene_trace(self, &normal, max_dist, max_depth - 1)));
 	}
+	color = ft_color_add(color, scene_get_intensity(self, ray));
 	return (color);
 }
 

@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/14 05:27:19 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/14 06:25:01 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,11 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -g -fsanitize=address -D ALLOW_MULTIPLE_CAMERAS=1 -D ALLOW_MULTIPLE_AMIBIENTS=1 -D ALLOW_FOV_UNLIMITED=1
+CFLAGS		+= -g -fsanitize=address
+CFLAGS		+= -D ALLOW_MULTIPLE_CAMERAS=1
+CFLAGS		+= -D ALLOW_MULTIPLE_AMIBIENTS=1
+CFLAGS		+= -D ALLOW_MULTIPLE_LIGHTS=1
+CFLAGS		+= -D ALLOW_FOV_UNLIMITED=1
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)
 LDFLAGS		:= -L$(FT) -L$(MLX)
 LIBS		:= -lft -Wl,-rpath ./libft -lmlx -lm -lX11 -lXext

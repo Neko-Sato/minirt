@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 05:22:30 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:05:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static inline void	move(t_renderer *self)
 
 static inline void	route(t_renderer *self)
 {
-	const float	unit = \
-		0.03490658503988659;
+	const float	unit = 100 * self->camera->fov / self->camera->width;
 	const float	roll = unit * (self->action.roll_up - self->action.roll_dn);
 	const float	pitch = unit * (self->action.pitch_up - self->action.pitch_dn);
 	const float	yaw = unit * (self->action.yaw_up - self->action.yaw_dn);
