@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 00:15:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/19 00:04:47 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@
 t_color	abstract_figure_get_color(t_abstract_figure *self, const t_ray *normal)
 {
 	(void)normal;
-	return (self->texture.color);
+	return (self->color);
 }

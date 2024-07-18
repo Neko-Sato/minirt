@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:55:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 00:18:32 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/19 00:08:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,20 @@
 t_rt_errno	abstract_figure_init(t_abstract_figure *self,
 		t_abstract_figure_init *args)
 {
-	t_rt_errno	ret;
-
+	if (args->reflectivity < 0. || 1. < args->reflectivity)
+		return (OUT_OF_RANGE);
 	*self = (t_abstract_figure){};
 	(void)args;
 	self->aabb.min = (t_vec3d){{-INFINITY, -INFINITY, -INFINITY}};
 	self->aabb.max = (t_vec3d){{INFINITY, INFINITY, INFINITY}};
-	ret = texture_init(&self->texture, &(t_texture_init){
-			.color = args->color,
-			.reflectivity = args->reflectivity,
-			.checker = args->checker,
-			.bump = args->bump
-		});
-	if (ret)
-		return (ret);
+	self->color = args->color;
+	self->reflectivity = args->reflectivity;
+	self->checker = args->checker;
+	self->bump = args->bump;
 	return (SUCCESS);
 }
 
 void	abstract_figure_del(t_abstract_figure *self)
 {
-	texture_del(&self->texture);
+	free(self->bump);
 }

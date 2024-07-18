@@ -26,7 +26,10 @@ typedef struct s_abstract_figure
 {
 	const t_abstract_figure_vtable		*_;
 	t_aabb								aabb;
-	t_texture							texture;
+	t_color								color;
+	float								reflectivity;
+	t_color								checker;
+	void								*bump;
 }										t_abstract_figure;
 
 typedef void							(*t_abstract_figure_del_fn)(

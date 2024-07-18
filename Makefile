@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/18 18:22:50 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/19 00:06:59 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,6 @@ SRCS		:= \
 				special.c \
 			) \
 			$(addprefix abstract_light/, \
-				special.c \
-			) \
-			$(addprefix texture/, \
 				special.c \
 			) \
 			$(addprefix ambient/, \
@@ -119,8 +116,8 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-CFLAGS		+= -O2
-# CFLAGS		+= -g -fsanitize=address
+# CFLAGS		+= -O2
+CFLAGS		+= -g -fsanitize=address
 CFLAGS		+= -D ALLOW_MULTIPLE_CAMERAS=1
 CFLAGS		+= -D ALLOW_MULTIPLE_AMIBIENTS=1
 CFLAGS		+= -D ALLOW_MULTIPLE_LIGHTS=1
