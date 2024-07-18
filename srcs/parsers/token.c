@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 23:00:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:03:28 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ const t_identifier	g_identifiers[] = {
 {"pl", (void *)parse_plane},
 {"cy", (void *)parse_cylinder},
 {"tr", (void *)parse_triangle},
+{"cn", (void *)parse_cone},
 };
 
 const size_t		g_identifiers_size = \

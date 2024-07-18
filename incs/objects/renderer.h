@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 18:42:07 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/12 21:02:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:48:40 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_action
 	int			down : 1;
 	int			broaden : 1;
 	int			narrow : 1;
+	int			mouse : 1;
 }				t_action;
 
 typedef struct s_renderer
@@ -49,6 +50,7 @@ typedef struct s_renderer
 	t_action	action;
 	t_camera	*camera;
 	t_scene		*scene;
+	int			current_pos[2];
 }				t_renderer;
 
 typedef struct s_renderer_init
@@ -61,6 +63,9 @@ typedef struct s_renderer_init
 t_rt_errno		renderer_init(\
 	t_renderer *self, t_renderer_init *args);
 void			renderer_del(\
+	t_renderer *self);
+
+void			renderer_destroy_window(\
 	t_renderer *self);
 
 void			renderer_set_hook(\

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 02:59:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:03:43 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_rt_errno					parse_sphere(char **str, t_parser *context);
 t_rt_errno					parse_plane(char **str, t_parser *context);
 t_rt_errno					parse_cylinder(char **str, t_parser *context);
 t_rt_errno					parse_triangle(char **str, t_parser *context);
+t_rt_errno					parse_cone(char **str, t_parser *context);
 
 #endif

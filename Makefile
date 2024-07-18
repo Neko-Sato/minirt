@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/14 14:18:18 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/18 18:22:50 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS		:= \
 				methods_1.c \
 				methods_2.c \
 				methods_3.c \
+				methods_4.c \
 				special.c \
 			) \
 			$(addprefix abstract_figure/, \
@@ -82,6 +83,10 @@ SRCS		:= \
 				methods_0.c \
 				special.c \
 			) \
+			$(addprefix cone/, \
+				methods_0.c \
+				special.c \
+			) \
 		) \
 		$(addprefix parsers/, \
 			parser.c \
@@ -96,6 +101,7 @@ SRCS		:= \
 			token_plane.c \
 			token_cylinder.c \
 			token_triangle.c \
+			token_cone.c \
 		) \
 		$(addprefix utils/, \
 			vec3d_basic.c \

@@ -5,79 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 13:05:08 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/06/11 14:32:32 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/18 23:21:30 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects/camera.h"
-#include "objects/minirt.h"
 #include "objects/renderer.h"
-#include "constants.h"
-#include "rt_errno.h"
-#include "utils/vec3d.h"
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include <mlx.h>
 
-static inline void	move(t_renderer *self)
+static int	keypress_hook(int keycode, t_renderer *self);
+static int	keyrelease_hook(int keycode, t_renderer *self);
+static int	buttonpress_hook(unsigned int button, int x, int y,
+				t_renderer *self);
+static int	buttonrelease_hook(unsigned int button, int x, int y,
+				t_renderer *self);
+
+void	renderer_set_hook2(t_renderer *self)
 {
-	const t_vec3d	movement = {{
-		MOVE_UNIT * (self->action.left - self->action.right),
-		MOVE_UNIT * (self->action.up - self->action.down),
-		MOVE_UNIT * (self->action.backward - self->action.forward),
-	}};
-
-	if (!vec3d_abs(movement))
-		return ;
-	camera_move(self->camera, &movement);
-	self->iter = -1;
+	mlx_hook(self->win, KeyPress, KeyPressMask, keypress_hook, self);
+	mlx_hook(self->win, KeyRelease, KeyReleaseMask, keyrelease_hook, self);
+	mlx_hook(self->win, ButtonPress, ButtonPressMask, buttonpress_hook, self);
+	mlx_hook(self->win, ButtonRelease, ButtonReleaseMask, buttonrelease_hook,
+		self);
 }
 
-static inline void	route(t_renderer *self)
+static int	keypress_hook(int keycode, t_renderer *self)
 {
-	const float	unit = 100 * self->camera->fov / self->camera->width;
-	const float	roll = unit * (self->action.roll_up - self->action.roll_dn);
-	const float	pitch = unit * (self->action.pitch_up - self->action.pitch_dn);
-	const float	yaw = unit * (self->action.yaw_up - self->action.yaw_dn);
-
-	if (!roll && !pitch && !yaw)
-		return ;
-	camera_rotate(self->camera, roll, pitch, yaw);
-	self->iter = -1;
+	if (keycode == XK_Escape)
+		renderer_destroy_window(self);
+	self->action.reset |= (keycode == XK_r);
+	self->action.forward |= (keycode == XK_w);
+	self->action.backward |= (keycode == XK_s);
+	self->action.left |= (keycode == XK_a);
+	self->action.right |= (keycode == XK_d);
+	self->action.up |= (keycode == XK_c);
+	self->action.down |= (keycode == XK_z);
+	self->action.roll_up |= (keycode == XK_q);
+	self->action.roll_dn |= (keycode == XK_e);
+	self->action.pitch_up |= (keycode == XK_Up);
+	self->action.pitch_dn |= (keycode == XK_Down);
+	self->action.yaw_up |= (keycode == XK_Left);
+	self->action.yaw_dn |= (keycode == XK_Right);
+	self->action.broaden |= (keycode == XK_j);
+	self->action.narrow |= (keycode == XK_k);
+	return (0);
 }
 
-static inline void	fov(t_renderer *self)
+static int	keyrelease_hook(int keycode, t_renderer *self)
 {
-	float	tmp;
-
-	tmp = self->action.broaden - self->action.narrow;
-	if (!tmp)
-		return ;
-	if (camera_set_fov(self->camera, ft_deg2rad(tmp) + self->camera->fov))
-		return ;
-	self->iter = -1;
+	self->action.forward &= (keycode != XK_w);
+	self->action.backward &= (keycode != XK_s);
+	self->action.left &= (keycode != XK_a);
+	self->action.right &= (keycode != XK_d);
+	self->action.up &= (keycode != XK_c);
+	self->action.down &= (keycode != XK_z);
+	self->action.roll_up &= (keycode != XK_q);
+	self->action.roll_dn &= (keycode != XK_e);
+	self->action.pitch_up &= (keycode != XK_Up);
+	self->action.pitch_dn &= (keycode != XK_Down);
+	self->action.yaw_up &= (keycode != XK_Left);
+	self->action.yaw_dn &= (keycode != XK_Right);
+	self->action.broaden &= (keycode != XK_j);
+	self->action.narrow &= (keycode != XK_k);
+	return (0);
 }
 
-static inline void	action(t_renderer *self)
+static int	buttonpress_hook(unsigned int button, int x, int y,
+		t_renderer *self)
 {
-	if (self->action.reset)
+	if (button == Button1)
 	{
-		self->action.reset = 0;
-		*self->camera = self->save;
-		self->iter = 0;
-		return ;
+		self->action.mouse |= 1;
+		mlx_mouse_hide(self->mlx, self->win);
+		self->current_pos[0] = x;
+		self->current_pos[1] = y;
 	}
-	move(self);
-	route(self);
-	fov(self);
+	return (0);
 }
 
-t_rt_errno	renderer_loop_hook(t_renderer *self)
+static int	buttonrelease_hook(unsigned int button, int x, int y,
+		t_renderer *self)
 {
-	if (!self->focus)
-		return (SUCCESS);
-	action(self);
-	if (self->iter < 0)
-		;
-	else if (self->box[0] <= self->iter / self->box[1])
-		return (SUCCESS);
-	return (renderer_render(self));
+	if (button == Button1)
+	{
+		self->action.mouse &= 0;
+		mlx_mouse_show(self->mlx, self->win);
+		(void)x;
+		(void)y;
+	}
+	return (0);
 }

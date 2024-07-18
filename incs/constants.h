@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 21:27:06 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/18 23:30:38 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,23 @@ rt-file format:\n\
 \tPlane\t\tpl <coordinates> <orientation> <color>\n\
 \tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
 \tTriangle\ttr <first> <second> <third> <color>\n\
+\tCone\t\tcn <coordinates> <diameter> <apex> <color>\n\
 "
 
 # define KEY_OPERATION_DESCRIPTION "\
 key operation:\n\
-\tUp\tMove forward.\n\
-\tDown\tMove backward.\n\
-\tLeft\tMove left.\n\
-\tRight\tMove right.\n\
-\tz\tMove down.\n\
+\tw\tMove forward.\n\
+\ts\tMove backward.\n\
+\ta\tMove left.\n\
+\td\tMove right.\n\
 \tc\tMove up.\n\
+\tz\tMove down.\n\
 \te\tRoll up.\n\
 \tq\tRoll down.\n\
-\tw\tPitch up.\n\
-\ts\tPitch down.\n\
-\ta\tYaw up.\n\
-\td\tYaw down.\n\
+\tUp\tPitch up.\n\
+\tDown\tPitch down.\n\
+\tLeft\tYaw up.\n\
+\tRight\tYaw down.\n\
 \tk\tIncrease fov.\n\
 \tj\tDecrease fov.\n\
 \tr\tReturn to initial position.\n\
@@ -82,10 +83,11 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 # define MAX_DIST INFINITY
 # define MIN_DIST 0.0078125000
 
-# define MAX_DEPTH 5
+# define MAX_DEPTH 8
 
 # define PIXELS_PER_DRAW 5000
 # define PIXELS_PER_DRAW_PREVIEW 50000
-# define MOVE_UNIT 1.0
+# define MOVE_UNIT 0.1
+# define ROTATION_RADIUS 10.
 
 #endif
