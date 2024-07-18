@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 21:20:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/18 23:57:28 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 		return (AMBIGUOUS_ORIENTATION);
 	if (!ALLOW_FOV_UNLIMITED && (args->fov < 0 || 180 < args->fov))
 		return (OUT_OF_RANGE);
-	if (self->width < 0 || self->height < 0)
+	if (args->width < 0 || args->height < 0)
 		return (OUT_OF_RANGE);
 	*self = (t_camera){};
-	self->coord = self->coord;
+	self->coord = args->coord;
 	if (matrix3x3_orientation(args->orient, args->up, &self->transform))
 	{
 		if (!ALTERNATIVE_UP_VECTOR)
