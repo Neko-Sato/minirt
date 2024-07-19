@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/19 00:04:47 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:38:29 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "utils/ray.h"
 #include <libft.h>
 
-t_color	abstract_figure_get_color(t_abstract_figure *self, const t_ray *normal)
+t_color	abstract_figure_get_color(t_abstract_figure *self, const t_vec3d *point)
 {
-	(void)normal;
+	(void)point;
 	return (self->color);
 }

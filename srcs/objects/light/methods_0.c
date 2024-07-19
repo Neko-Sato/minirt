@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 10:50:51 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 14:44:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/19 23:19:44 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_color	light_get_intensity(t_light *self, t_scene *scene, const t_ray *normal)
 	if ((dist < MIN_DIST || MAX_DIST < dist))
 		return ((t_color){.raw = COLOR_RAW_BLACK});
 	n = vec3d_dot(o, normal->o);
-	if (n < 0 || scene_get_nearest(scene, \
+	if (n < MIN_DIST || scene_get_nearest(scene, \
 			&(t_ray){o, normal->c}, dist, &(float){0}))
 		return ((t_color){.raw = COLOR_RAW_BLACK});
 	return (ft_color_brightness(n * light->brightness, light->color));

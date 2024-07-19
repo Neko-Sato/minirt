@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:32:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/12 20:51:40 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:12:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_matrix3x3	matrix3x3_rotation_rollpitchyaw(float roll, float pitch, float yaw);
 t_matrix3x3	matrix3x3_rotation_axis(float n, t_vec3d axis);
 
 t_matrix3x3	matrix3x3_transform(t_vec3d a, t_vec3d b);
-int			matrix3x3_orientation(t_vec3d f, t_vec3d u, t_matrix3x3 *transform);
+int			matrix3x3_orientation(const t_vec3d *r, const t_vec3d *u,
+				const t_vec3d *f, t_matrix3x3 *transform);
 
 #endif

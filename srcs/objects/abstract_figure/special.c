@@ -6,12 +6,11 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:55:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/19 00:08:17 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:14:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/abstract_figure.h"
-#include "objects/texture.h"
 #include "rt_errno.h"
 #include "utils/vec3d.h"
 #include <math.h>

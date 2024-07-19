@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 00:12:38 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:18:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define TRIANGLE_H
 
 # include "./abstract_figure.h"
-# include "./texture.h"
 # include "utils/vec3d.h"
 
 typedef struct s_triangle
@@ -46,5 +45,7 @@ int						triangle_intersect(\
 	t_triangle *self, const t_ray *ray, float max_dist, float *dist);
 t_ray					triangle_get_normal(\
 	t_triangle *self, float dist, const t_ray *ray);
+void					triangle_get_uv_coord(\
+	t_triangle *self, const t_vec3d *point, float uv[2]);
 
 #endif

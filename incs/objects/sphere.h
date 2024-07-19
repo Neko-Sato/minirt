@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 00:12:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:18:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ int						sphere_intersect(\
 	t_sphere *self, const t_ray *ray, float max_dist, float *dist);
 t_ray					sphere_get_normal(\
 	t_sphere *self, float dist,	const t_ray *ray);
+void					sphere_get_uv_coord(\
+	t_sphere *self, const t_vec3d *point, float uv[2]);
 
 #endif

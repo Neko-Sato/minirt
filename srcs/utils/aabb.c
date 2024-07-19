@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 10:04:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 10:22:16 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:42:52 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/aabb.h"
 #include "utils/ray.h"
 #include "utils/vec3d.h"
-#include "constants.h"
+#include <math.h>
 
 int	aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist)
 {
@@ -21,7 +21,7 @@ int	aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist)
 	float	tmp[2];
 	int		i;
 
-	min_dist = MIN_DIST;
+	min_dist = 0;
 	i = 0;
 	while (i < 3)
 	{

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:07:39 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 15:44:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 01:00:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,12 @@ t_ray	sphere_get_normal(t_sphere *self, float dist, const t_ray *ray)
 	if (vec3d_dot(normal, vec3d_sub(ray->c, point)) < 0)
 		normal = vec3d_mul(-1, normal);
 	return ((t_ray){normal, point});
+}
+
+void	sphere_get_uv_coord(t_sphere *self, const t_vec3d *point, float uv[2])
+{
+	const t_vec3d	c2p = vec3d_norm(vec3d_sub(*point, self->coord));
+
+	uv[0] = atan(c2p._[2] / c2p._[0]) / M_PI + 0.5;
+	uv[1] = acos(c2p._[1]) / M_PI;
 }

@@ -6,13 +6,13 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 22:06:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:17:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/abstract_figure.h"
 #include "objects/sphere.h"
-#include "objects/texture.h"
+#include "utils/matrix3x3.h"
 #include "rt_errno.h"
 
 static const t_abstract_figure_vtable	g_vtable = {
@@ -21,6 +21,7 @@ static const t_abstract_figure_vtable	g_vtable = {
 	.intersect = (void *)sphere_intersect,
 	.get_color = abstract_figure_get_color,
 	.get_normal = (void *)sphere_get_normal,
+	.get_uv_coord = (void *)sphere_get_uv_coord,
 };
 
 t_rt_errno	sphere_init(t_sphere *self, t_sphere_init *args)

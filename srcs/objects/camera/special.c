@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/18 23:57:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:13:09 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,8 @@ t_rt_errno	camera_init(t_camera *self, t_camera_init *args)
 		return (OUT_OF_RANGE);
 	*self = (t_camera){};
 	self->coord = args->coord;
-	if (matrix3x3_orientation(args->orient, args->up, &self->transform))
-	{
-		if (!ALTERNATIVE_UP_VECTOR)
-			return (AMBIGUOUS_ORIENTATION);
-		(void)(matrix3x3_orientation(args->orient, (t_vec3d){{0, 1, 0}},
-				&self->transform) && matrix3x3_orientation(args->orient,
-				(t_vec3d){{1, 0, 0}}, &self->transform));
-		ft_putendl_fd("Using alternative up vector.", STDERR_FILENO);
-	}
+	if (matrix3x3_orientation(NULL, &args->up, &args->orient, &self->transform))
+		return (AMBIGUOUS_ORIENTATION);
 	self->fov = ft_deg2rad(args->fov);
 	self->width = args->width;
 	self->height = args->height;

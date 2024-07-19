@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/19 00:06:21 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:14:01 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, int max_depth)
 	if (nearest)
 	{
 		normal = nearest->_->get_normal(nearest, dist, ray);
-		color = nearest->_->get_color(nearest, &normal);
+		color = nearest->_->get_color(nearest, &normal.c);
 		color = ft_color_sub(color, scene_get_intensity(self, &normal));
 		if (nearest->reflectivity)
 			color = ft_color_add(

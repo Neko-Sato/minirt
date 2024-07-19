@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 22:03:16 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:39:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static const t_abstract_figure_vtable	g_vtable = {
 	.intersect = (void *)cylinder_intersect,
 	.get_color = abstract_figure_get_color,
 	.get_normal = (void *)cylinder_get_normal,
+	.get_uv_coord = (void *)cylinder_get_uv_coord,
 };
 
 t_rt_errno	cylinder_init(t_cylinder *self, t_cylinder_init *args)

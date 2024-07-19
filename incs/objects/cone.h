@@ -14,7 +14,6 @@
 # define CONE_H
 
 # include "./abstract_figure.h"
-# include "./texture.h"
 # include "rt_errno.h"
 # include "utils/ray.h"
 # include "utils/vec3d.h"

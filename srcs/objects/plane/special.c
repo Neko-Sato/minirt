@@ -20,6 +20,7 @@ static const t_abstract_figure_vtable	g_vtable = {
 	.intersect = (void *)plane_intersect,
 	.get_color = abstract_figure_get_color,
 	.get_normal = (void *)plane_get_normal,
+	.get_uv_coord = (void *)plane_get_uv_coord,
 };
 
 t_rt_errno	plane_init(t_plane *self, t_plane_init *args)

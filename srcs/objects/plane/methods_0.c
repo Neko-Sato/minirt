@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:50:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 15:44:07 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:35:24 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,12 @@ t_ray	plane_get_normal(t_plane *self, float dist, const t_ray *ray)
 	else
 		normal = self->orient;
 	return ((t_ray){normal, point});
+}
+
+void	plane_get_uv_coord(t_plane *self, const t_vec3d *point, float uv[2])
+{
+	(void)self;
+	(void)point;
+	uv[0] = 0;
+	uv[1] = 0;
 }

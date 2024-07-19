@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 04:57:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 04:43:03 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 04:35:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,13 @@ t_ray	cylinder_get_normal(t_cylinder *self, float dist, const t_ray *r)
 	if (vec3d_dot(normal, vec3d_sub(r->c, point)) < 0)
 		normal = vec3d_mul(-1, normal);
 	return ((t_ray){normal, point});
+}
+
+void	cylinder_get_uv_coord(t_cylinder *self, const t_vec3d *point,
+	float uv[2])
+{
+	(void)self;
+	(void)point;
+	uv[0] = 0;
+	uv[1] = 0;
 }

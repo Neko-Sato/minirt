@@ -13,7 +13,6 @@
 #ifndef ABSTRACT_FIGURE_H
 # define ABSTRACT_FIGURE_H
 
-# include "./texture.h"
 # include "utils/aabb.h"
 # include "utils/ray.h"
 # include "utils/vec3d.h"
@@ -39,9 +38,11 @@ typedef void							(*t_abstract_figure_calculate_aabb_fn)(
 typedef int								(*t_abstract_figure_intersect_fn)(
 	t_abstract_figure *self, const t_ray *ray, float max_dist, float *dist);
 typedef t_color							(*t_abstract_figure_get_color_fn)(
-	t_abstract_figure *self, const t_ray *normal);
+	t_abstract_figure *self, const t_vec3d *point);
 typedef t_ray							(*t_abstract_figure_get_normal_fn)(
 	t_abstract_figure *self, float dist, const t_ray *ray);
+typedef void							(*t_abstract_figure_get_uv_coord_fn)(
+	t_abstract_figure *self, const t_vec3d *point, float uv[2]);
 
 typedef struct s_abstract_figure_vtable
 {
@@ -50,6 +51,7 @@ typedef struct s_abstract_figure_vtable
 	t_abstract_figure_intersect_fn		intersect;
 	t_abstract_figure_get_color_fn		get_color;
 	t_abstract_figure_get_normal_fn		get_normal;
+	t_abstract_figure_get_uv_coord_fn	get_uv_coord;
 }										t_abstract_figure_vtable;
 
 typedef struct s_abstract_figure_init
@@ -66,6 +68,6 @@ void									abstract_figure_del(\
 	t_abstract_figure *self);
 
 t_color									abstract_figure_get_color(\
-	t_abstract_figure *self, const t_ray *normal);
+	t_abstract_figure *self, const t_vec3d *point);
 
 #endif
