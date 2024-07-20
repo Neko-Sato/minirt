@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/18 23:31:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:48:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ static inline void	set_fov(t_renderer *self)
 	tmp = self->action.broaden - self->action.narrow;
 	if (!tmp)
 		return ;
-	if (camera_set_fov(self->camera, ft_deg2rad(tmp) + self->camera->fov))
-		return ;
+	camera_set_fov(self->camera, ft_deg2rad(tmp) + self->camera->fov);
 	self->iter = -1;
 }
 

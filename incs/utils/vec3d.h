@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 03:58:12 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 05:15:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:22:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,12 @@ t_vec3d		vec3d_cross(t_vec3d a, t_vec3d b);
 
 float		vec3d_abs(t_vec3d vec);
 t_vec3d		vec3d_norm(t_vec3d vec);
+t_vec3d		vec3d_ortho(t_vec3d a, t_vec3d b);
+
+/*
+	abs(r) -> abs(u x f)
+	abs(u) -> abs(f x r)
+	abs(f) -> abs(r x u)
+*/
 
 #endif

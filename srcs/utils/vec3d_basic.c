@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 06:05:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/21 22:35:37 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:19:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,9 @@ t_vec3d	vec3d_norm(t_vec3d vec)
 	if (size == 0.)
 		return ((t_vec3d){{0, 0, 0}});
 	return (vec3d_mul(1 / size, vec));
+}
+
+t_vec3d	vec3d_ortho(t_vec3d a, t_vec3d b)
+{
+	return (vec3d_sub(b, vec3d_mul(vec3d_dot(a, b), a)));
 }

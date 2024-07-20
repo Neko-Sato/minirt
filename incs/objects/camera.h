@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:14:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 16:22:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:47:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ t_rt_errno		camera_init(\
 void			camera_del(\
 	t_camera *self);
 
-int				camera_move(\
+void			camera_move(\
 	t_camera *self, const t_vec3d *direction);
-int				camera_rotate(\
+void			camera_rotate(\
 	t_camera *self, float roll, float pitch, float yaw);
-int				camera_set_fov(\
+void			camera_set_fov(\
 	t_camera *self, float fov);
 
 #endif
