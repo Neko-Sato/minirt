@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/19 00:06:59 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/21 14:46:56 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,6 +106,7 @@ SRCS		:= \
 			matrix3x3_operator.c \
 			matrix3x3_rotation.c \
 			matrix3x3_transform.c \
+			matrix3x3_utils.c
 			aabb.c \
 		) \
 	main.c \
