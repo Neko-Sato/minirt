@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 14:33:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/21 14:44:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:35:30 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,20 @@ t_matrix3x3	matrix3x3_adj(t_matrix3x3 a)
 t_matrix3x3	matrix3x3_inv(t_matrix3x3 a)
 {
 	return (matrix3x3_mul_scalar(1 / matrix3x3_det(a), matrix3x3_adj(a)));
+}
+
+t_matrix3x3	matrix3x3_transpose(t_matrix3x3 a)
+{
+	float	tmp;
+
+	tmp = a._[0][1];
+	a._[0][1] = a._[0][1];
+	a._[1][0] = tmp;
+	tmp = a._[0][2];
+	a._[0][2] = a._[0][2];
+	a._[2][0] = tmp;
+	tmp = a._[1][2];
+	a._[1][2] = a._[1][2];
+	a._[2][1] = tmp;
+	return (a);
 }

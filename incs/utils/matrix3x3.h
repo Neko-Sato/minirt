@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:32:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/21 14:33:23 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/22 04:35:45 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_vec3d		matrix3x3_mul_vec3d(t_matrix3x3 a, t_vec3d b);
 float		matrix3x3_det(t_matrix3x3 a);
 t_matrix3x3	matrix3x3_adj(t_matrix3x3 a);
 t_matrix3x3	matrix3x3_inv(t_matrix3x3 a);
+t_matrix3x3	matrix3x3_transpose(t_matrix3x3 a);
 
 t_matrix3x3	matrix3x3_rotation_x(float n);
 t_matrix3x3	matrix3x3_rotation_y(float n);
