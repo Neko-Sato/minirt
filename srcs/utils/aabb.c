@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 10:04:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 00:46:32 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 23:50:17 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,30 @@ int	aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist)
 	return (1);
 }
 
-static void	aabb_update(t_aabb *res, const t_vec3 *tmp)
+t_aabb	aabb_merge(const t_aabb *a, const t_aabb *b)
+{
+	t_aabb	res;
+	int		i;
+
+	i = 0;
+	while (i < 3)
+	{
+		res.min._[i] = fmin(a->min._[i], b->min._[i]);
+		res.max._[i] = fmax(a->max._[i], b->max._[i]);
+		i++;
+	}
+	return (res);
+}
+
+void	aabb_expand(t_aabb *aabb, const t_vec3 *point)
 {
 	int	i;
 
 	i = 0;
 	while (i < 3)
 	{
-		res->min._[i] = fmin(res->min._[i], tmp->_[i]);
-		res->max._[i] = fmax(res->max._[i], tmp->_[i]);
+		aabb->min._[i] = fmin(aabb->min._[i], point->_[i]);
+		aabb->max._[i] = fmax(aabb->max._[i], point->_[i]);
 		i++;
 	}
 }
@@ -63,7 +78,6 @@ t_aabb	aabb_transform(const t_aabb *aabb, const t_mat3x3 *rotation,
 	int		i;
 	int		j;
 
-	res = (t_aabb){{{0, 0, 0}}, {{0, 0, 0}}};
 	i = 0;
 	while (i < 8)
 	{
@@ -77,8 +91,20 @@ t_aabb	aabb_transform(const t_aabb *aabb, const t_mat3x3 *rotation,
 			j++;
 		}
 		tmp = vec3_add(mat3x3_mul_vec3(*rotation, tmp), *position);
-		aabb_update(&res, &tmp);
+		if (!i)
+			res = (t_aabb){tmp, tmp};
+		else
+			aabb_expand(&res, &tmp);
 		i++;
 	}
 	return (res);
+}
+
+float	aabb_surface_area(const t_aabb *aabb)
+{
+	const float	dx = aabb->max._[0] - aabb->min._[0];
+	const float	dy = aabb->max._[1] - aabb->min._[1];
+	const float	dz = aabb->max._[2] - aabb->min._[2];
+
+	return (2 * (dx * dy + dx * dz + dy * dz));
 }
