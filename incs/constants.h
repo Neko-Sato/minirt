@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 02:32:31 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 07:30:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 #  define ALTERNATIVE_UP_VECTOR 1
 # endif
 
-# define BVH_MAX_FIGURES 8
+# define BVH_MAX_FIGURES 20
 
 # define MAX_DIST __FLT_MAX__
 # define MIN_DIST 0.0078125000
@@ -87,7 +87,7 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 
 # define PIXELS_PER_DRAW 5000
 # define PIXELS_PER_DRAW_PREVIEW 10000
-# define MOVE_UNIT 0.1
+# define MOVE_UNIT 1.
 # define ROTATION_RADIUS 10.
 
 #endif

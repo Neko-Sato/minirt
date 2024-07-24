@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 03:13:57 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 07:23:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static inline void	route(t_renderer *self)
 	{
 		unit = self->camera->fov / self->camera->width;
 		mlx_mouse_get_pos(self->mlx, self->win, &pos[0], &pos[1]);
-		yaw -= (self->current_pos[0] - pos[0]) * unit;
-		pitch -= (self->current_pos[1] - pos[1]) * unit;
+		yaw += (self->current_pos[0] - pos[0]) * unit;
+		pitch += (self->current_pos[1] - pos[1]) * unit;
 		ft_memcpy(self->current_pos, pos, sizeof(pos));
 	}
 	if (!roll && !pitch && !yaw)

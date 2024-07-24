@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 14:32:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/18 23:21:30 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 07:20:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 #include <mlx.h>
+#include "constants.h"
 
 static int	keypress_hook(int keycode, t_renderer *self);
 static int	keyrelease_hook(int keycode, t_renderer *self);
@@ -81,6 +82,16 @@ static int	buttonpress_hook(unsigned int button, int x, int y,
 		mlx_mouse_hide(self->mlx, self->win);
 		self->current_pos[0] = x;
 		self->current_pos[1] = y;
+	}
+	else if (button == Button5)
+	{
+		camera_move(self->camera, &(t_vec3){{0, 0, -MOVE_UNIT}});
+		self->iter = -1;
+	}
+	else if (button == Button4)
+	{
+		camera_move(self->camera, &(t_vec3){{0, 0, MOVE_UNIT}});
+		self->iter = -1;
 	}
 	return (0);
 }
