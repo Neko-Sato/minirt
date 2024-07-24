@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:55:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/23 02:12:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:30:13 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_rt_errno	abstract_figure_init(t_abstract_figure *self,
 	self->rotation = args->rotation;
 	self->rotation_inv = mat3x3_inv(self->rotation);
 	self->position = args->position;
-	self->aabb.min = (t_vec3){{-INFINITY, -INFINITY, -INFINITY}};
-	self->aabb.max = (t_vec3){{INFINITY, INFINITY, INFINITY}};
+	self->aabb.min = (t_vec3){{-__FLT_MAX__, -__FLT_MAX__, -__FLT_MAX__}};
+	self->aabb.max = (t_vec3){{__FLT_MAX__, __FLT_MAX__, __FLT_MAX__}};
 	self->color = args->color;
 	self->reflectivity = args->reflectivity;
 	self->checker = args->checker;

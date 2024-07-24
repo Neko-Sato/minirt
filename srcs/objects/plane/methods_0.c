@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:50:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 07:26:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:21:06 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	plane_calculate_aabb(t_plane *self)
 {
 	t_abstract_figure *const	figure = (void *)self;
 	const t_aabb				aabb = \
-		{{{-INFINITY, 0, -INFINITY}}, {{INFINITY, 0, INFINITY}}};
+		{{{-__FLT_MAX__, 0, -__FLT_MAX__}}, {{__FLT_MAX__, 0, __FLT_MAX__}}};
 
 	figure->aabb = aabb_transform(&aabb, &figure->rotation, &figure->position);
 }

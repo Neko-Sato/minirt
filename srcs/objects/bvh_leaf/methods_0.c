@@ -5,27 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 13:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 21:23:09 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/07/25 01:07:33 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/25 01:47:33 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/abstract_figure.h"
-#include "utils/ray.h"
-#include <libft.h>
-#include <math.h>
+#include "objects/bvh.h"
+#include "objects/bvh_leaf.h"
+#include "utils/aabb.h"
 
-t_color	abstract_figure_get_color(t_abstract_figure *self, const t_vec3 *point)
+t_abstract_figure	*bvh_leaf_get_nearest(t_bvh_leaf *self, const t_ray *ray,
+		float max_dist, float *dist)
 {
-	float	uv[2];
+	t_bvh *const		bvh = (void *)self;
+	t_abstract_figure	*figure;
+	t_abstract_figure	*nearest;
+	float				t;
+	size_t				i;
 
-	if (self->checker.raw & 0xff000000)
+	if (!aabb_contains(&bvh->aabb, ray, max_dist))
+		return (NULL);
+	nearest = NULL;
+	i = 0;
+	while (i < self->size)
 	{
-		self->_->get_uv_coord(self, point, uv);
-		uv[0] -= floor(uv[0]);
-		uv[1] -= floor(uv[1]);
-		if ((int)(uv[0] * 20) % 2 == (int)(uv[1] * 20) % 2)
-			return (ft_color_inverse(self->color));
+		figure = self->figures[i++];
+		if (!figure->_->intersect(figure, ray, max_dist, &t))
+			continue ;
+		nearest = figure;
+		max_dist = t;
 	}
-	return (self->color);
+	if (nearest)
+		*dist = t;
+	return (nearest);
 }

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 13:01:50 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:00:42 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 #include "utils/ray.h"
 #include "constants.h"
 #include <libft.h>
-
-t_abstract_figure	*scene_get_nearest(t_scene *self, const t_ray *ray,
-		float max_dist, float *dist)
-{
-	size_t				i;
-	t_abstract_figure	*figure;
-	t_abstract_figure	*nearest;
-	float				t;
-
-	nearest = NULL;
-	i = 0;
-	while (i < self->figures_size)
-	{
-		figure = self->figures[i++];
-		if (!figure->_->intersect(figure, ray, max_dist, &t))
-			continue ;
-		nearest = figure;
-		max_dist = t;
-	}
-	if (nearest)
-		*dist = t;
-	return (nearest);
-}
 
 t_color	scene_get_intensity(t_scene *self, const t_ray *normal)
 {
@@ -65,7 +42,7 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, int max_depth)
 	t_vec3				point;
 	t_vec3				normal;
 
-	nearest = scene_get_nearest(self, ray, MAX_DIST, &dist);
+	nearest = self->bvh->_->get_nearest(self->bvh, ray, MAX_DIST, &dist);
 	if (!nearest)
 		return ((t_color){.raw = COLOR_RAW_BLACK});
 	point = vec3_add(ray->c, vec3_mul(dist, ray->o));

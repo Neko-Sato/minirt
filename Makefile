@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/24 12:20:42 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/25 02:36:50 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,17 @@ SRCS		:= \
 				methods_1.c \
 				special.c \
 				static_methods_0.c \
+			) \
+			$(addprefix bvh/, \
+				static_methods_0.c \
+			) \
+			$(addprefix bvh_inner/, \
+				methods_0.c \
+				special.c \
+			) \
+			$(addprefix bvh_leaf/, \
+				methods_0.c \
+				special.c \
 			) \
 			$(addprefix scene/, \
 				methods_0.c \

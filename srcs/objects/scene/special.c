@@ -6,17 +6,20 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:18:32 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 14:08:49 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 01:37:27 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/scene.h"
+#include "objects/bvh.h"
 #include "rt_errno.h"
 #include <stdlib.h>
 #include <libft.h>
 
 t_rt_errno	scene_init(t_scene *self, t_scene_init *args)
 {
+	t_rt_errno	ret;
+
 	*self = (t_scene){};
 	if (!args->cameras_size)
 		return (UNDEFINED_CAMERA);
@@ -29,6 +32,9 @@ t_rt_errno	scene_init(t_scene *self, t_scene_init *args)
 	self->lights = args->lights;
 	self->figures_size = args->figures_size;
 	self->figures = args->figures;
+	ret = bvh_build(&self->bvh, self->figures, self->figures_size);
+	if (ret)
+		return (free(self->title), ret);
 	return (SUCCESS);
 }
 
@@ -61,6 +67,8 @@ static void	scene_del_internal(t_scene *self)
 {
 	size_t	i;
 
+	self->bvh->_->del(self->bvh);
+	free(self->bvh);
 	i = 0;
 	while (i < self->figures_size)
 	{

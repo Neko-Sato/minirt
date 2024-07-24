@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 12:25:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:32:31 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 
 # define BVH_MAX_FIGURES 8
 
-# define MAX_DIST INFINITY
+# define MAX_DIST __FLT_MAX__
 # define MIN_DIST 0.0078125000
 
 # define MAX_DEPTH 8
