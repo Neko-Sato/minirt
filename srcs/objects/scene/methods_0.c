@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 05:29:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 11:57:11 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:01:50 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ t_color	scene_trace(t_scene *self, const t_ray *ray, int max_depth)
 	nearest = scene_get_nearest(self, ray, MAX_DIST, &dist);
 	if (!nearest)
 		return ((t_color){.raw = COLOR_RAW_BLACK});
-	if (max_depth < 0)
-		return (nearest->color);
 	point = vec3_add(ray->c, vec3_mul(dist, ray->o));
 	color = abstract_figure_get_color(nearest, &point);
+	if (max_depth < 0)
+		return (color);
 	normal = nearest->_->get_normal(nearest, &point);
 	if (vec3_dot(normal, ray->o) > 0)
 		normal = vec3_mul(-1, normal);
