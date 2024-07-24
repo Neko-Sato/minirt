@@ -16,22 +16,18 @@
 # include "./abstract_figure.h"
 # include "rt_errno.h"
 # include "utils/ray.h"
-# include "utils/vec3d.h"
+# include "utils/vec3.h"
 
 typedef struct s_cone
 {
 	t_abstract_figure	__parent;
-	t_vec3d				coord;
-	float				radius;
-	t_vec3d				axis;
-	float				height;
 }						t_cone;
 
 typedef struct s_cone_init
 {
-	t_vec3d				coord;
+	t_vec3				coord;
 	float				diameter;
-	t_vec3d				apex;
+	t_vec3				apex;
 	t_color				color;
 	float				reflectivity;
 	t_color				checker;
@@ -45,7 +41,9 @@ void					cone_calculate_aabb(\
 	t_cone *self);
 int						cone_intersect(\
 	t_cone *self, const t_ray *ray, float max_dist, float *dist);
-t_ray					cone_get_normal(\
-	t_cone *self, float dist, const t_ray *ray);
+t_vec3					cone_get_normal(\
+	t_cone *self, const t_vec3 *point);
+void					cone_get_uv_coord(\
+	t_cone *self, const t_vec3 *point, float uv[2]);
 
 #endif

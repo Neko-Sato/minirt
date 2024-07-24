@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 10:04:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/23 00:41:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:46:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/aabb.h"
-#include "utils/matrix3x3.h"
+#include "utils/mat3x3.h"
 #include "utils/ray.h"
-#include "utils/vec3d.h"
+#include "utils/vec3.h"
 #include <math.h>
 
 int	aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist)
@@ -42,7 +42,7 @@ int	aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist)
 	return (1);
 }
 
-static inline void	aabb_to_world_update(t_aabb *res, const t_vec3d *tmp)
+static void	aabb_update(t_aabb *res, const t_vec3 *tmp)
 {
 	int	i;
 
@@ -55,11 +55,11 @@ static inline void	aabb_to_world_update(t_aabb *res, const t_vec3d *tmp)
 	}
 }
 
-t_aabb	aabb_to_world(const t_aabb *local, const t_matrix3x3 *rotation,
-		const t_vec3d *position)
+t_aabb	aabb_transform(const t_aabb *aabb, const t_mat3x3 *rotation,
+		const t_vec3 *position)
 {
 	t_aabb	res;
-	t_vec3d	tmp;
+	t_vec3	tmp;
 	int		i;
 	int		j;
 
@@ -71,13 +71,13 @@ t_aabb	aabb_to_world(const t_aabb *local, const t_matrix3x3 *rotation,
 		while (j < 3)
 		{
 			if (i & (1 << j))
-				tmp._[j] = local->max._[j];
+				tmp._[j] = aabb->max._[j];
 			else
-				tmp._[j] = local->min._[j];
+				tmp._[j] = aabb->min._[j];
 			j++;
 		}
-		tmp = vec3d_add(matrix3x3_mul_vec3d(*rotation, tmp), *position);
-		aabb_to_world_update(&res, &tmp);
+		tmp = vec3_add(mat3x3_mul_vec3(*rotation, tmp), *position);
+		aabb_update(&res, &tmp);
 		i++;
 	}
 	return (res);

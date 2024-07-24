@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/07 15:36:21 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 02:52:54 by hshimizu         ###   ########.fr       */
+/*   Created: 2024/07/23 20:16:49 by hshimizu          #+#    #+#             */
+/*   Updated: 2024/07/23 20:18:08 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#include "utils/vec3.h"
 
-# include "utils/vec3.h"
-
-typedef struct s_ray
+t_vec3	vec3_reflect(t_vec3 i, t_vec3 n)
 {
-	t_vec3	o;
-	t_vec3	c;
-}			t_ray;
-
-#endif
+	return (vec3_sub(i, vec3_mul(2 * vec3_dot(i, n), n)));
+}

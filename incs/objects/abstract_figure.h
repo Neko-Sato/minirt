@@ -15,7 +15,8 @@
 
 # include "utils/aabb.h"
 # include "utils/ray.h"
-# include "utils/vec3d.h"
+# include "utils/vec3.h"
+# include "utils/mat3x3.h"
 # include "rt_errno.h"
 # include <libft.h>
 
@@ -24,41 +25,40 @@ typedef struct s_abstract_figure_vtable	t_abstract_figure_vtable;
 typedef struct s_abstract_figure
 {
 	const t_abstract_figure_vtable		*_;
+	t_mat3x3							rotation;
+	t_mat3x3							rotation_inv;
+	t_vec3								position;
 	t_aabb								aabb;
 	t_color								color;
-	float								reflectivity;
 	t_color								checker;
+	float								reflectivity;
 	void								*bump;
 }										t_abstract_figure;
 
 typedef void							(*t_abstract_figure_del_fn)(
 	t_abstract_figure *self);
-typedef void							(*t_abstract_figure_calculate_aabb_fn)(
-	t_abstract_figure *self);
 typedef int								(*t_abstract_figure_intersect_fn)(
 	t_abstract_figure *self, const t_ray *ray, float max_dist, float *dist);
-typedef t_color							(*t_abstract_figure_get_color_fn)(
-	t_abstract_figure *self, const t_vec3d *point);
-typedef t_ray							(*t_abstract_figure_get_normal_fn)(
-	t_abstract_figure *self, float dist, const t_ray *ray);
+typedef t_vec3							(*t_abstract_figure_get_normal_fn)(
+	t_abstract_figure *self, const t_vec3 *point);
 typedef void							(*t_abstract_figure_get_uv_coord_fn)(
-	t_abstract_figure *self, const t_vec3d *point, float uv[2]);
+	t_abstract_figure *self, const t_vec3 *point, float uv[2]);
 
 typedef struct s_abstract_figure_vtable
 {
 	t_abstract_figure_del_fn			del;
-	t_abstract_figure_calculate_aabb_fn	calculate_aabb;
 	t_abstract_figure_intersect_fn		intersect;
-	t_abstract_figure_get_color_fn		get_color;
 	t_abstract_figure_get_normal_fn		get_normal;
 	t_abstract_figure_get_uv_coord_fn	get_uv_coord;
 }										t_abstract_figure_vtable;
 
 typedef struct s_abstract_figure_init
 {
+	t_mat3x3							rotation;
+	t_vec3								position;
 	t_color								color;
-	float								reflectivity;
 	t_color								checker;
+	float								reflectivity;
 	void								*bump;
 }										t_abstract_figure_init;
 
@@ -68,6 +68,6 @@ void									abstract_figure_del(\
 	t_abstract_figure *self);
 
 t_color									abstract_figure_get_color(\
-	t_abstract_figure *self, const t_vec3d *point);
+	t_abstract_figure *self, const t_vec3 *point);
 
 #endif

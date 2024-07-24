@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/07/21 14:48:27 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/07/24 12:20:42 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS		:= \
 			) \
 			$(addprefix scene/, \
 				methods_0.c \
-				methods_1.c \
 				static_methods_0.c \
 				special.c \
 			) \
@@ -66,22 +65,27 @@ SRCS		:= \
 			) \
 			$(addprefix sphere/, \
 				methods_0.c \
+				methods_1.c \
 				special.c \
 			) \
 			$(addprefix plane/, \
 				methods_0.c \
+				methods_1.c \
 				special.c \
 			) \
 			$(addprefix cylinder/, \
 				methods_0.c \
+				methods_1.c \
 				special.c \
 			) \
 			$(addprefix triangle/, \
 				methods_0.c \
+				methods_1.c \
 				special.c \
 			) \
 			$(addprefix cone/, \
 				methods_0.c \
+				methods_1.c \
 				special.c \
 			) \
 		) \
@@ -101,12 +105,13 @@ SRCS		:= \
 			token_cone.c \
 		) \
 		$(addprefix utils/, \
-			vec3d_basic.c \
-			vec3d_operator.c \
-			matrix3x3_operator.c \
-			matrix3x3_rotation.c \
-			matrix3x3_transform.c \
-			matrix3x3_utils.c \
+			vec3_basic.c \
+			vec3_operator.c \
+			vec3_utils.c \
+			mat3x3_operator.c \
+			mat3x3_rotation.c \
+			mat3x3_transform.c \
+			mat3x3_utils.c \
 			aabb.c \
 		) \
 	main.c \
@@ -117,8 +122,8 @@ OBJS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 
 CFLAGS		:= -Wall -Wextra -Werror
-# CFLAGS		+= -O2
-CFLAGS		+= -g -fsanitize=address
+CFLAGS		+= -Ofast
+# CFLAGS		+= -g -fsanitize=address
 CFLAGS		+= -D ALLOW_MULTIPLE_CAMERAS=1
 CFLAGS		+= -D ALLOW_MULTIPLE_AMIBIENTS=1
 CFLAGS		+= -D ALLOW_MULTIPLE_LIGHTS=1

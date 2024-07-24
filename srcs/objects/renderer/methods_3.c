@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/20 20:48:33 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 03:13:57 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 #include "objects/renderer.h"
 #include "constants.h"
 #include "rt_errno.h"
-#include "utils/vec3d.h"
+#include "utils/vec3.h"
 #include <mlx.h>
 
 static inline void	move(t_renderer *self)
 {
-	const t_vec3d	movement = vec3d_mul(MOVE_UNIT, vec3d_norm((t_vec3d){{
+	const t_vec3	movement = vec3_mul(MOVE_UNIT, vec3_norm((t_vec3){{
 				self->action.left - self->action.right,
 				self->action.down - self->action.up,
 				self->action.backward - self->action.forward,
 			}}));
 
-	if (!vec3d_abs(movement))
+	if (!vec3_abs(movement))
 		return ;
 	camera_move(self->camera, &movement);
 	self->iter = -1;
@@ -90,9 +90,7 @@ t_rt_errno	renderer_loop_hook(t_renderer *self)
 	if (!self->focus)
 		return (SUCCESS);
 	action(self);
-	if (self->iter < 0)
-		;
-	else if (self->box[0] <= self->iter / self->box[1])
+	if (0 < self->iter && self->box[0] <= self->iter / self->box[1])
 		return (SUCCESS);
 	return (renderer_render(self));
 }

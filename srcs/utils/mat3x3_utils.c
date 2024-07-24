@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix3x3_utils.c                                  :+:      :+:    :+:   */
+/*   mat3x3_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/matrix3x3.h"
+#include "utils/mat3x3.h"
 
-float	matrix3x3_det(t_matrix3x3 a)
+float	mat3x3_det(t_mat3x3 a)
 {
 	return ((a._[0][0] * (a._[1][1] * a._[2][2] - a._[1][2] * a._[2][1]))
 			+ (a._[0][1] * (a._[1][2] * a._[2][0] - a._[1][0] * a._[2][2]))
 			+ (a._[0][2] * (a._[1][0] * a._[2][1] - a._[1][1] * a._[2][0])));
 }
 
-t_matrix3x3	matrix3x3_adj(t_matrix3x3 a)
+t_mat3x3	mat3x3_adj(t_mat3x3 a)
 {
-	t_matrix3x3	tmp;
+	t_mat3x3	tmp;
 
 	tmp._[0][0] = (a._[1][1] * a._[2][2] - a._[1][2] * a._[2][1]);
 	tmp._[0][1] = -(a._[0][1] * a._[2][2] - a._[0][2] * a._[2][1]);
@@ -35,12 +35,12 @@ t_matrix3x3	matrix3x3_adj(t_matrix3x3 a)
 	return (tmp);
 }
 
-t_matrix3x3	matrix3x3_inv(t_matrix3x3 a)
+t_mat3x3	mat3x3_inv(t_mat3x3 a)
 {
-	return (matrix3x3_mul_scalar(1 / matrix3x3_det(a), matrix3x3_adj(a)));
+	return (mat3x3_mul_scalar(1 / mat3x3_det(a), mat3x3_adj(a)));
 }
 
-t_matrix3x3	matrix3x3_transpose(t_matrix3x3 a)
+t_mat3x3	mat3x3_transpose(t_mat3x3 a)
 {
 	float	tmp;
 

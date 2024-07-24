@@ -6,15 +6,15 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:45:04 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 19:11:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:36:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "rt_errno.h"
-#include "utils/vec3d.h"
+#include "utils/vec3.h"
 
-t_rt_errno	parse_vec3d(char **str, t_vec3d *dst)
+t_rt_errno	parse_vec3(char **str, t_vec3 *dst)
 {
 	t_rt_errno	ret;
 	char		*s;
@@ -38,14 +38,14 @@ t_rt_errno	parse_vec3d(char **str, t_vec3d *dst)
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_norm_vec3d(char **str, t_vec3d *dst)
+t_rt_errno	parse_norm_vec3(char **str, t_vec3 *dst)
 {
 	t_rt_errno	ret;
-	t_vec3d		tmp;
+	t_vec3		tmp;
 	char		*s;
 
 	s = *str;
-	ret = parse_vec3d(&s, &tmp);
+	ret = parse_vec3(&s, &tmp);
 	if (ret)
 		return (ret);
 	if (tmp._[0] < -1. || 1. < tmp._[0] || tmp._[1] < -1. || 1. < tmp._[1]

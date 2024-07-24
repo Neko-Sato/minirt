@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:14:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/20 20:47:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/23 02:12:34 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define CAMERA_H
 
 # include "rt_errno.h"
-# include "utils/matrix3x3.h"
-# include "utils/vec3d.h"
+# include "utils/mat3x3.h"
+# include "utils/vec3.h"
 
 typedef struct s_camera
 {
-	t_vec3d		coord;
-	t_matrix3x3	transform;
+	t_vec3		coord;
+	t_mat3x3	transform;
 	float		fov;
 	int			width;
 	int			height;
@@ -28,9 +28,9 @@ typedef struct s_camera
 
 typedef struct s_camera_init
 {
-	t_vec3d		coord;
-	t_vec3d		orient;
-	t_vec3d		up;
+	t_vec3		coord;
+	t_vec3		orient;
+	t_vec3		up;
 	int			fov;
 	int			width;
 	int			height;
@@ -42,7 +42,7 @@ void			camera_del(\
 	t_camera *self);
 
 void			camera_move(\
-	t_camera *self, const t_vec3d *direction);
+	t_camera *self, const t_vec3 *direction);
 void			camera_rotate(\
 	t_camera *self, float roll, float pitch, float yaw);
 void			camera_set_fov(\

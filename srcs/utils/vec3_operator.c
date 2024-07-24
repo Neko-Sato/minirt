@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3d_basic.c                                      :+:      :+:    :+:   */
+/*   vec3_basic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/vec3d.h"
+#include "utils/vec3.h"
 #include <math.h>
 
-t_vec3d	vec3d_add(t_vec3d a, t_vec3d b)
+t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 {
 	a._[0] += b._[0];
 	a._[1] += b._[1];
@@ -21,7 +21,7 @@ t_vec3d	vec3d_add(t_vec3d a, t_vec3d b)
 	return (a);
 }
 
-t_vec3d	vec3d_sub(t_vec3d a, t_vec3d b)
+t_vec3	vec3_sub(t_vec3 a, t_vec3 b)
 {
 	a._[0] -= b._[0];
 	a._[1] -= b._[1];
@@ -29,7 +29,7 @@ t_vec3d	vec3d_sub(t_vec3d a, t_vec3d b)
 	return (a);
 }
 
-t_vec3d	vec3d_mul(float n, t_vec3d a)
+t_vec3	vec3_mul(float n, t_vec3 a)
 {
 	a._[0] *= n;
 	a._[1] *= n;

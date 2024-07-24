@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/20 04:18:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 01:34:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,18 @@
 # define TRIANGLE_H
 
 # include "./abstract_figure.h"
-# include "utils/vec3d.h"
+# include "utils/vec3.h"
 
 typedef struct s_triangle
 {
 	t_abstract_figure	__parent;
-	t_vec3d				a;
-	t_vec3d				ab;
-	t_vec3d				ac;
-	t_vec3d				normal;
 }						t_triangle;
 
 typedef struct s_triangle_init
 {
-	t_vec3d				first;
-	t_vec3d				second;
-	t_vec3d				third;
+	t_vec3				first;
+	t_vec3				second;
+	t_vec3				third;
 	t_color				color;
 	float				reflectivity;
 	t_color				checker;
@@ -43,9 +39,9 @@ void					triangle_calculate_aabb(\
 	t_triangle *self);
 int						triangle_intersect(\
 	t_triangle *self, const t_ray *ray, float max_dist, float *dist);
-t_ray					triangle_get_normal(\
-	t_triangle *self, float dist, const t_ray *ray);
+t_vec3					triangle_get_normal(\
+	t_triangle *self, const t_vec3 *point);
 void					triangle_get_uv_coord(\
-	t_triangle *self, const t_vec3d *point, float uv[2]);
+	t_triangle *self, const t_vec3 *point, float uv[2]);
 
 #endif

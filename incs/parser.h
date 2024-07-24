@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/17 20:03:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:50:04 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_rt_errno					parse_integer(char **str, int *dst);
 t_rt_errno					parse_unsigned(char **str, int *dst);
 t_rt_errno					parse_decimal(char **str, float *dst);
 t_rt_errno					parse_string(char **str, char **dst);
-t_rt_errno					parse_vec3d(char **str, t_vec3d *dst);
+t_rt_errno					parse_vec3(char **str, t_vec3 *dst);
 t_rt_errno					parse_color(char **str, t_color *dst);
-t_rt_errno					parse_norm_vec3d(char **str, t_vec3d *dst);
+t_rt_errno					parse_norm_vec3(char **str, t_vec3 *dst);
 
 typedef struct s_parse_entry
 {

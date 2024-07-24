@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:21:44 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:36:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_rt_errno	parse_plane(char **str, t_parser *context)
 static t_rt_errno	internal(char **str, t_plane_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3d, &args->coord},
-	{(void *)parse_norm_vec3d, &args->orient},
+	{(void *)parse_vec3, &args->coord},
+	{(void *)parse_norm_vec3, &args->orient},
 	{(void *)parse_color, &args->color},
 	};
 	const t_parse_opt	opt[] = {

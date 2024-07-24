@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 10:01:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/23 00:41:15 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 00:44:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 # define AABB_H
 
 # include "./ray.h"
-# include "./matrix3x3.h"
-# include "./vec3d.h"
+# include "./mat3x3.h"
+# include "./vec3.h"
 
 typedef struct s_aabb
 {
-	t_vec3d	min;
-	t_vec3d	max;
+	t_vec3	min;
+	t_vec3	max;
 }			t_aabb;
 
 int			aabb_contains(const t_aabb *aabb, const t_ray *ray, float max_dist);
-t_aabb		aabb_to_world(const t_aabb *local, const t_matrix3x3 *rotation,
-				const t_vec3d *position);
+t_aabb		aabb_transform(const t_aabb *aabb, const t_mat3x3 *rotation,
+				const t_vec3 *position);
 
 #endif

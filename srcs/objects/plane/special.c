@@ -12,13 +12,12 @@
 
 #include "objects/abstract_figure.h"
 #include "objects/plane.h"
+#include "utils/vec3.h"
 #include "rt_errno.h"
 
 static const t_abstract_figure_vtable	g_vtable = {
 	.del = abstract_figure_del,
-	.calculate_aabb = (void *)plane_calculate_aabb,
 	.intersect = (void *)plane_intersect,
-	.get_color = abstract_figure_get_color,
 	.get_normal = (void *)plane_get_normal,
 	.get_uv_coord = (void *)plane_get_uv_coord,
 };
@@ -27,11 +26,13 @@ t_rt_errno	plane_init(t_plane *self, t_plane_init *args)
 {
 	t_rt_errno	ret;
 
-	if (!vec3d_abs(args->orient))
+	if (!vec3_abs(args->orient))
 		return (AMBIGUOUS_ORIENTATION);
 	*self = (t_plane){};
-	ret = abstract_figure_init((t_abstract_figure *)self,
+	ret = abstract_figure_init((void *)self,
 			&(t_abstract_figure_init){
+			.rotation = mat3x3_transform((t_vec3){{0, 1, 0}}, args->orient),
+			.position = args->coord,
 			.color = args->color,
 			.reflectivity = args->reflectivity,
 			.checker = args->checker,
@@ -40,8 +41,6 @@ t_rt_errno	plane_init(t_plane *self, t_plane_init *args)
 	if (ret)
 		return (ret);
 	((t_abstract_figure *)self)->_ = &g_vtable;
-	self->coord = args->coord;
-	self->orient = vec3d_norm(args->orient);
 	plane_calculate_aabb(self);
 	return (SUCCESS);
 }

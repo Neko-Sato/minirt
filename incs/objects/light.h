@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:13:17 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 13:18:39 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:36:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 # include "./abstract_light.h"
 # include "utils/ray.h"
-# include "utils/vec3d.h"
+# include "utils/vec3.h"
 # include "rt_errno.h"
 # include <libft.h>
 
 typedef struct s_light
 {
 	t_abstract_light	__parent;
-	t_vec3d				coord;
+	t_vec3				coord;
 }						t_light;
 
 typedef struct s_light_init
 {
-	t_vec3d				coord;
+	t_vec3				coord;
 	t_color				color;
 	float				brightness;
 }						t_light_init;

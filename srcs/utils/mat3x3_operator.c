@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix3x3.c                                        :+:      :+:    :+:   */
+/*   mat3x3_operator.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 04:43:45 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/06/08 04:24:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/23 01:47:34 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils/matrix3x3.h"
-#include "utils/vec3d.h"
+#include "utils/mat3x3.h"
+#include "utils/vec3.h"
 
-t_matrix3x3	matrix3x3_add(t_matrix3x3 a, t_matrix3x3 b)
+t_mat3x3	mat3x3_add(t_mat3x3 a, t_mat3x3 b)
 {
 	int	i;
 	int	j;
@@ -32,7 +32,7 @@ t_matrix3x3	matrix3x3_add(t_matrix3x3 a, t_matrix3x3 b)
 	return (a);
 }
 
-t_matrix3x3	matrix3x3_sub(t_matrix3x3 a, t_matrix3x3 b)
+t_mat3x3	mat3x3_sub(t_mat3x3 a, t_mat3x3 b)
 {
 	int	i;
 	int	j;
@@ -51,9 +51,9 @@ t_matrix3x3	matrix3x3_sub(t_matrix3x3 a, t_matrix3x3 b)
 	return (a);
 }
 
-t_matrix3x3	matrix3x3_mul(t_matrix3x3 a, t_matrix3x3 b)
+t_mat3x3	mat3x3_mul(t_mat3x3 a, t_mat3x3 b)
 {
-	t_matrix3x3	c;
+	t_mat3x3	c;
 	int			i;
 	int			j;
 
@@ -72,7 +72,7 @@ t_matrix3x3	matrix3x3_mul(t_matrix3x3 a, t_matrix3x3 b)
 	return (c);
 }
 
-t_matrix3x3	matrix3x3_mul_scalar(float n, t_matrix3x3 a)
+t_mat3x3	mat3x3_mul_scalar(float n, t_mat3x3 a)
 {
 	int	i;
 	int	j;
@@ -91,15 +91,15 @@ t_matrix3x3	matrix3x3_mul_scalar(float n, t_matrix3x3 a)
 	return (a);
 }
 
-t_vec3d	matrix3x3_mul_vec3d(t_matrix3x3 a, t_vec3d b)
+t_vec3	mat3x3_mul_vec3(t_mat3x3 a, t_vec3 b)
 {
-	t_vec3d	c;
+	t_vec3	c;
 	int		i;
 
 	i = 0;
 	while (i < 3)
 	{
-		c._[i] = vec3d_dot((t_vec3d){{a._[i][0], a._[i][1], a._[i][2]}}, b);
+		c._[i] = vec3_dot((t_vec3){{a._[i][0], a._[i][1], a._[i][2]}}, b);
 		i++;
 	}
 	return (c);

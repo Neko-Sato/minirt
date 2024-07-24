@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:17:18 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 05:24:25 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:36:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ t_rt_errno	parse_camera(char **str, t_parser *context)
 static t_rt_errno	internal(char **str, t_camera_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3d, &args->coord},
-	{(void *)parse_norm_vec3d, &args->orient},
+	{(void *)parse_vec3, &args->coord},
+	{(void *)parse_norm_vec3, &args->orient},
 	{(void *)parse_integer, &args->fov},
 	};
 	static const size_t	size = sizeof(entries) / sizeof(*entries);
 	const t_parse_opt	opt[] = {
-	{"up", (void *)parse_norm_vec3d, &args->up},
+	{"up", (void *)parse_norm_vec3, &args->up},
 	{"width", (void *)parse_unsigned, &args->width},
 	{"height", (void *)parse_unsigned, &args->height},
 	};
@@ -60,7 +60,7 @@ static t_rt_errno	internal(char **str, t_camera_init *args)
 	t_rt_errno			ret;
 
 	*args = (t_camera_init){};
-	args->up = (t_vec3d){{0, 1, 0}};
+	args->up = (t_vec3){{0, 1, 0}};
 	args->width = 1000;
 	args->height = 800;
 	ret = parse_entries(str, entries, size);

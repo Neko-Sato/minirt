@@ -42,9 +42,9 @@ t_rt_errno	parse_cone(char **str, t_parser *context)
 static t_rt_errno	internal(char **str, t_cone_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3d, &args->coord},
+	{(void *)parse_vec3, &args->coord},
 	{(void *)parse_decimal, &args->diameter},
-	{(void *)parse_vec3d, &args->apex},
+	{(void *)parse_vec3, &args->apex},
 	{(void *)parse_color, &args->color},
 	};
 	const t_parse_opt	opt[] = {

@@ -41,9 +41,9 @@ t_rt_errno	parse_triangle(char **str, t_parser *context)
 static t_rt_errno	internal(char **str, t_triangle_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3d, &args->first},
-	{(void *)parse_vec3d, &args->second},
-	{(void *)parse_vec3d, &args->third},
+	{(void *)parse_vec3, &args->first},
+	{(void *)parse_vec3, &args->second},
+	{(void *)parse_vec3, &args->third},
 	{(void *)parse_color, &args->color},
 	};
 	const t_parse_opt	opt[] = {

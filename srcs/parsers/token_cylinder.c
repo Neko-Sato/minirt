@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:15 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:21:54 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/24 05:36:35 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_rt_errno	parse_cylinder(char **str, t_parser *context)
 static t_rt_errno	internal(char **str, t_cylinder_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3d, &args->coord},
-	{(void *)parse_norm_vec3d, &args->axis},
+	{(void *)parse_vec3, &args->coord},
+	{(void *)parse_norm_vec3, &args->axis},
 	{(void *)parse_decimal, &args->diameter},
 	{(void *)parse_decimal, &args->height},
 	{(void *)parse_color, &args->color},
