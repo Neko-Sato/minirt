@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/02 00:27:01 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 02:31:36 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ t_rt_errno	parse_decimal(char **str, float *dst)
 	tmp = ft_strtod(*str, &endptr);
 	if (endptr == *str)
 		return (INCORRECT_FORMAT);
+	if (tmp < -__FLT_MAX__)
+		tmp = -__FLT_MAX__;
+	else if (tmp > __FLT_MAX__)
+		tmp = __FLT_MAX__;
 	*dst = tmp;
 	*str = endptr;
 	return (SUCCESS);

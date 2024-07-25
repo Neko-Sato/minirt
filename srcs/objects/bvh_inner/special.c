@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 01:01:00 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 01:22:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:32:48 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_rt_errno	bvh_inner_init(t_bvh_inner *self, t_bvh_inner_init *args)
 	t_bvh *const	bvh = (void *)self;
 
 	*self = (t_bvh_inner){};
+	bvh->_ = &g_vtable;
 	self->left = args->left;
 	self->right = args->right;
-	bvh->_ = &g_vtable;
-	bvh->aabb = aabb_merge(&args->left->aabb, &args->right->aabb);
+	bvh->aabb = aabb_merge(&self->left->aabb, &self->right->aabb);
 	return (SUCCESS);
 }
 
