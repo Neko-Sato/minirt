@@ -40,6 +40,28 @@ typedef struct s_bvh_init
 	t_aabb					aabb;
 }							t_bvh_init;
 
+size_t						bvh_figures_split(\
+	t_abstract_figure **figures,
+								size_t size);
+
+typedef struct s_bvh_task
+{
+	t_bvh					*left;
+	t_bvh					*right;
+	size_t					start;
+	size_t					size;
+	size_t					split;
+}							t_bvh_task;
+
+typedef struct s_bvh_build_local
+{
+	t_abstract_figure		**figures;
+	size_t					size;
+	t_stack					*stack;
+	t_bvh_task				task;
+	t_bvh					*tmp;
+}							t_bvh_build_local;
+
 t_rt_errno					bvh_build(\
 	t_bvh **bvh, t_abstract_figure **figures, size_t size);
 

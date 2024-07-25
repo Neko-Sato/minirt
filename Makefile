@@ -33,6 +33,7 @@ SRCS		:= \
 			) \
 			$(addprefix bvh/, \
 				static_methods_0.c \
+				static_methods_1.c \
 			) \
 			$(addprefix bvh_inner/, \
 				methods_0.c \
