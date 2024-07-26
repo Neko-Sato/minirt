@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 00:47:00 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 01:41:48 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/27 07:01:07 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_bvh_build_local
 {
 	t_abstract_figure		**figures;
 	size_t					size;
-	t_stack					*stack;
+	t_xlst					*stack;
 	t_bvh_task				task;
 	t_bvh					*tmp;
 }							t_bvh_build_local;

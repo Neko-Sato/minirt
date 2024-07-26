@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 01:25:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/26 09:25:06 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/27 07:03:22 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static inline int	push_task(t_bvh_build_local *_)
 	{
 		_->task.split = bvh_figures_split(&_->figures[_->task.start],
 				_->task.size);
-		if (ft_stack_push(&_->stack, &_->task, sizeof(_->task)))
+		if (ft_xlstinsert(&_->stack, 0, &_->task, sizeof(_->task)))
 			return (-1);
 		_->task = (t_bvh_task){NULL, NULL, _->task.start, _->task.split, 0};
 	}
 	else
 	{
-		if (ft_stack_push(&_->stack, &_->task, sizeof(_->task)))
+		if (ft_xlstinsert(&_->stack, 0, &_->task, sizeof(_->task)))
 			return (-1);
 		_->task = (t_bvh_task){NULL, NULL, _->task.start + _->task.split,
 			_->task.size - _->task.split, 0};
@@ -71,7 +71,7 @@ static inline int	bvh_build_internal(t_bvh_build_local *_)
 			{
 				if (!_->tmp)
 					return (-1);
-				if (ft_stack_pop(&_->stack, &_->task))
+				if (ft_xlstpop(&_->stack, 0, &_->task, sizeof(_->task)))
 					return (0);
 				if (!_->task.left)
 					break ;
@@ -101,7 +101,7 @@ t_rt_errno	bvh_build(t_bvh **bvh, t_abstract_figure **figures, size_t size)
 			free(_.task.left);
 			_.task.right->_->del(_.task.right);
 			free(_.task.right);
-			if (ft_stack_pop(&_.stack, &_.task))
+			if (ft_xlstpop(&_.stack, 0, &_.task, sizeof(_.task)))
 				break ;
 		}
 		return (FAILED_ALLOCATE);
