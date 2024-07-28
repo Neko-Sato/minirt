@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:14:50 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/23 02:12:34 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/27 08:06:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void			camera_rotate(\
 	t_camera *self, float roll, float pitch, float yaw);
 void			camera_set_fov(\
 	t_camera *self, float fov);
+void			camera_put_info(\
+	t_camera *self);
 
 #endif

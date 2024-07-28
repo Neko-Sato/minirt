@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 16:17:05 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 07:23:27 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:20:36 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,9 @@ static inline void	route(t_renderer *self)
 	float	unit;
 	int		pos[2];
 
-	roll = atan2(MOVE_UNIT * (self->action.roll_up - self->action.roll_dn), \
-		ROTATION_RADIUS);
-	pitch = atan2(MOVE_UNIT * (self->action.pitch_up - self->action.pitch_dn), \
-		ROTATION_RADIUS);
-	yaw = atan2(MOVE_UNIT * (self->action.yaw_up - self->action.yaw_dn), \
-		ROTATION_RADIUS);
+	roll = ROTATE_UNIT * (self->action.roll_up - self->action.roll_dn);
+	pitch = ROTATE_UNIT * (self->action.pitch_up - self->action.pitch_dn);
+	yaw = ROTATE_UNIT * (self->action.yaw_up - self->action.yaw_dn);
 	if (self->action.mouse)
 	{
 		unit = self->camera->fov / self->camera->width;
@@ -92,5 +89,7 @@ t_rt_errno	renderer_loop_hook(t_renderer *self)
 	action(self);
 	if (0 < self->iter && self->box[0] <= self->iter / self->box[1])
 		return (SUCCESS);
+	if (self->iter == 0)
+		camera_put_info(self->camera);
 	return (renderer_render(self));
 }
