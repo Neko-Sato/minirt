@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/08/01 22:34:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:37:37 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ Usage: ./miniRT <rt-file>\n\
 # define FORMAT_DESCRIPTION "\
 rt-file format:\n\
 \tAmbient\t\tA <ratio> <color>\n\
-\tCamera\t\tC <coordinates> <orientation> <fov>\n\
+\tCamera\t\tC <coordinates> <orientation> [up] <fov> [width] [height]\n\
 \tLight\t\tL <coordinates> <brightness> <color>\n\
 \n\
-\tSphere\t\tsp <coordinates> <diameter> <color>\n\
-\tPlane\t\tpl <coordinates> <orientation> <color>\n\
-\tCylinder\tcy <coordinates> <axis> <diameter> <height> <color>\n\
-\tTriangle\ttr <first> <second> <third> <color>\n\
-\tCone\t\tcn <coordinates> <diameter> <apex> <color>\n\
+\tSphere\t\tsp <coordinates> <diameter> <color> [reflectivity] [checker]\n\
+\tPlane\t\tpl <coordinates> <orientation> <color> [reflectivity] [checker]\n\
+\tCylinder\tcy <coordinates> <axis> <diameter> <height> <color> \
+[reflectivity] [checker]\n\
+\tTriangle\ttr <first> <second> <third> <color> [reflectivity] [checker]\n\
+\tCone\t\tcn <coordinates> <diameter> <apex> <color> [reflectivity] [checker]\n\
 "
 
 # define KEY_OPERATION_DESCRIPTION "\

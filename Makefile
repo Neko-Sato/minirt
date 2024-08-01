@@ -6,7 +6,7 @@
 #    By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 03:21:14 by hshimizu          #+#    #+#              #
-#    Updated: 2024/08/01 22:13:41 by hshimizu         ###   ########.fr        #
+#    Updated: 2024/08/01 23:42:03 by hshimizu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,8 +136,8 @@ DEPS		:= $(addprefix $(OUT_DIR)/, $(SRCS:.c=.d))
 CFLAGS		:= -Wall -Wextra -Werror
 CFLAGS		+= -Ofast
 # CFLAGS		+= -g -fsanitize=address
-CFLAGS		+= -D ALLOW_MULTIPLE_CAMERAS=1
-CFLAGS		+= -D ALLOW_MULTIPLE_AMIBIENTS=1
+# CFLAGS		+= -D ALLOW_MULTIPLE_CAMERAS=1
+# CFLAGS		+= -D ALLOW_MULTIPLE_AMIBIENTS=1
 CFLAGS		+= -D ALLOW_MULTIPLE_LIGHTS=1
 # CFLAGS		+= -D ALLOW_FOV_UNLIMITED=1
 IDFLAGS		:= -I$(INCS_DIR) -I$(FT) -I$(MLX)

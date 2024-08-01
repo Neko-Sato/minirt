@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 04:43:23 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/08/01 22:12:59 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:43:32 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,6 @@ typedef struct s_identifier
 	const char				*name;
 	t_parse_fn				fun;
 }							t_identifier;
-
-extern const t_identifier	g_identifiers[];
-extern const size_t			g_identifiers_size;
 
 t_rt_errno					parse_object(t_parser_ctx *ctx);
 t_rt_errno					parse_identifier(t_parser_ctx *ctx,
