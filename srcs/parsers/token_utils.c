@@ -6,120 +6,97 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:21:46 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/13 19:12:51 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:11:12 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "rt_errno.h"
 
-t_rt_errno	parse_blank(char **str)
+t_rt_errno	parse_blank(t_parser_ctx *ctx)
 {
 	char	*s;
 
-	s = *str;
+	s = ctx->str;
 	while (ft_isblank(*s))
 		s++;
-	if (*str == s)
+	if (ctx->str == s)
 		return (INCORRECT_FORMAT);
-	*str = s;
+	ctx->str = s;
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_text(char **str, char *buf, size_t size)
+t_rt_errno	parse_text(t_parser_ctx *ctx, char *buf, size_t size)
 {
 	size_t	len;
 	char	*s;
 
-	s = *str;
+	s = ctx->str;
 	if (ft_isalpha(*s) || *s == '_')
 	{
 		s++;
 		while (ft_isalnum(*s) || *s == '_')
 			s++;
 	}
-	len = s - *str;
+	len = s - ctx->str;
 	if (!len || len >= size)
 		return (INCORRECT_FORMAT);
-	ft_strncpy(buf, *str, len);
+	ft_strncpy(buf, ctx->str, len);
 	buf[len] = '\0';
-	*str = s;
+	ctx->str = s;
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_entries(char **str, const t_parse_entry *entries, size_t size)
+t_rt_errno	parse_entry(t_parser_ctx *ctx, const t_parse_entry *entry)
+{
+	t_rt_errno	ret;
+	char		buf[20];
+
+	if (entry->name)
+	{
+		ret = parse_text(ctx, buf, sizeof(buf));
+		if (ret)
+			return (ret);
+		if (ft_strcmp(buf, entry->name) || *ctx->str != ':')
+			return (INCORRECT_FORMAT);
+		ctx->str++;
+	}
+	return (entry->fun(ctx, entry->dst));
+}
+
+static inline t_rt_errno	parse_entries_internal(t_parser_ctx *ctx,
+		const t_parse_entry *entry)
 {
 	t_rt_errno	ret;
 	char		*s;
-	size_t		i;
 
-	ret = SUCCESS;
-	s = *str;
-	i = 0;
-	while (1)
+	s = ctx->str;
+	ret = parse_blank(ctx);
+	if (entry->name && ret == INCORRECT_FORMAT)
 	{
-		ret = entries[i].fun(&s, entries[i].dst);
-		if (ret)
-			return (ret);
-		i++;
-		if (size <= i)
-			break ;
-		ret = parse_blank(&s);
-		if (ret)
-			return (ret);
+		ctx->str = s;
+		return (SUCCESS);
 	}
-	*str = s;
+	else if (ret)
+		return (ret);
+	ret = parse_entry(ctx, entry);
+	if (entry->name && ret == INCORRECT_FORMAT)
+	{
+		ctx->str = s;
+		return (SUCCESS);
+	}
 	return (ret);
 }
 
-static t_rt_errno	parse_optional_internal(char **str,
-				const t_parse_opt *entries, size_t size);
-
-t_rt_errno	parse_optional(char **str, const t_parse_opt *entries, size_t size)
+t_rt_errno	parse_entries(t_parser_ctx *ctx, const t_parse_entry *entries,
+		size_t size)
 {
 	t_rt_errno	ret;
-	char		*s;
-
-	s = *str;
-	while (1)
-	{
-		ret = parse_blank(&s);
-		if (ret == INCORRECT_FORMAT)
-			break ;
-		if (ret)
-			return (ret);
-		ret = parse_optional_internal(&s, entries, size);
-		if (ret == INCORRECT_FORMAT)
-			break ;
-		if (ret)
-			return (ret);
-	}
-	*str = s;
-	return (SUCCESS);
-}
-
-static t_rt_errno	parse_optional_internal(char **str,
-		const t_parse_opt *entries, size_t size)
-{
-	t_rt_errno	ret;
-	char		*s;
-	char		buf[20];
 	size_t		i;
 
-	s = *str;
-	ret = parse_text(&s, buf, sizeof(buf));
-	if (ret)
-		return (ret);
-	if (*s++ != '=')
-		return (INCORRECT_FORMAT);
 	i = 0;
-	while (i < size && ft_strcmp(entries[i].name, buf))
-		i++;
-	if (size <= i)
-		return (INCORRECT_FORMAT);
-	ret = entries[i].fun(&s, entries[i].dst);
-	if (ret)
-		return (ret);
-	*str = s;
-	return (SUCCESS);
+	ret = SUCCESS;
+	while (!ret && i < size)
+		ret = parse_entries_internal(ctx, &entries[i++]);
+	return (ret);
 }

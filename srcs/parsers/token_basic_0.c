@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 23:47:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 02:31:36 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:24:26 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,42 @@
 #include <libft.h>
 #include <limits.h>
 
-t_rt_errno	parse_integer(char **str, int *dst)
+t_rt_errno	parse_integer(t_parser_ctx *ctx, int *dst)
 {
 	long	tmp;
 	char	*endptr;
 
-	tmp = ft_strtol(*str, &endptr, 10);
-	if (endptr == *str || tmp < INT_MIN || tmp > INT_MAX)
+	tmp = ft_strtol(ctx->str, &endptr, 10);
+	if (endptr == ctx->str || tmp < INT_MIN || tmp > INT_MAX)
 		return (INCORRECT_FORMAT);
 	*dst = tmp;
-	*str = endptr;
+	ctx->str = endptr;
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_unsigned(char **str, int *dst)
+t_rt_errno	parse_unsigned(t_parser_ctx *ctx, int *dst)
 {
-	t_rt_errno	ret;
-	char		*s;
-
-	s = *str;
-	if (!ft_isdigit(*s))
+	if (!ft_isdigit(*ctx->str))
 		return (INCORRECT_FORMAT);
-	ret = parse_integer(&s, dst);
-	if (ret)
-		return (ret);
-	*str = s;
-	return (SUCCESS);
+	return (parse_integer(ctx, dst));
 }
 
-t_rt_errno	parse_decimal(char **str, float *dst)
+t_rt_errno	parse_decimal(t_parser_ctx *ctx, float *dst)
 {
 	double	tmp;
 	char	*endptr;
 
-	tmp = ft_strtod(*str, &endptr);
-	if (endptr == *str)
+	tmp = ft_strtod(ctx->str, &endptr);
+	if (endptr == ctx->str)
 		return (INCORRECT_FORMAT);
-	if (tmp < -__FLT_MAX__)
-		tmp = -__FLT_MAX__;
-	else if (tmp > __FLT_MAX__)
-		tmp = __FLT_MAX__;
 	*dst = tmp;
-	*str = endptr;
+	ctx->str = endptr;
 	return (SUCCESS);
 }
 
-static t_rt_errno	parse_string_internal(char **str, t_strgen *strgen);
+static t_rt_errno	parse_string_internal(t_parser_ctx *ctx, t_strgen *strgen);
 
-t_rt_errno	parse_string(char **str, char **dst)
+t_rt_errno	parse_string(t_parser_ctx *ctx, char **dst)
 {
 	t_rt_errno	ret;
 	t_strgen	*strgen;
@@ -70,7 +58,7 @@ t_rt_errno	parse_string(char **str, char **dst)
 	strgen = ft_strgennew(STRGEN_BUUFERSIZE);
 	if (!strgen)
 		return (FAILED_ALLOCATE);
-	ret = parse_string_internal(str, strgen);
+	ret = parse_string_internal(ctx, strgen);
 	if (!ret)
 	{
 		*dst = ft_strgencomp(strgen);
@@ -81,11 +69,11 @@ t_rt_errno	parse_string(char **str, char **dst)
 	return (ret);
 }
 
-static t_rt_errno	parse_string_internal(char **str, t_strgen *strgen)
+static t_rt_errno	parse_string_internal(t_parser_ctx *ctx, t_strgen *strgen)
 {
 	char	*s;
 
-	s = *str;
+	s = ctx->str;
 	if (*s++ != '"')
 		return (INCORRECT_FORMAT);
 	while (*s && *s != '"')
@@ -98,6 +86,6 @@ static t_rt_errno	parse_string_internal(char **str, t_strgen *strgen)
 	}
 	if (*s++ != '\"')
 		return (INCORRECT_FORMAT);
-	*str = s;
+	ctx->str = s;
 	return (SUCCESS);
 }

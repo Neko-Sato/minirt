@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/14 03:22:04 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:22:36 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 #include "rt_errno.h"
 #include <stdlib.h>
 
-static t_rt_errno	internal(char **str, t_triangle_init *args);
+static t_rt_errno	internal(t_parser_ctx *ctx, t_triangle_init *args);
 
-t_rt_errno	parse_triangle(char **str, t_parser *context)
+t_rt_errno	parse_triangle(t_parser_ctx *ctx)
 {
 	t_rt_errno		ret;
 	t_triangle_init	args;
 	t_triangle		*tmp;
 
-	ret = internal(str, &args);
+	ret = internal(ctx, &args);
 	if (ret)
 		return (ret);
 	tmp = malloc(sizeof(*tmp));
@@ -32,32 +32,24 @@ t_rt_errno	parse_triangle(char **str, t_parser *context)
 	ret = triangle_init(tmp, &args);
 	if (ret)
 		return (free(tmp), ret);
-	if (ft_xlstappend(&context->figures, &tmp, sizeof(tmp)))
+	if (ft_xlstinsert(&ctx->figures, 0, &tmp, sizeof(tmp)))
 		return (((t_abstract_figure *)tmp)->_->del((t_abstract_figure *)tmp), \
 			free(tmp), FAILED_ALLOCATE);
 	return (SUCCESS);
 }
 
-static t_rt_errno	internal(char **str, t_triangle_init *args)
+static t_rt_errno	internal(t_parser_ctx *ctx, t_triangle_init *args)
 {
 	const t_parse_entry	entries[] = {
-	{(void *)parse_vec3, &args->first},
-	{(void *)parse_vec3, &args->second},
-	{(void *)parse_vec3, &args->third},
-	{(void *)parse_color, &args->color},
-	};
-	const t_parse_opt	opt[] = {
+	{NULL, (void *)parse_vec3, &args->first},
+	{NULL, (void *)parse_vec3, &args->second},
+	{NULL, (void *)parse_vec3, &args->third},
+	{NULL, (void *)parse_color, &args->color},
 	{"reflectivity", (void *)parse_decimal, &args->reflectivity},
 	{"checker", (void *)parse_color, &args->checker},
-	{"bump", (void *)parse_string, &args->bump},
 	};
 	static const size_t	size = sizeof(entries) / sizeof(*entries);
-	static const size_t	opt_size = sizeof(opt) / sizeof(*opt);
-	t_rt_errno			ret;
 
 	*args = (t_triangle_init){};
-	ret = parse_entries(str, entries, size);
-	if (ret)
-		return (ret);
-	return (parse_optional(str, opt, opt_size));
+	return (parse_entries(ctx, entries, size));
 }

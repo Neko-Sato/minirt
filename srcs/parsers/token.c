@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 19:23:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/17 20:03:28 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 21:24:09 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,45 @@
 #include "rt_errno.h"
 #include <libft.h>
 
-t_rt_errno	parse_line(char **str, t_parser *context)
+t_rt_errno	parse_line(t_parser_ctx *ctx)
 {
 	t_rt_errno	ret;
-	char		*s;
 
-	s = *str;
-	ret = parse_blank(&s);
+	ret = parse_blank(ctx);
 	if (ret != SUCCESS && ret != INCORRECT_FORMAT)
 		return (ret);
-	ret = parse_eol(&s);
+	ret = parse_eol(ctx);
 	if (ret == INCORRECT_FORMAT)
 	{
-		ret = parse_object(&s, context);
+		ret = parse_object(ctx);
 		if (ret)
 			return (ret);
-		ret = parse_blank(&s);
+		ret = parse_blank(ctx);
 		if (ret != SUCCESS && ret != INCORRECT_FORMAT)
 			return (ret);
-		ret = parse_eol(&s);
+		ret = parse_eol(ctx);
 	}
-	if (ret)
-		return (ret);
-	*str = s;
 	return (ret);
 }
 
-t_rt_errno	parse_eol(char **str)
+t_rt_errno	parse_eol(t_parser_ctx *ctx)
 {
-	char	*s;
-
-	s = *str;
-	if (!ft_strchr("#\n", *s))
+	if (!ft_strchr("#\n", *ctx->str))
 		return (INCORRECT_FORMAT);
-	while (*s)
-		s++;
-	*str = s;
+	while (*ctx->str)
+		ctx->str++;
 	return (SUCCESS);
 }
 
-t_rt_errno	parse_object(char **str, t_parser *context)
+t_rt_errno	parse_object(t_parser_ctx *ctx)
 {
 	t_rt_errno			ret;
-	char				*s;
 	const t_identifier	*identifier;
 
-	s = *str;
-	ret = parse_identifier(&s, &identifier);
+	ret = parse_identifier(ctx, &identifier);
 	if (ret)
 		return (ret);
-	ret = identifier->fun(&s, context);
-	if (ret)
-		return (ret);
-	*str = s;
-	return (SUCCESS);
+	return (identifier->fun(ctx));
 }
 
 const t_identifier	g_identifiers[] = {
@@ -84,15 +69,13 @@ const t_identifier	g_identifiers[] = {
 const size_t		g_identifiers_size = \
 	sizeof(g_identifiers) / sizeof(*g_identifiers);
 
-t_rt_errno	parse_identifier(char **str, const t_identifier **identifier)
+t_rt_errno	parse_identifier(t_parser_ctx *ctx, const t_identifier **identifier)
 {
 	t_rt_errno	ret;
-	char		*s;
 	char		buf[3];
 	size_t		i;
 
-	s = *str;
-	ret = parse_text(&s, buf, sizeof(buf));
+	ret = parse_text(ctx, buf, sizeof(buf));
 	if (ret)
 		return (ret);
 	i = 0;
@@ -104,10 +87,6 @@ t_rt_errno	parse_identifier(char **str, const t_identifier **identifier)
 	}
 	if (g_identifiers_size <= i)
 		return (UNKNOW_IDENTIFIER);
-	ret = parse_blank(&s);
-	if (ret)
-		return (ret);
 	*identifier = &g_identifiers[i];
-	*str = s;
 	return (SUCCESS);
 }
