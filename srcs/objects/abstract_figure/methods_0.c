@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 13:15:37 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 21:23:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:24:15 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ t_color	abstract_figure_get_color(t_abstract_figure *self, const t_vec3 *point)
 {
 	float	uv[2];
 
-	if (self->checker.raw & 0xff000000)
-	{
-		self->_->get_uv_coord(self, point, uv);
-		uv[0] -= floor(uv[0]);
-		uv[1] -= floor(uv[1]);
-		if ((int)(uv[0] * 20) % 2 == (int)(uv[1] * 20) % 2)
-			return (ft_color_inverse(self->color));
-	}
+	self->_->get_uv_coord(self, point, uv);
+	uv[0] *= self->checker;
+	uv[1] *= self->checker;
+	uv[0] = uv[0] - floor(uv[0]);
+	uv[1] = uv[1] - floor(uv[1]);
+	if ((uv[0] < 0.5) != (uv[1] < 0.5))
+		return (ft_color_inverse(self->color));
 	return (self->color);
 }

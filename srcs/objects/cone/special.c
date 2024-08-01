@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:41 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 08:29:18 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:41:20 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_rt_errno	cone_init(t_cone *self, t_cone_init *args)
 			.color = args->color,
 			.reflectivity = args->reflectivity,
 			.checker = args->checker,
-			.bump = args->bump,
 		});
 	if (ret)
 		return (ret);

@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:21:10 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 04:27:42 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:37:05 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_plane_init
 	t_vec3				orient;
 	t_color				color;
 	float				reflectivity;
-	t_color				checker;
+	float				checker;
 	void				*bump;
 }						t_plane_init;
 

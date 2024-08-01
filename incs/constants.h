@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:22:38 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/28 15:21:26 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:34:02 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 
 # define MAX_DEPTH 8
 
-# define PIXELS_PER_DRAW 5000
-# define PIXELS_PER_DRAW_PREVIEW 10000
+# define PIXELS_PER_DRAW 2500
+# define PIXELS_PER_DRAW_PREVIEW 5000
 # define MOVE_UNIT 1.
 # define ROTATE_UNIT 0.017453292519943295
 

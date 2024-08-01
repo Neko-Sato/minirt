@@ -30,9 +30,8 @@ typedef struct s_abstract_figure
 	t_vec3								position;
 	t_aabb								aabb;
 	t_color								color;
-	t_color								checker;
+	float								checker;
 	float								reflectivity;
-	void								*bump;
 }										t_abstract_figure;
 
 typedef void							(*t_abstract_figure_del_fn)(
@@ -57,9 +56,8 @@ typedef struct s_abstract_figure_init
 	t_mat3x3							rotation;
 	t_vec3								position;
 	t_color								color;
-	t_color								checker;
+	float								checker;
 	float								reflectivity;
-	void								*bump;
 }										t_abstract_figure_init;
 
 t_rt_errno								abstract_figure_init(\

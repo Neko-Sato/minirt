@@ -36,7 +36,6 @@ t_rt_errno	plane_init(t_plane *self, t_plane_init *args)
 			.color = args->color,
 			.reflectivity = args->reflectivity,
 			.checker = args->checker,
-			.bump = args->bump,
 		});
 	if (ret)
 		return (ret);

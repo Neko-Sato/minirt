@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 02:26:08 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 05:55:02 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:37:00 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_cylinder_init
 	float				height;
 	t_color				color;
 	float				reflectivity;
-	t_color				checker;
+	float				checker;
 	void				*bump;
 }						t_cylinder_init;
 

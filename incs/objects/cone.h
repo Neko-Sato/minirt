@@ -30,7 +30,7 @@ typedef struct s_cone_init
 	t_vec3				apex;
 	t_color				color;
 	float				reflectivity;
-	t_color				checker;
+	float				checker;
 	void				*bump;
 }						t_cone_init;
 

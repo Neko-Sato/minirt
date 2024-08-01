@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 22:50:33 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 11:45:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:40:54 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_rt_errno	triangle_init(t_triangle *self, t_triangle_init *args)
 			.color = args->color,
 			.reflectivity = args->reflectivity,
 			.checker = args->checker,
-			.bump = args->bump,
 		});
 	if (ret)
 		return (ret);

@@ -47,7 +47,7 @@ static t_rt_errno	internal(t_parser_ctx *ctx, t_cone_init *args)
 	{NULL, (void *)parse_vec3, &args->apex},
 	{NULL, (void *)parse_color, &args->color},
 	{"reflectivity", (void *)parse_decimal, &args->reflectivity},
-	{"checker", (void *)parse_color, &args->checker},
+	{"checker", (void *)parse_decimal, &args->checker},
 	};
 	static const size_t	size = sizeof(entries) / sizeof(*entries);
 

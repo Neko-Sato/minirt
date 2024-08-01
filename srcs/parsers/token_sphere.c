@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:30:09 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/08/01 20:22:43 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:36:21 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_rt_errno	internal(t_parser_ctx *ctx, t_sphere_init *args)
 	{NULL, (void *)parse_decimal, &args->diameter},
 	{NULL, (void *)parse_color, &args->color},
 	{"reflectivity", (void *)parse_decimal, &args->reflectivity},
-	{"checker", (void *)parse_color, &args->checker},
+	{"checker", (void *)parse_decimal, &args->checker},
 	};
 	static const size_t	size = sizeof(entries) / sizeof(*entries);
 

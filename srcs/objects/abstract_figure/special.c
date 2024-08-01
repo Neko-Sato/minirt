@@ -6,14 +6,14 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:55:30 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/25 02:30:13 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:40:11 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects/abstract_figure.h"
 #include "rt_errno.h"
-#include "utils/vec3.h"
 #include "utils/mat3x3.h"
+#include "utils/vec3.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -31,11 +31,10 @@ t_rt_errno	abstract_figure_init(t_abstract_figure *self,
 	self->color = args->color;
 	self->reflectivity = args->reflectivity;
 	self->checker = args->checker;
-	self->bump = args->bump;
 	return (SUCCESS);
 }
 
 void	abstract_figure_del(t_abstract_figure *self)
 {
-	free(self->bump);
+	(void)self;
 }

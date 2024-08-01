@@ -6,7 +6,7 @@
 /*   By: hshimizu <hshimizu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 00:58:48 by hshimizu          #+#    #+#             */
-/*   Updated: 2024/07/24 07:41:09 by hshimizu         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:40:46 by hshimizu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_rt_errno	sphere_init(t_sphere *self, t_sphere_init *args)
 			.color = args->color,
 			.reflectivity = args->reflectivity,
 			.checker = args->checker,
-			.bump = args->bump,
 		});
 	if (ret)
 		return (ret);
