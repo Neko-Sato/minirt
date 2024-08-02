@@ -14,6 +14,7 @@
 #include "rt_errno.h"
 #include <libft.h>
 #include <limits.h>
+#include <math.h>
 
 t_rt_errno	parse_integer(t_parser_ctx *ctx, int *dst)
 {
@@ -21,8 +22,10 @@ t_rt_errno	parse_integer(t_parser_ctx *ctx, int *dst)
 	char	*endptr;
 
 	tmp = ft_strtol(ctx->str, &endptr, 10);
-	if (endptr == ctx->str || tmp < INT_MIN || tmp > INT_MAX)
+	if (endptr == ctx->str)
 		return (INCORRECT_FORMAT);
+	if (tmp < INT_MIN || tmp > INT_MAX)
+		return (OUT_OF_RANGE);
 	*dst = tmp;
 	ctx->str = endptr;
 	return (SUCCESS);
@@ -43,6 +46,8 @@ t_rt_errno	parse_decimal(t_parser_ctx *ctx, float *dst)
 	tmp = ft_strtod(ctx->str, &endptr);
 	if (endptr == ctx->str)
 		return (INCORRECT_FORMAT);
+	if (__FLT_MAX__ < fabs(tmp))
+		return (OUT_OF_RANGE);
 	*dst = tmp;
 	ctx->str = endptr;
 	return (SUCCESS);
