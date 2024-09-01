@@ -88,7 +88,7 @@ profile\t: https://profile.intra.42.fr/users/hshimizu\n\
 
 # define PIXELS_PER_DRAW 2500
 # define PIXELS_PER_DRAW_PREVIEW 5000
-# define MOVE_UNIT 1.
+# define MOVE_UNIT 0.1
 # define ROTATE_UNIT 0.017453292519943295
 
 #endif
